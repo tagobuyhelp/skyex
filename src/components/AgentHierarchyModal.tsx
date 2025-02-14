@@ -1,7 +1,7 @@
 
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { AgentWithContacts } from "@/types/agent";
-import { ArrowUpFromLine, ArrowDownFromLine, Star, Phone, MessageSquare } from "lucide-react";
+import { ArrowUpFromLine, ArrowDownFromLine, Star, Phone } from "lucide-react";
 
 interface AgentHierarchyModalProps {
   open: boolean;
@@ -90,24 +90,7 @@ const AgentCard = ({ agent, type }: { agent: AgentWithContacts; type: 'upline' |
                 {agent.agent_contacts[0].whatsapp}
               </a>
             )}
-            {agent.agent_contacts[0]?.messenger && (
-              <a
-                href={agent.agent_contacts[0].messenger}
-                className="flex items-center gap-1 text-sm text-blue-400 hover:text-blue-300 transition-colors"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <MessageSquare className="w-4 h-4" />
-                Messenger
-              </a>
-            )}
           </div>
-        </div>
-
-        {/* Additional Information */}
-        <div className="text-sm text-muted-foreground">
-          <p>Created: {new Date(agent.created_at).toLocaleDateString()}</p>
-          <p>Last Updated: {new Date(agent.updated_at).toLocaleDateString()}</p>
         </div>
       </div>
     </div>
