@@ -1,17 +1,9 @@
-
 import { useState } from 'react';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { AgentWithContacts } from '@/types/agent';
 import { Star, Eye, AlertTriangle, ArrowUpRight } from 'lucide-react';
 import { useIsMobile } from '@/hooks/use-mobile';
-
-interface AgentTableProps {
-  agents: AgentWithContacts[];
-  displayAgents?: AgentWithContacts[];
-  title: string;
-  showUpline?: boolean;
-  filterSiteAdmins?: boolean;
-}
+import { AgentHierarchyModal } from './AgentHierarchyModal';
 
 const WhatsAppIcon = () => (
   <svg
@@ -42,6 +34,9 @@ const getAgentTypeInBangla = (type: string) => {
 
 export const AgentTable = ({ agents, displayAgents, title, showUpline = true, filterSiteAdmins = true }: AgentTableProps) => {
   const isMobile = useIsMobile();
+  const [selectedAgent, setSelectedAgent] = useState<AgentWithContacts | null>(null);
+  const [isHierarchyModalOpen, setIsHierarchyModalOpen] = useState(false);
+
   const currentPageType = title.includes('সুপার') ? 'super_agent' 
     : title.includes('মাস্টার') ? 'master_agent'
     : title.includes('এডমিন') ? 'site_admin'
@@ -62,6 +57,11 @@ export const AgentTable = ({ agents, displayAgents, title, showUpline = true, fi
       name: uplineAgent.name,
       type: getAgentTypeInBangla(uplineAgent.type)
     };
+  };
+
+  const handleViewHierarchy = (agent: AgentWithContacts) => {
+    setSelectedAgent(agent);
+    setIsHierarchyModalOpen(true);
   };
 
   if (isMobile) {
@@ -131,7 +131,10 @@ export const AgentTable = ({ agents, displayAgents, title, showUpline = true, fi
                 </div>
                 
                 <div className="flex justify-end gap-2 mt-3">
-                  <button className="p-2 hover:bg-emerald-500/20 rounded-lg transition-colors">
+                  <button 
+                    className="p-2 hover:bg-emerald-500/20 rounded-lg transition-colors"
+                    onClick={() => handleViewHierarchy(agent)}
+                  >
                     <Eye className="w-4 h-4 text-emerald-400" />
                   </button>
                   <button className="p-2 hover:bg-red-500/20 rounded-lg transition-colors">
@@ -142,6 +145,13 @@ export const AgentTable = ({ agents, displayAgents, title, showUpline = true, fi
             </div>
           ))}
         </div>
+
+        <AgentHierarchyModal
+          open={isHierarchyModalOpen}
+          onOpenChange={setIsHierarchyModalOpen}
+          selectedAgent={selectedAgent}
+          agents={agents}
+        />
       </div>
     );
   }
@@ -228,7 +238,10 @@ export const AgentTable = ({ agents, displayAgents, title, showUpline = true, fi
                 </TableCell>
                 <TableCell>
                   <div className="flex gap-2">
-                    <button className="p-2 hover:bg-emerald-500/20 rounded-lg transition-colors">
+                    <button 
+                      className="p-2 hover:bg-emerald-500/20 rounded-lg transition-colors"
+                      onClick={() => handleViewHierarchy(agent)}
+                    >
                       <Eye className="w-4 h-4 text-emerald-400" />
                     </button>
                     <button className="p-2 hover:bg-red-500/20 rounded-lg transition-colors">
@@ -241,6 +254,13 @@ export const AgentTable = ({ agents, displayAgents, title, showUpline = true, fi
           </TableBody>
         </Table>
       </div>
+
+      <AgentHierarchyModal
+        open={isHierarchyModalOpen}
+        onOpenChange={setIsHierarchyModalOpen}
+        selectedAgent={selectedAgent}
+        agents={agents}
+      />
     </div>
   );
 };
