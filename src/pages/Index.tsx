@@ -1,10 +1,9 @@
-
 import { useQuery } from "@tanstack/react-query";
 import { Header } from "@/components/Header";
 import { AgentCard } from "@/components/AgentCard";
 import { supabase } from "@/integrations/supabase/client";
 import { AgentWithContacts } from "@/types/agent";
-import { ExternalLink, Globe, MessageSquare, Shield, Users, WhatsappIcon } from "lucide-react";
+import { ExternalLink, Globe, MessageSquare, Phone, Shield, Users } from "lucide-react";
 
 const fetchAgents = async () => {
   const { data: agents, error } = await supabase
@@ -62,7 +61,7 @@ const Index = () => {
                   <div className="flex gap-3">
                     {agent.agent_contacts[0]?.whatsapp && (
                       <a href={`https://wa.me/${agent.agent_contacts[0].whatsapp}`} className="p-2 hover:bg-white/10 rounded-lg">
-                        <WhatsappIcon className="w-5 h-5" />
+                        <Phone className="w-5 h-5" />
                       </a>
                     )}
                     {agent.agent_contacts[0]?.messenger && (
