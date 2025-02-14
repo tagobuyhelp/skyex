@@ -6,7 +6,19 @@ import { supabase } from '@/integrations/supabase/client';
 import { AgentWithContacts } from '@/types/agent';
 
 const fetchSuperAgents = async () => {
-  const { data, error } = await supabase
+  // First, fetch all potential uplines (site admins and sub admins)
+  const { data: uplines, error: uplinesError } = await supabase
+    .from('agents')
+    .select(`
+      *,
+      agent_contacts (*)
+    `)
+    .in('type', ['site_admin', 'sub_admin']);
+
+  if (uplinesError) throw uplinesError;
+
+  // Then fetch super agents
+  const { data: superAgents, error: superAgentsError } = await supabase
     .from('agents')
     .select(`
       *,
@@ -14,8 +26,10 @@ const fetchSuperAgents = async () => {
     `)
     .eq('type', 'super_agent');
 
-  if (error) throw error;
-  return data as AgentWithContacts[];
+  if (superAgentsError) throw superAgentsError;
+
+  // Combine both sets of data so we have upline information available
+  return [...(superAgents || []), ...(uplines || [])] as AgentWithContacts[];
 };
 
 const SuperAgent = () => {
@@ -23,6 +37,9 @@ const SuperAgent = () => {
     queryKey: ['super-agents'],
     queryFn: fetchSuperAgents,
   });
+
+  // Filter to show only super agents in the table
+  const superAgents = agents.filter(agent => agent.type === 'super_agent');
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
