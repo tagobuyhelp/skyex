@@ -7,9 +7,10 @@ import { Star, MessageSquare, Phone, Eye, AlertTriangle, ArrowUpRight } from 'lu
 interface AgentTableProps {
   agents: AgentWithContacts[];
   title: string;
+  showUpline?: boolean;
 }
 
-export const AgentTable = ({ agents, title }: AgentTableProps) => {
+export const AgentTable = ({ agents, title, showUpline = true }: AgentTableProps) => {
   return (
     <div className="container py-8">
       <h1 className="text-2xl font-bold text-center text-white mb-8">{title}</h1>
@@ -19,7 +20,7 @@ export const AgentTable = ({ agents, title }: AgentTableProps) => {
             <TableRow className="border-b border-white/10">
               <TableHead>নাম</TableHead>
               <TableHead>আইডি</TableHead>
-              <TableHead>আপলাইন</TableHead>
+              {showUpline && <TableHead>আপলাইন</TableHead>}
               <TableHead>রেটিং</TableHead>
               <TableHead>যোগাযোগ</TableHead>
               <TableHead>অ্যাকশন</TableHead>
@@ -42,18 +43,20 @@ export const AgentTable = ({ agents, title }: AgentTableProps) => {
                 <TableCell>
                   <span className="text-emerald-400">{agent.agent_id}</span>
                 </TableCell>
-                <TableCell>
-                  {agent.reports_to ? (
-                    <div className="flex items-center gap-2">
-                      <ArrowUpRight className="w-4 h-4 text-blue-400" />
-                      <span className="text-blue-400">
-                        {agents.find(a => a.id === agent.reports_to)?.name || 'Unknown'}
-                      </span>
-                    </div>
-                  ) : (
-                    <span className="text-gray-500">No upline</span>
-                  )}
-                </TableCell>
+                {showUpline && (
+                  <TableCell>
+                    {agent.reports_to ? (
+                      <div className="flex items-center gap-2">
+                        <ArrowUpRight className="w-4 h-4 text-blue-400" />
+                        <span className="text-blue-400">
+                          {agents.find(a => a.id === agent.reports_to)?.name || 'Unknown'}
+                        </span>
+                      </div>
+                    ) : (
+                      <span className="text-gray-500">No upline</span>
+                    )}
+                  </TableCell>
+                )}
                 <TableCell>
                   <div className="flex gap-1">
                     {Array.from({ length: 5 }).map((_, i) => (
