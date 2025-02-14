@@ -1,12 +1,44 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+
+import { Header } from "@/components/Header";
+import { AgentCard } from "@/components/AgentCard";
+
+const MOCK_AGENTS = [
+  {
+    name: "John Doe",
+    id: "SA001",
+    type: "Site Admin",
+    rating: 5,
+    contacts: {
+      whatsapp: "1234567890",
+      messenger: "https://m.me/johndoe"
+    }
+  },
+  {
+    name: "Jane Smith",
+    id: "SU001",
+    type: "Super Agent",
+    rating: 4,
+    contacts: {
+      whatsapp: "0987654321"
+    }
+  },
+  // Add more mock data as needed
+];
 
 const Index = () => {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4">Welcome to Your Blank App</h1>
-        <p className="text-xl text-gray-600">Start building your amazing project here!</p>
-      </div>
+    <div className="min-h-screen">
+      <Header />
+      <main className="container py-8">
+        <div className="mb-8">
+          <h2 className="text-2xl font-semibold mb-2">Site Admins</h2>
+          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+            {MOCK_AGENTS.map((agent) => (
+              <AgentCard key={agent.id} {...agent} />
+            ))}
+          </div>
+        </div>
+      </main>
     </div>
   );
 };
