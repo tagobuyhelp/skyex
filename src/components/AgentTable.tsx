@@ -26,6 +26,13 @@ const getAgentTypeInBangla = (type: string) => {
 };
 
 export const AgentTable = ({ agents, title, showUpline = true }: AgentTableProps) => {
+  // Helper function to find upline agent name
+  const getUplineName = (uplineId: string | null) => {
+    if (!uplineId) return null;
+    const uplineAgent = agents.find(a => a.id === uplineId);
+    return uplineAgent?.name || 'Unknown';
+  };
+
   return (
     <div className="container py-8">
       <h1 className="text-2xl font-bold text-center text-white mb-8">{title}</h1>
@@ -64,7 +71,7 @@ export const AgentTable = ({ agents, title, showUpline = true }: AgentTableProps
                       <div className="flex items-center gap-2">
                         <ArrowUpRight className="w-4 h-4 text-blue-400" />
                         <span className="text-blue-400">
-                          {agents.find(a => a.id === agent.reports_to)?.name || 'Unknown'}
+                          {getUplineName(agent.reports_to)}
                         </span>
                       </div>
                     ) : (
