@@ -10,6 +10,21 @@ interface AgentTableProps {
   showUpline?: boolean;
 }
 
+const getAgentTypeInBangla = (type: string) => {
+  switch (type) {
+    case 'site_admin':
+      return 'সাইট এডমিন';
+    case 'sub_admin':
+      return 'সাব এডমিন';
+    case 'super_agent':
+      return 'সুপার এজেন্ট';
+    case 'master_agent':
+      return 'মাস্টার এজেন্ট';
+    default:
+      return type;
+  }
+};
+
 export const AgentTable = ({ agents, title, showUpline = true }: AgentTableProps) => {
   return (
     <div className="container py-8">
@@ -36,7 +51,7 @@ export const AgentTable = ({ agents, title, showUpline = true }: AgentTableProps
                     </div>
                     <div>
                       <p className="font-medium">{agent.name}</p>
-                      <p className="text-sm text-gray-400">{agent.type}</p>
+                      <p className="text-sm text-gray-400">{getAgentTypeInBangla(agent.type)}</p>
                     </div>
                   </div>
                 </TableCell>
