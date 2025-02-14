@@ -29,11 +29,15 @@ export const AgentTable = ({ agents, title, showUpline = true }: AgentTableProps
   // Filter out site_admin agents when displaying the table
   const displayAgents = agents.filter(agent => agent.type !== 'site_admin');
   
-  // Helper function to find upline agent name
-  const getUplineName = (uplineId: string | null) => {
+  // Helper function to find upline agent info
+  const getUplineInfo = (uplineId: string | null) => {
     if (!uplineId) return null;
     const uplineAgent = agents.find(a => a.id === uplineId);
-    return uplineAgent?.name || 'Unknown';
+    if (!uplineAgent) return null;
+    return {
+      name: uplineAgent.name,
+      type: getAgentTypeInBangla(uplineAgent.type)
+    };
   };
 
   return (
@@ -73,9 +77,14 @@ export const AgentTable = ({ agents, title, showUpline = true }: AgentTableProps
                     {agent.reports_to ? (
                       <div className="flex items-center gap-2">
                         <ArrowUpRight className="w-4 h-4 text-blue-400" />
-                        <span className="text-blue-400">
-                          {getUplineName(agent.reports_to)}
-                        </span>
+                        <div>
+                          <p className="text-blue-400">
+                            {getUplineInfo(agent.reports_to)?.name}
+                          </p>
+                          <p className="text-sm text-gray-400">
+                            {getUplineInfo(agent.reports_to)?.type}
+                          </p>
+                        </div>
                       </div>
                     ) : (
                       <span className="text-gray-500">No upline</span>
