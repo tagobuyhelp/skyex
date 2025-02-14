@@ -1,9 +1,11 @@
 
 import { useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import { Menu, Search, User, Home, Shield, Users, Star, Crown } from 'lucide-react';
 
 export const Header = () => {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const location = useLocation();
 
   return (
     <header className="sticky top-0 z-50 bg-gray-900/95 backdrop-blur-sm border-b border-gray-800">
@@ -13,30 +15,55 @@ export const Header = () => {
             <button className="p-2 hover:bg-white/10 rounded-lg transition-colors">
               <Menu className="w-6 h-6" />
             </button>
-            <h1 className="text-xl font-semibold">LC247</h1>
+            <Link to="/" className="text-xl font-semibold">LC247</Link>
           </div>
           
           <nav className="hidden md:flex items-center gap-6">
-            <a href="#" className="text-sm hover:text-emerald-400 flex items-center gap-2">
+            <Link 
+              to="/" 
+              className={`text-sm hover:text-emerald-400 flex items-center gap-2 ${
+                location.pathname === '/' ? 'text-emerald-400' : ''
+              }`}
+            >
               <Home className="w-4 h-4" />
               Home
-            </a>
-            <a href="#" className="text-sm hover:text-emerald-400 flex items-center gap-2">
+            </Link>
+            <Link 
+              to="/site-admin" 
+              className={`text-sm hover:text-emerald-400 flex items-center gap-2 ${
+                location.pathname === '/site-admin' ? 'text-emerald-400' : ''
+              }`}
+            >
               <Shield className="w-4 h-4" />
               Site Admin
-            </a>
-            <a href="#" className="text-sm hover:text-emerald-400 flex items-center gap-2">
+            </Link>
+            <Link 
+              to="/sub-admin" 
+              className={`text-sm hover:text-emerald-400 flex items-center gap-2 ${
+                location.pathname === '/sub-admin' ? 'text-emerald-400' : ''
+              }`}
+            >
               <Users className="w-4 h-4" />
               Sub Admin
-            </a>
-            <a href="#" className="text-sm hover:text-emerald-400 flex items-center gap-2">
+            </Link>
+            <Link 
+              to="/super-agent" 
+              className={`text-sm hover:text-emerald-400 flex items-center gap-2 ${
+                location.pathname === '/super-agent' ? 'text-emerald-400' : ''
+              }`}
+            >
               <Star className="w-4 h-4" />
               Super Agent
-            </a>
-            <a href="#" className="text-sm hover:text-emerald-400 flex items-center gap-2">
+            </Link>
+            <Link 
+              to="/master-agent" 
+              className={`text-sm hover:text-emerald-400 flex items-center gap-2 ${
+                location.pathname === '/master-agent' ? 'text-emerald-400' : ''
+              }`}
+            >
               <Crown className="w-4 h-4" />
               Master Agent
-            </a>
+            </Link>
           </nav>
 
           <div className="flex items-center gap-4">
