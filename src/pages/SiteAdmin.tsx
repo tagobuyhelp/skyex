@@ -32,7 +32,7 @@ const SiteAdmin = () => {
       ) : (
         <AgentTable 
           agents={agents} 
-          title="LC247 এডমিন লিস্ট" 
+          title="VELKI এডমিন লিস্ট" 
           showUpline={false} 
           filterSiteAdmins={false} 
         />

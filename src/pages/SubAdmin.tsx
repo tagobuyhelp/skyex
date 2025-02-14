@@ -50,7 +50,7 @@ const SubAdmin = () => {
         <AgentTable 
           agents={agents} // Pass full array for upline lookup
           displayAgents={subAdmins} // Only show sub admins in the table
-          title="LC247 সাব এডমিন লিস্ট"
+          title="VELKI সাব এডমিন লিস্ট"
           showUpline={true}
         />
       )}

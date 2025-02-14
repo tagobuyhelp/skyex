@@ -49,7 +49,7 @@ const SuperAgent = () => {
       ) : (
         <AgentTable 
           agents={agents} 
-          title="LC247 সুপার এজেন্ট লিস্ট"
+          title="VELKI সুপার এজেন্ট লিস্ট"
           filterSiteAdmins={false} // Don't filter out site admins since we need them for upline info
         />
       )}
