@@ -104,28 +104,21 @@ export const AgentTable = ({ agents, title, showUpline = true }: AgentTableProps
                   </div>
                 </TableCell>
                 <TableCell>
-                  <div className="flex gap-2">
-                    {agent.agent_contacts[0]?.whatsapp && (
+                  {agent.agent_contacts[0]?.whatsapp ? (
+                    <div className="flex items-center gap-2">
+                      <Phone className="w-4 h-4 text-emerald-400" />
                       <a
                         href={`https://wa.me/${agent.agent_contacts[0].whatsapp}`}
-                        className="p-2 hover:bg-emerald-500/20 rounded-lg transition-colors"
+                        className="text-emerald-400 hover:text-emerald-300 transition-colors"
                         target="_blank"
                         rel="noopener noreferrer"
                       >
-                        <Phone className="w-4 h-4 text-emerald-400" />
+                        {agent.agent_contacts[0].whatsapp}
                       </a>
-                    )}
-                    {agent.agent_contacts[0]?.messenger && (
-                      <a
-                        href={agent.agent_contacts[0].messenger}
-                        className="p-2 hover:bg-blue-500/20 rounded-lg transition-colors"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        <MessageSquare className="w-4 h-4 text-blue-400" />
-                      </a>
-                    )}
-                  </div>
+                    </div>
+                  ) : (
+                    <span className="text-gray-500">No contact</span>
+                  )}
                 </TableCell>
                 <TableCell>
                   <div className="flex gap-2">
