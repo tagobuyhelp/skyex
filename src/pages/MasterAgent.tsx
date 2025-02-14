@@ -38,16 +38,17 @@ const MasterAgent = () => {
     queryFn: fetchMasterAgents,
   });
 
-  // Filter to show only master agents in the table
-  const masterAgents = agents.filter(agent => agent.type === 'master_agent');
-
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
       <Header />
       {isLoading ? (
         <div className="container py-8">Loading...</div>
       ) : (
-        <AgentTable agents={agents} title="LC247 মাস্টার এজেন্ট লিস্ট" />
+        <AgentTable 
+          agents={agents} 
+          title="LC247 মাস্টার এজেন্ট লিস্ট"
+          filterSiteAdmins={false} // Don't filter out site admins since we need them for upline info
+        />
       )}
     </div>
   );
