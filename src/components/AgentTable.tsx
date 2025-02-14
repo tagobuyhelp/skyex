@@ -3,10 +3,11 @@ import { useState } from 'react';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { AgentWithContacts } from '@/types/agent';
 import { Star, Eye, AlertTriangle, ArrowUpRight } from 'lucide-react';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 interface AgentTableProps {
   agents: AgentWithContacts[];
-  displayAgents?: AgentWithContacts[]; // Optional prop to override which agents to display
+  displayAgents?: AgentWithContacts[];
   title: string;
   showUpline?: boolean;
   filterSiteAdmins?: boolean;
@@ -40,13 +41,13 @@ const getAgentTypeInBangla = (type: string) => {
 };
 
 export const AgentTable = ({ agents, displayAgents, title, showUpline = true, filterSiteAdmins = true }: AgentTableProps) => {
+  const isMobile = useIsMobile();
   const currentPageType = title.includes('সুপার') ? 'super_agent' 
     : title.includes('মাস্টার') ? 'master_agent'
     : title.includes('এডমিন') ? 'site_admin'
     : title.includes('সাব') ? 'sub_admin'
     : null;
 
-  // Use displayAgents if provided, otherwise filter based on currentPageType and filterSiteAdmins
   const agentsToDisplay = displayAgents || (currentPageType
     ? agents.filter(agent => agent.type === currentPageType)
     : filterSiteAdmins 
@@ -62,6 +63,88 @@ export const AgentTable = ({ agents, displayAgents, title, showUpline = true, fi
       type: getAgentTypeInBangla(uplineAgent.type)
     };
   };
+
+  if (isMobile) {
+    return (
+      <div className="container py-4">
+        <h1 className="text-xl font-bold text-center text-white mb-4">{title}</h1>
+        <div className="space-y-4">
+          {agentsToDisplay.map((agent) => (
+            <div key={agent.id} className="glass-card p-4">
+              <div className="flex items-center gap-3 mb-3">
+                <div className="w-10 h-10 rounded-full bg-emerald-600 flex items-center justify-center text-white font-medium">
+                  {agent.name[0].toUpperCase()}
+                </div>
+                <div>
+                  <p className="font-medium">{agent.name}</p>
+                  <p className="text-sm text-gray-400">{getAgentTypeInBangla(agent.type)}</p>
+                </div>
+              </div>
+              
+              <div className="space-y-2">
+                <div className="flex justify-between items-center">
+                  <span className="text-gray-400">আইডি:</span>
+                  <span className="text-emerald-400">{agent.agent_id}</span>
+                </div>
+                
+                {showUpline && agent.reports_to && (
+                  <div className="flex justify-between items-center">
+                    <span className="text-gray-400">আপলাইন:</span>
+                    <div className="text-right">
+                      <p className="text-blue-400">{getUplineInfo(agent.reports_to)?.name}</p>
+                      <p className="text-sm text-gray-400">{getUplineInfo(agent.reports_to)?.type}</p>
+                    </div>
+                  </div>
+                )}
+                
+                <div className="flex justify-between items-center">
+                  <span className="text-gray-400">রেটিং:</span>
+                  <div className="flex gap-1">
+                    {Array.from({ length: 5 }).map((_, i) => (
+                      <Star
+                        key={i}
+                        className={`w-4 h-4 ${
+                          i < (agent.rating || 0) ? 'text-yellow-400 fill-current' : 'text-gray-600'
+                        }`}
+                      />
+                    ))}
+                  </div>
+                </div>
+                
+                <div className="flex justify-between items-center">
+                  <span className="text-gray-400">যোগাযোগ:</span>
+                  {agent.agent_contacts[0]?.whatsapp ? (
+                    <div className="flex items-center gap-2">
+                      <WhatsAppIcon />
+                      <a
+                        href={`https://wa.me/${agent.agent_contacts[0].whatsapp}`}
+                        className="text-emerald-400 hover:text-emerald-300 transition-colors"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        {agent.agent_contacts[0].whatsapp}
+                      </a>
+                    </div>
+                  ) : (
+                    <span className="text-gray-500">No contact</span>
+                  )}
+                </div>
+                
+                <div className="flex justify-end gap-2 mt-3">
+                  <button className="p-2 hover:bg-emerald-500/20 rounded-lg transition-colors">
+                    <Eye className="w-4 h-4 text-emerald-400" />
+                  </button>
+                  <button className="p-2 hover:bg-red-500/20 rounded-lg transition-colors">
+                    <AlertTriangle className="w-4 h-4 text-red-400" />
+                  </button>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="container py-8">
