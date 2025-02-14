@@ -38,6 +38,9 @@ const SubAdmin = () => {
     queryFn: fetchSubAdmins,
   });
 
+  // Get only sub admins for display
+  const subAdmins = agents.filter(agent => agent.type === 'sub_admin');
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
       <Header />
@@ -45,9 +48,10 @@ const SubAdmin = () => {
         <div className="container py-8">Loading...</div>
       ) : (
         <AgentTable 
-          agents={agents} 
+          agents={agents} // Pass full array for upline lookup
+          displayAgents={subAdmins} // Only show sub admins in the table
           title="LC247 সাব এডমিন লিস্ট"
-          filterSiteAdmins={false} // Don't filter out site admins since we need them for upline info
+          showUpline={true}
         />
       )}
     </div>

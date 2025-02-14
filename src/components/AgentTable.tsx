@@ -1,3 +1,4 @@
+
 import { useState } from 'react';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { AgentWithContacts } from '@/types/agent';
@@ -5,6 +6,7 @@ import { Star, Eye, AlertTriangle, ArrowUpRight } from 'lucide-react';
 
 interface AgentTableProps {
   agents: AgentWithContacts[];
+  displayAgents?: AgentWithContacts[]; // Optional prop to override which agents to display
   title: string;
   showUpline?: boolean;
   filterSiteAdmins?: boolean;
@@ -37,18 +39,19 @@ const getAgentTypeInBangla = (type: string) => {
   }
 };
 
-export const AgentTable = ({ agents, title, showUpline = true, filterSiteAdmins = true }: AgentTableProps) => {
+export const AgentTable = ({ agents, displayAgents, title, showUpline = true, filterSiteAdmins = true }: AgentTableProps) => {
   const currentPageType = title.includes('সুপার') ? 'super_agent' 
     : title.includes('মাস্টার') ? 'master_agent'
     : title.includes('এডমিন') ? 'site_admin'
     : title.includes('সাব') ? 'sub_admin'
     : null;
 
-  const displayAgents = currentPageType
+  // Use displayAgents if provided, otherwise filter based on currentPageType and filterSiteAdmins
+  const agentsToDisplay = displayAgents || (currentPageType
     ? agents.filter(agent => agent.type === currentPageType)
     : filterSiteAdmins 
       ? agents.filter(agent => agent.type !== 'site_admin')
-      : agents;
+      : agents);
   
   const getUplineInfo = (uplineId: string | null) => {
     if (!uplineId) return null;
@@ -76,7 +79,7 @@ export const AgentTable = ({ agents, title, showUpline = true, filterSiteAdmins 
             </TableRow>
           </TableHeader>
           <TableBody>
-            {displayAgents.map((agent) => (
+            {agentsToDisplay.map((agent) => (
               <TableRow key={agent.id} className="border-b border-white/10">
                 <TableCell>
                   <div className="flex items-center gap-3">
