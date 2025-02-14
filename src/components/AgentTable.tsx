@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { AgentWithContacts } from '@/types/agent';
-import { Star, MessageSquare, Phone, Eye, AlertTriangle } from 'lucide-react';
+import { Star, MessageSquare, Phone, Eye, AlertTriangle, ArrowUpRight } from 'lucide-react';
 
 interface AgentTableProps {
   agents: AgentWithContacts[];
@@ -19,6 +19,7 @@ export const AgentTable = ({ agents, title }: AgentTableProps) => {
             <TableRow className="border-b border-white/10">
               <TableHead>নাম</TableHead>
               <TableHead>আইডি</TableHead>
+              <TableHead>আপলাইন</TableHead>
               <TableHead>রেটিং</TableHead>
               <TableHead>যোগাযোগ</TableHead>
               <TableHead>অ্যাকশন</TableHead>
@@ -40,6 +41,18 @@ export const AgentTable = ({ agents, title }: AgentTableProps) => {
                 </TableCell>
                 <TableCell>
                   <span className="text-emerald-400">{agent.agent_id}</span>
+                </TableCell>
+                <TableCell>
+                  {agent.reports_to ? (
+                    <div className="flex items-center gap-2">
+                      <ArrowUpRight className="w-4 h-4 text-blue-400" />
+                      <span className="text-blue-400">
+                        {agents.find(a => a.id === agent.reports_to)?.name || 'Unknown'}
+                      </span>
+                    </div>
+                  ) : (
+                    <span className="text-gray-500">No upline</span>
+                  )}
                 </TableCell>
                 <TableCell>
                   <div className="flex gap-1">
