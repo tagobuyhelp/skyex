@@ -26,7 +26,7 @@ export const Header = () => {
               }`}
             >
               <Home className="w-4 h-4" />
-              Home
+              হোম
             </Link>
             <Link 
               to="/site-admin" 
@@ -35,7 +35,7 @@ export const Header = () => {
               }`}
             >
               <Shield className="w-4 h-4" />
-              Site Admin
+              সাইট এডমিন
             </Link>
             <Link 
               to="/sub-admin" 
@@ -44,7 +44,7 @@ export const Header = () => {
               }`}
             >
               <Users className="w-4 h-4" />
-              Sub Admin
+              সাব এডমিন
             </Link>
             <Link 
               to="/super-agent" 
@@ -53,7 +53,7 @@ export const Header = () => {
               }`}
             >
               <Star className="w-4 h-4" />
-              Super Agent
+              সুপার এজেন্ট
             </Link>
             <Link 
               to="/master-agent" 
@@ -62,7 +62,7 @@ export const Header = () => {
               }`}
             >
               <Crown className="w-4 h-4" />
-              Master Agent
+              মাস্টার এজেন্ট
             </Link>
           </nav>
 
@@ -83,7 +83,7 @@ export const Header = () => {
           <div className="absolute top-full left-0 w-full p-4 bg-background/95 backdrop-blur-sm border-b border-primary/20 animate-fade-in">
             <input
               type="search"
-              placeholder="Search agents..."
+              placeholder="এজেন্টদের খুঁজুন..."
               className="w-full p-2 rounded-lg bg-white/10 border border-primary/20 text-white placeholder:text-white/60"
             />
           </div>
