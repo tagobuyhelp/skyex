@@ -9,7 +9,82 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
-      [_ in never]: never
+      agent_contacts: {
+        Row: {
+          agent_id: string
+          created_at: string
+          id: string
+          messenger: string | null
+          updated_at: string
+          whatsapp: string | null
+        }
+        Insert: {
+          agent_id: string
+          created_at?: string
+          id?: string
+          messenger?: string | null
+          updated_at?: string
+          whatsapp?: string | null
+        }
+        Update: {
+          agent_id?: string
+          created_at?: string
+          id?: string
+          messenger?: string | null
+          updated_at?: string
+          whatsapp?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "agent_contacts_agent_id_fkey"
+            columns: ["agent_id"]
+            isOneToOne: false
+            referencedRelation: "agents"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      agents: {
+        Row: {
+          agent_id: string
+          created_at: string
+          id: string
+          name: string
+          rating: number | null
+          reports_to: string | null
+          type: Database["public"]["Enums"]["agent_type"]
+          updated_at: string
+        }
+        Insert: {
+          agent_id: string
+          created_at?: string
+          id?: string
+          name: string
+          rating?: number | null
+          reports_to?: string | null
+          type: Database["public"]["Enums"]["agent_type"]
+          updated_at?: string
+        }
+        Update: {
+          agent_id?: string
+          created_at?: string
+          id?: string
+          name?: string
+          rating?: number | null
+          reports_to?: string | null
+          type?: Database["public"]["Enums"]["agent_type"]
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "agents_reports_to_fkey"
+            columns: ["reports_to"]
+            isOneToOne: false
+            referencedRelation: "agents"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never
@@ -18,7 +93,7 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
-      [_ in never]: never
+      agent_type: "site_admin" | "sub_admin" | "super_agent" | "master_agent"
     }
     CompositeTypes: {
       [_ in never]: never
