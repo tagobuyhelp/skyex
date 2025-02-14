@@ -30,7 +30,12 @@ const SiteAdmin = () => {
       {isLoading ? (
         <div className="container py-8">Loading...</div>
       ) : (
-        <AgentTable agents={agents} title="LC247 এডমিন লিস্ট" showUpline={false} />
+        <AgentTable 
+          agents={agents} 
+          title="LC247 এডমিন লিস্ট" 
+          showUpline={false} 
+          filterSiteAdmins={false} 
+        />
       )}
     </div>
   );

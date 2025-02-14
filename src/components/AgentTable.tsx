@@ -7,6 +7,7 @@ interface AgentTableProps {
   agents: AgentWithContacts[];
   title: string;
   showUpline?: boolean;
+  filterSiteAdmins?: boolean;
 }
 
 const WhatsAppIcon = () => (
@@ -36,8 +37,8 @@ const getAgentTypeInBangla = (type: string) => {
   }
 };
 
-export const AgentTable = ({ agents, title, showUpline = true }: AgentTableProps) => {
-  const displayAgents = agents.filter(agent => agent.type !== 'site_admin');
+export const AgentTable = ({ agents, title, showUpline = true, filterSiteAdmins = true }: AgentTableProps) => {
+  const displayAgents = filterSiteAdmins ? agents.filter(agent => agent.type !== 'site_admin') : agents;
   
   const getUplineInfo = (uplineId: string | null) => {
     if (!uplineId) return null;
