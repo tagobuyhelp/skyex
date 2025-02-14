@@ -1,7 +1,8 @@
+
 import { useState } from 'react';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { AgentWithContacts } from '@/types/agent';
-import { Star, MessageSquare, Whatsapp, Eye, AlertTriangle, ArrowUpRight } from 'lucide-react';
+import { Star, MessageSquare, Eye, AlertTriangle, ArrowUpRight } from 'lucide-react';
 
 interface AgentTableProps {
   agents: AgentWithContacts[];
@@ -103,7 +104,7 @@ export const AgentTable = ({ agents, title, showUpline = true }: AgentTableProps
                 <TableCell>
                   {agent.agent_contacts[0]?.whatsapp ? (
                     <div className="flex items-center gap-2">
-                      <Whatsapp className="w-4 h-4 text-emerald-400" />
+                      <MessageSquare className="w-4 h-4 text-emerald-400" />
                       <a
                         href={`https://wa.me/${agent.agent_contacts[0].whatsapp}`}
                         className="text-emerald-400 hover:text-emerald-300 transition-colors"
