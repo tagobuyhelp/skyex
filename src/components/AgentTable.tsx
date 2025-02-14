@@ -5,6 +5,14 @@ import { Star, Eye, AlertTriangle, ArrowUpRight } from 'lucide-react';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { AgentHierarchyModal } from './AgentHierarchyModal';
 
+interface AgentTableProps {
+  agents: AgentWithContacts[];
+  displayAgents?: AgentWithContacts[];
+  title: string;
+  showUpline?: boolean;
+  filterSiteAdmins?: boolean;
+}
+
 const WhatsAppIcon = () => (
   <svg
     viewBox="0 0 24 24"

@@ -1,7 +1,7 @@
 
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { AgentWithContacts } from "@/types/agent";
-import { ArrowUpFromLine, ArrowDownFromLine } from "lucide-react";
+import { ArrowUpFromLine, ArrowDownFromLine, Star, Phone, MessageSquare } from "lucide-react";
 
 interface AgentHierarchyModalProps {
   open: boolean;
@@ -9,6 +9,18 @@ interface AgentHierarchyModalProps {
   selectedAgent: AgentWithContacts | null;
   agents: AgentWithContacts[];
 }
+
+const WhatsAppIcon = () => (
+  <svg
+    viewBox="0 0 24 24"
+    width="16"
+    height="16"
+    fill="currentColor"
+    className="text-emerald-400"
+  >
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+  </svg>
+);
 
 const getAgentTypeInBangla = (type: string) => {
   switch (type) {
@@ -23,6 +35,83 @@ const getAgentTypeInBangla = (type: string) => {
     default:
       return type;
   }
+};
+
+const AgentCard = ({ agent, type }: { agent: AgentWithContacts; type: 'upline' | 'selected' | 'downline' }) => {
+  const colors = {
+    upline: 'bg-blue-600',
+    selected: 'bg-primary',
+    downline: 'bg-emerald-600'
+  };
+
+  return (
+    <div className={`${type === 'selected' ? 'border-2 border-primary' : 'bg-secondary/50'} p-4 rounded-lg`}>
+      <div className="flex items-center gap-4">
+        <div className={`w-12 h-12 rounded-full ${colors[type]} flex items-center justify-center text-white font-medium text-lg`}>
+          {agent.name[0].toUpperCase()}
+        </div>
+        <div className="flex-1">
+          <p className="font-medium text-lg">{agent.name}</p>
+          <p className="text-muted-foreground">
+            {getAgentTypeInBangla(agent.type)}
+          </p>
+          <p className="text-sm text-primary">ID: {agent.agent_id}</p>
+        </div>
+      </div>
+      
+      <div className="mt-4 space-y-2">
+        {/* Rating */}
+        <div className="flex items-center gap-2">
+          <span className="text-sm text-muted-foreground">Rating:</span>
+          <div className="flex gap-1">
+            {Array.from({ length: 5 }).map((_, i) => (
+              <Star
+                key={i}
+                className={`w-4 h-4 ${
+                  i < (agent.rating || 0) ? 'text-yellow-400 fill-current' : 'text-gray-600'
+                }`}
+              />
+            ))}
+          </div>
+        </div>
+
+        {/* Contact Information */}
+        <div className="space-y-1">
+          <span className="text-sm text-muted-foreground">Contact:</span>
+          <div className="flex flex-wrap gap-2">
+            {agent.agent_contacts[0]?.whatsapp && (
+              <a
+                href={`https://wa.me/${agent.agent_contacts[0].whatsapp}`}
+                className="flex items-center gap-1 text-sm text-emerald-400 hover:text-emerald-300 transition-colors"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <WhatsAppIcon />
+                {agent.agent_contacts[0].whatsapp}
+              </a>
+            )}
+            {agent.agent_contacts[0]?.messenger && (
+              <a
+                href={agent.agent_contacts[0].messenger}
+                className="flex items-center gap-1 text-sm text-blue-400 hover:text-blue-300 transition-colors"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <MessageSquare className="w-4 h-4" />
+                Messenger
+              </a>
+            )}
+          </div>
+        </div>
+
+        {/* Additional Information */}
+        <div className="text-sm text-muted-foreground">
+          <p>Created: {new Date(agent.created_at).toLocaleDateString()}</p>
+          <p>Last Updated: {new Date(agent.updated_at).toLocaleDateString()}</p>
+        </div>
+      </div>
+    </div>
+  );
 };
 
 export const AgentHierarchyModal = ({
@@ -72,42 +161,18 @@ export const AgentHierarchyModal = ({
                 <ArrowUpFromLine className="w-5 h-5 text-blue-400" />
                 Upline Agents
               </h3>
-              <div className="space-y-2">
+              <div className="space-y-3">
                 {uplineAgents.reverse().map((agent) => (
-                  <div
-                    key={agent.id}
-                    className="flex items-center gap-4 p-3 bg-secondary/50 rounded-lg"
-                  >
-                    <div className="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center text-white font-medium">
-                      {agent.name[0].toUpperCase()}
-                    </div>
-                    <div>
-                      <p className="font-medium">{agent.name}</p>
-                      <p className="text-sm text-muted-foreground">
-                        {getAgentTypeInBangla(agent.type)}
-                      </p>
-                    </div>
-                  </div>
+                  <AgentCard key={agent.id} agent={agent} type="upline" />
                 ))}
               </div>
             </div>
           )}
 
           {/* Selected Agent */}
-          <div className="border-2 border-primary rounded-lg p-4">
+          <div>
             <h3 className="text-lg font-semibold mb-3">Selected Agent</h3>
-            <div className="flex items-center gap-4">
-              <div className="w-12 h-12 rounded-full bg-primary flex items-center justify-center text-white font-medium text-lg">
-                {selectedAgent.name[0].toUpperCase()}
-              </div>
-              <div>
-                <p className="font-medium text-lg">{selectedAgent.name}</p>
-                <p className="text-muted-foreground">
-                  {getAgentTypeInBangla(selectedAgent.type)}
-                </p>
-                <p className="text-sm text-primary">ID: {selectedAgent.agent_id}</p>
-              </div>
-            </div>
+            <AgentCard agent={selectedAgent} type="selected" />
           </div>
 
           {/* Downline Agents */}
@@ -117,22 +182,9 @@ export const AgentHierarchyModal = ({
                 <ArrowDownFromLine className="w-5 h-5 text-emerald-400" />
                 Downline Agents
               </h3>
-              <div className="space-y-2">
+              <div className="space-y-3">
                 {downlineAgents.map((agent) => (
-                  <div
-                    key={agent.id}
-                    className="flex items-center gap-4 p-3 bg-secondary/50 rounded-lg"
-                  >
-                    <div className="w-10 h-10 rounded-full bg-emerald-600 flex items-center justify-center text-white font-medium">
-                      {agent.name[0].toUpperCase()}
-                    </div>
-                    <div>
-                      <p className="font-medium">{agent.name}</p>
-                      <p className="text-sm text-muted-foreground">
-                        {getAgentTypeInBangla(agent.type)}
-                      </p>
-                    </div>
-                  </div>
+                  <AgentCard key={agent.id} agent={agent} type="downline" />
                 ))}
               </div>
             </div>
