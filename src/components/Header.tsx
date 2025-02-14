@@ -1,6 +1,6 @@
 
 import { useState } from 'react';
-import { Menu, Search, User } from 'lucide-react';
+import { Menu, Search, User, Home, Shield, Users, Star, Crown } from 'lucide-react';
 
 export const Header = () => {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
@@ -17,10 +17,26 @@ export const Header = () => {
           </div>
           
           <nav className="hidden md:flex items-center gap-6">
-            <a href="#" className="text-sm hover:text-emerald-400">Company Head</a>
-            <a href="#" className="text-sm hover:text-emerald-400">Admin List</a>
-            <a href="#" className="text-sm hover:text-emerald-400">Super Agent</a>
-            <a href="#" className="text-sm hover:text-emerald-400">Master Agent</a>
+            <a href="#" className="text-sm hover:text-emerald-400 flex items-center gap-2">
+              <Home className="w-4 h-4" />
+              Home
+            </a>
+            <a href="#" className="text-sm hover:text-emerald-400 flex items-center gap-2">
+              <Shield className="w-4 h-4" />
+              Site Admin
+            </a>
+            <a href="#" className="text-sm hover:text-emerald-400 flex items-center gap-2">
+              <Users className="w-4 h-4" />
+              Sub Admin
+            </a>
+            <a href="#" className="text-sm hover:text-emerald-400 flex items-center gap-2">
+              <Star className="w-4 h-4" />
+              Super Agent
+            </a>
+            <a href="#" className="text-sm hover:text-emerald-400 flex items-center gap-2">
+              <Crown className="w-4 h-4" />
+              Master Agent
+            </a>
           </nav>
 
           <div className="flex items-center gap-4">
