@@ -38,7 +38,17 @@ const getAgentTypeInBangla = (type: string) => {
 };
 
 export const AgentTable = ({ agents, title, showUpline = true, filterSiteAdmins = true }: AgentTableProps) => {
-  const displayAgents = filterSiteAdmins ? agents.filter(agent => agent.type !== 'site_admin') : agents;
+  const currentPageType = title.includes('সুপার') ? 'super_agent' 
+    : title.includes('মাস্টার') ? 'master_agent'
+    : title.includes('এডমিন') ? 'site_admin'
+    : title.includes('সাব') ? 'sub_admin'
+    : null;
+
+  const displayAgents = currentPageType
+    ? agents.filter(agent => agent.type === currentPageType)
+    : filterSiteAdmins 
+      ? agents.filter(agent => agent.type !== 'site_admin')
+      : agents;
   
   const getUplineInfo = (uplineId: string | null) => {
     if (!uplineId) return null;

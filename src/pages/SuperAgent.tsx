@@ -47,7 +47,11 @@ const SuperAgent = () => {
       {isLoading ? (
         <div className="container py-8">Loading...</div>
       ) : (
-        <AgentTable agents={agents} title="LC247 সুপার এজেন্ট লিস্ট" />
+        <AgentTable 
+          agents={agents} 
+          title="LC247 সুপার এজেন্ট লিস্ট"
+          filterSiteAdmins={false} // Don't filter out site admins since we need them for upline info
+        />
       )}
     </div>
   );
