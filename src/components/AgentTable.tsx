@@ -1,8 +1,7 @@
-
 import { useState } from 'react';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { AgentWithContacts } from '@/types/agent';
-import { Star, MessageSquare, Phone, Eye, AlertTriangle, ArrowUpRight } from 'lucide-react';
+import { Star, MessageSquare, Whatsapp, Eye, AlertTriangle, ArrowUpRight } from 'lucide-react';
 
 interface AgentTableProps {
   agents: AgentWithContacts[];
@@ -26,10 +25,8 @@ const getAgentTypeInBangla = (type: string) => {
 };
 
 export const AgentTable = ({ agents, title, showUpline = true }: AgentTableProps) => {
-  // Filter out site_admin agents when displaying the table
   const displayAgents = agents.filter(agent => agent.type !== 'site_admin');
   
-  // Helper function to find upline agent info
   const getUplineInfo = (uplineId: string | null) => {
     if (!uplineId) return null;
     const uplineAgent = agents.find(a => a.id === uplineId);
@@ -106,7 +103,7 @@ export const AgentTable = ({ agents, title, showUpline = true }: AgentTableProps
                 <TableCell>
                   {agent.agent_contacts[0]?.whatsapp ? (
                     <div className="flex items-center gap-2">
-                      <Phone className="w-4 h-4 text-emerald-400" />
+                      <Whatsapp className="w-4 h-4 text-emerald-400" />
                       <a
                         href={`https://wa.me/${agent.agent_contacts[0].whatsapp}`}
                         className="text-emerald-400 hover:text-emerald-300 transition-colors"
