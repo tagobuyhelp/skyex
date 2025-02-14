@@ -1,7 +1,7 @@
-
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { AgentWithContacts } from "@/types/agent";
 import { ArrowUpFromLine, ArrowDownFromLine, Star, Phone } from "lucide-react";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 interface AgentHierarchyModalProps {
   open: boolean;
@@ -38,6 +38,7 @@ const getAgentTypeInBangla = (type: string) => {
 };
 
 const AgentCard = ({ agent, type }: { agent: AgentWithContacts; type: 'upline' | 'selected' | 'downline' }) => {
+  const isMobile = useIsMobile();
   const colors = {
     upline: 'bg-blue-600',
     selected: 'bg-primary',
@@ -45,14 +46,22 @@ const AgentCard = ({ agent, type }: { agent: AgentWithContacts; type: 'upline' |
   };
 
   return (
-    <div className={`${type === 'selected' ? 'border-2 border-primary' : 'bg-secondary/50'} p-4 rounded-lg`}>
+    <div 
+      className={`${
+        type === 'selected' 
+          ? 'border-2 border-primary shadow-lg shadow-primary/20' 
+          : 'bg-secondary/50'
+      } p-4 rounded-lg transition-all hover:bg-secondary/70`}
+    >
       <div className="flex items-center gap-4">
-        <div className={`w-12 h-12 rounded-full ${colors[type]} flex items-center justify-center text-white font-medium text-lg`}>
+        <div className={`${
+          isMobile ? 'w-10 h-10' : 'w-12 h-12'
+        } rounded-full ${colors[type]} flex items-center justify-center text-white font-medium text-lg shrink-0`}>
           {agent.name[0].toUpperCase()}
         </div>
-        <div className="flex-1">
-          <p className="font-medium text-lg">{agent.name}</p>
-          <p className="text-muted-foreground">
+        <div className="flex-1 min-w-0">
+          <p className={`font-medium ${isMobile ? 'text-base' : 'text-lg'} truncate`}>{agent.name}</p>
+          <p className="text-muted-foreground text-sm">
             {getAgentTypeInBangla(agent.type)}
           </p>
           <p className="text-sm text-primary">ID: {agent.agent_id}</p>
@@ -61,13 +70,13 @@ const AgentCard = ({ agent, type }: { agent: AgentWithContacts; type: 'upline' |
       
       <div className="mt-4 space-y-2">
         {/* Rating */}
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 flex-wrap">
           <span className="text-sm text-muted-foreground">Rating:</span>
           <div className="flex gap-1">
             {Array.from({ length: 5 }).map((_, i) => (
               <Star
                 key={i}
-                className={`w-4 h-4 ${
+                className={`${isMobile ? 'w-3.5 h-3.5' : 'w-4 h-4'} ${
                   i < (agent.rating || 0) ? 'text-yellow-400 fill-current' : 'text-gray-600'
                 }`}
               />
@@ -82,12 +91,12 @@ const AgentCard = ({ agent, type }: { agent: AgentWithContacts; type: 'upline' |
             {agent.agent_contacts[0]?.whatsapp && (
               <a
                 href={`https://wa.me/${agent.agent_contacts[0].whatsapp}`}
-                className="flex items-center gap-1 text-sm text-emerald-400 hover:text-emerald-300 transition-colors"
+                className="flex items-center gap-1 text-sm text-emerald-400 hover:text-emerald-300 transition-colors bg-emerald-500/10 px-2 py-1 rounded-md hover:bg-emerald-500/20"
                 target="_blank"
                 rel="noopener noreferrer"
               >
                 <WhatsAppIcon />
-                {agent.agent_contacts[0].whatsapp}
+                <span className="truncate">{agent.agent_contacts[0].whatsapp}</span>
               </a>
             )}
           </div>
@@ -103,6 +112,8 @@ export const AgentHierarchyModal = ({
   selectedAgent,
   agents,
 }: AgentHierarchyModalProps) => {
+  const isMobile = useIsMobile();
+
   if (!selectedAgent) return null;
 
   const findUplineAgents = (agent: AgentWithContacts): AgentWithContacts[] => {
@@ -131,20 +142,28 @@ export const AgentHierarchyModal = ({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto">
+      <DialogContent className={`
+        max-w-2xl 
+        max-h-[90vh] 
+        overflow-y-auto 
+        ${isMobile ? 'p-4' : 'p-6'}
+        scrollbar-thin 
+        scrollbar-thumb-secondary 
+        scrollbar-track-transparent
+      `}>
         <DialogHeader>
-          <DialogTitle>Agent Hierarchy</DialogTitle>
+          <DialogTitle className={isMobile ? 'text-lg' : 'text-xl'}>Agent Hierarchy</DialogTitle>
         </DialogHeader>
 
-        <div className="space-y-6 py-4">
+        <div className={`space-y-6 ${isMobile ? 'py-3' : 'py-4'}`}>
           {/* Upline Agents */}
           {uplineAgents.length > 0 && (
             <div className="space-y-3">
-              <h3 className="text-lg font-semibold flex items-center gap-2">
-                <ArrowUpFromLine className="w-5 h-5 text-blue-400" />
+              <h3 className={`${isMobile ? 'text-base' : 'text-lg'} font-semibold flex items-center gap-2`}>
+                <ArrowUpFromLine className={`${isMobile ? 'w-4 h-4' : 'w-5 h-5'} text-blue-400`} />
                 Upline Agents
               </h3>
-              <div className="space-y-3">
+              <div className={`space-y-${isMobile ? '2' : '3'} animate-fade-in`}>
                 {uplineAgents.reverse().map((agent) => (
                   <AgentCard key={agent.id} agent={agent} type="upline" />
                 ))}
@@ -153,19 +172,19 @@ export const AgentHierarchyModal = ({
           )}
 
           {/* Selected Agent */}
-          <div>
-            <h3 className="text-lg font-semibold mb-3">Selected Agent</h3>
+          <div className="animate-fade-in">
+            <h3 className={`${isMobile ? 'text-base' : 'text-lg'} font-semibold mb-3`}>Selected Agent</h3>
             <AgentCard agent={selectedAgent} type="selected" />
           </div>
 
           {/* Downline Agents */}
           {downlineAgents.length > 0 && (
             <div className="space-y-3">
-              <h3 className="text-lg font-semibold flex items-center gap-2">
-                <ArrowDownFromLine className="w-5 h-5 text-emerald-400" />
+              <h3 className={`${isMobile ? 'text-base' : 'text-lg'} font-semibold flex items-center gap-2`}>
+                <ArrowDownFromLine className={`${isMobile ? 'w-4 h-4' : 'w-5 h-5'} text-emerald-400`} />
                 Downline Agents
               </h3>
-              <div className="space-y-3">
+              <div className={`space-y-${isMobile ? '2' : '3'} animate-fade-in`}>
                 {downlineAgents.map((agent) => (
                   <AgentCard key={agent.id} agent={agent} type="downline" />
                 ))}
