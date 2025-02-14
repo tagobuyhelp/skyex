@@ -47,7 +47,7 @@ const SubAdmin = () => {
       {isLoading ? (
         <div className="container py-8">Loading...</div>
       ) : (
-        <AgentTable agents={agents} title="LC247 সাব এডমিন লিস্ট" />
+        <AgentTable agents={agents} title="LC247 সাব এডমিন লিস্ট" showUpline={true} />
       )}
     </div>
   );

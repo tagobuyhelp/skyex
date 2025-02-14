@@ -26,6 +26,9 @@ const getAgentTypeInBangla = (type: string) => {
 };
 
 export const AgentTable = ({ agents, title, showUpline = true }: AgentTableProps) => {
+  // Filter out site_admin agents when displaying the table
+  const displayAgents = agents.filter(agent => agent.type !== 'site_admin');
+  
   // Helper function to find upline agent name
   const getUplineName = (uplineId: string | null) => {
     if (!uplineId) return null;
@@ -49,7 +52,7 @@ export const AgentTable = ({ agents, title, showUpline = true }: AgentTableProps
             </TableRow>
           </TableHeader>
           <TableBody>
-            {agents.map((agent) => (
+            {displayAgents.map((agent) => (
               <TableRow key={agent.id} className="border-b border-white/10">
                 <TableCell>
                   <div className="flex items-center gap-3">
