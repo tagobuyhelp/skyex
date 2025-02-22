@@ -60,7 +60,7 @@ const SuperAgent = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
       <Header />
-      <div className="container mx-auto px-4 sm:px-6 py-4 md:py-6">
+      <div className="container mx-auto px-2 sm:px-6 py-2 md:py-6">
         <div className="glass-card p-4 sm:p-6 mb-6">
           <div className="flex gap-3 items-start">
             <AlertTriangle className="w-5 h-5 text-yellow-500 mt-1 flex-shrink-0" />
