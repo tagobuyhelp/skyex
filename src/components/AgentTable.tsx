@@ -77,47 +77,47 @@ export const AgentTable = ({ agents, displayAgents, title, showUpline = true, fi
 
   if (isMobile) {
     return (
-      <div className="container py-4">
-        <h1 className="text-xl font-bold text-center text-white mb-4">{title}</h1>
-        <div className="space-y-4">
+      <div className="container px-2 py-2">
+        <h1 className="text-xl font-bold text-center text-white mb-3">{title}</h1>
+        <div className="space-y-3">
           {agentsToDisplay.map((agent) => (
-            <div key={agent.id} className="glass-card p-4">
-              <div className="flex items-center gap-3 mb-3">
-                <div className="w-10 h-10 rounded-full bg-emerald-600 flex items-center justify-center text-white font-medium">
+            <div key={agent.id} className="glass-card p-3">
+              <div className="flex items-center gap-2 mb-2">
+                <div className="w-8 h-8 rounded-full bg-emerald-600 flex items-center justify-center text-white font-medium text-sm">
                   {agent.name[0].toUpperCase()}
                 </div>
                 <div>
-                  <p className="font-medium">{agent.name}</p>
-                  <p className="text-sm text-gray-400">{getAgentTypeInBangla(agent.type)}</p>
+                  <p className="font-medium text-sm">{agent.name}</p>
+                  <p className="text-xs text-gray-400">{getAgentTypeInBangla(agent.type)}</p>
                 </div>
               </div>
               
-              <div className="space-y-2">
+              <div className="space-y-1.5 text-sm">
                 <div className="flex justify-between items-center">
-                  <span className="text-gray-400">আইডি:</span>
-                  <span className="px-2 py-0.5 bg-emerald-500/20 rounded text-emerald-400 font-medium">
+                  <span className="text-gray-400 text-xs">আইডি:</span>
+                  <span className="px-1.5 py-0.5 bg-emerald-500/20 rounded text-emerald-400 font-medium text-xs">
                     {agent.agent_id}
                   </span>
                 </div>
                 
                 {showUpline && agent.reports_to && (
                   <div className="flex justify-between items-center">
-                    <span className="text-gray-400">আপলাইন:</span>
+                    <span className="text-gray-400 text-xs">আপলাইন:</span>
                     <div className="text-right">
-                      <p className="text-blue-400">{getUplineInfo(agent.reports_to)?.name}</p>
-                      <p className="text-sm text-gray-400">{getUplineInfo(agent.reports_to)?.type}</p>
+                      <p className="text-blue-400 text-xs">{getUplineInfo(agent.reports_to)?.name}</p>
+                      <p className="text-xs text-gray-400">{getUplineInfo(agent.reports_to)?.type}</p>
                     </div>
                   </div>
                 )}
                 
                 <div className="flex justify-between items-center">
-                  <span className="text-gray-400">যোগাযোগ:</span>
+                  <span className="text-gray-400 text-xs">যোগাযোগ:</span>
                   {agent.agent_contacts[0]?.whatsapp ? (
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-1">
                       <WhatsAppIcon />
                       <a
                         href={`https://wa.me/${agent.agent_contacts[0].whatsapp}`}
-                        className="text-emerald-400 hover:text-emerald-300 transition-colors"
+                        className="text-emerald-400 hover:text-emerald-300 transition-colors text-xs"
                         target="_blank"
                         rel="noopener noreferrer"
                       >
@@ -125,24 +125,24 @@ export const AgentTable = ({ agents, displayAgents, title, showUpline = true, fi
                       </a>
                     </div>
                   ) : (
-                    <span className="text-gray-500">No contact</span>
+                    <span className="text-gray-500 text-xs">No contact</span>
                   )}
                 </div>
                 
-                <div className="flex justify-end gap-2 mt-3">
+                <div className="flex justify-end gap-1.5 mt-2">
                   <button 
-                    className="p-2 hover:bg-emerald-500/20 rounded-lg transition-colors flex items-center gap-1.5"
+                    className="p-1.5 hover:bg-emerald-500/20 rounded-lg transition-colors flex items-center gap-1"
                     onClick={() => handleViewHierarchy(agent)}
                   >
-                    <Eye className="w-4 h-4 text-emerald-400" />
-                    <span className="text-sm text-emerald-400">দেখুন</span>
+                    <Eye className="w-3.5 h-3.5 text-emerald-400" />
+                    <span className="text-xs text-emerald-400">দেখুন</span>
                   </button>
                   <button 
-                    className="p-2 hover:bg-red-500/20 rounded-lg transition-colors flex items-center gap-1.5"
+                    className="p-1.5 hover:bg-red-500/20 rounded-lg transition-colors flex items-center gap-1"
                     onClick={() => handleComplaint(agent)}
                   >
-                    <AlertTriangle className="w-4 h-4 text-red-400" />
-                    <span className="text-sm text-red-400">অভিযোগ</span>
+                    <AlertTriangle className="w-3.5 h-3.5 text-red-400" />
+                    <span className="text-xs text-red-400">অভিযোগ</span>
                   </button>
                 </div>
               </div>
