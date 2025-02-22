@@ -4,6 +4,7 @@ import { Header } from '@/components/Header';
 import { AgentTable } from '@/components/AgentTable';
 import { supabase } from '@/integrations/supabase/client';
 import { AgentWithContacts } from '@/types/agent';
+import { AlertTriangle } from 'lucide-react';
 
 const fetchSuperAgents = async () => {
   // First, fetch all potential uplines (site admins and sub admins)
@@ -59,16 +60,39 @@ const SuperAgent = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
       <Header />
-      {isLoading ? (
-        <div className="container py-8">Loading...</div>
-      ) : (
-        <AgentTable 
-          agents={agents} // Pass full array for hierarchy lookup
-          displayAgents={superAgents} // Only show super agents in the table
-          title="VELKI সুপার এজেন্ট লিস্ট"
-          filterSiteAdmins={false} // Don't filter out site admins since we need them for upline info
-        />
-      )}
+      <div className="container py-4 md:py-6">
+        <div className="glass-card p-4 md:p-6 mb-6">
+          <div className="flex gap-3 items-start">
+            <AlertTriangle className="w-5 h-5 text-yellow-500 mt-1 flex-shrink-0" />
+            <div className="space-y-3 text-sm">
+              <p className="font-semibold text-yellow-500">
+                এজেন্ট দের সাথে লেনদেন এর আগে ভেল্কির নিয়ম গুলো জেনে নিন!!
+              </p>
+              <ul className="space-y-2 text-muted-foreground">
+                <li>
+                  <strong className="text-yellow-500">প্রতারনার হাত থেকে বাচতে সবার আগে ভিজিট করুন ভেল্কি সাইটঃ</strong>{" "}
+                  <a href="https://velki.com" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:text-blue-300">
+                    VELKI.COM
+                  </a>
+                </li>
+                <li>
+                  <strong className="text-yellow-500">হোয়াটসঅ্যাপ ব্যাতিত অন্য কোন এপ এর মাধ্যমে যোগাযোগ বা লেনদেন করা যাবে না এবং করলে তা গ্রহনযোগ্য হবে না।</strong>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        {isLoading ? (
+          <div className="container py-8">Loading...</div>
+        ) : (
+          <AgentTable 
+            agents={agents}
+            displayAgents={superAgents}
+            title="VELKI সুপার এজেন্ট লিস্ট"
+            filterSiteAdmins={false}
+          />
+        )}
+      </div>
     </div>
   );
 };
