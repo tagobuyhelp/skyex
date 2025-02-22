@@ -1,3 +1,4 @@
+
 import { useQuery } from '@tanstack/react-query';
 import { useState } from 'react';
 import { Header } from '@/components/Header';
@@ -68,12 +69,12 @@ const SuperAgent = () => {
             variant="outline"
             size="sm"
             onClick={() => setShowWarning(!showWarning)}
-            className="absolute right-2 top-2 z-10"
+            className="absolute right-2 top-2 z-10 text-xs sm:text-sm"
           >
             {showWarning ? (
-              <><ChevronUp className="mr-1" /> সতর্কতা লুকান</> 
+              <><ChevronUp className="mr-1" /> সরান</> 
             ) : (
-              <><ChevronDown className="mr-1" /> সতর্কতা দেখান</>
+              <><ChevronDown className="mr-1" /> দেখান</>
             )}
           </Button>
           {showWarning && (
