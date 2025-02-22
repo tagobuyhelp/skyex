@@ -78,7 +78,7 @@ const Index = () => {
       <Header />
       
       {/* Hero Section */}
-      <section className="relative h-[400px] overflow-hidden"> {/* Changed height from 600px to 400px */}
+      <section className="relative h-[280px] md:h-[320px] overflow-hidden">
         <Carousel
           opts={{
             align: "start",
@@ -89,7 +89,7 @@ const Index = () => {
         >
           <CarouselContent>
             {heroImages.map((image, index) => (
-              <CarouselItem key={index} className="w-full h-[400px] relative"> {/* Changed height from 600px to 400px */}
+              <CarouselItem key={index} className="w-full h-[280px] md:h-[320px] relative">
                 <div 
                   className="w-full h-full bg-cover bg-center"
                   style={{ 
@@ -97,12 +97,12 @@ const Index = () => {
                   }}
                 >
                   <div className="absolute inset-0 bg-gradient-to-r from-background/90 via-background/50 to-background/90">
-                    <div className="container h-full flex items-center justify-center">
-                      <div className="text-center space-y-4"> {/* Reduced spacing from space-y-6 to space-y-4 */}
-                        <h1 className="text-3xl md:text-5xl font-bold text-gradient"> {/* Slightly reduced text size */}
+                    <div className="container h-full flex items-center justify-center px-4">
+                      <div className="text-center space-y-3">
+                        <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gradient">
                           Velki OFFICIAL WEBSITE
                         </h1>
-                        <p className="text-base md:text-lg text-muted-foreground max-w-2xl mx-auto"> {/* Slightly reduced text size */}
+                        <p className="text-sm sm:text-base md:text-lg text-muted-foreground max-w-2xl mx-auto">
                           Your trusted platform for gaming and entertainment
                         </p>
                       </div>
@@ -112,14 +112,14 @@ const Index = () => {
               </CarouselItem>
             ))}
           </CarouselContent>
-          <CarouselPrevious className="left-4" />
-          <CarouselNext className="right-4" />
+          <CarouselPrevious className="left-2 md:left-4 h-8 w-8 md:h-10 md:w-10" />
+          <CarouselNext className="right-2 md:right-4 h-8 w-8 md:h-10 md:w-10" />
         </Carousel>
       </section>
 
       {/* Quick Master Agents List */}
-      <section className="container py-12">
-        <div className="glass-card p-6">
+      <section className="container py-8 md:py-12 px-4 md:px-6">
+        <div className="glass-card p-4 md:p-6">
           <h2 className="text-xl font-semibold mb-4 flex items-center gap-2">
             <Users className="w-5 h-5" />
             কুইক মাস্টার এজেন্ট লিস্ট
@@ -167,18 +167,18 @@ const Index = () => {
       </section>
 
       {/* Official Links */}
-      <section className="container py-12">
-        <div className="glass-card p-6">
+      <section className="container py-8 md:py-12 px-4 md:px-6">
+        <div className="glass-card p-4 md:p-6">
           <h2 className="text-xl font-semibold mb-4 flex items-center gap-2">
             <Globe className="w-5 h-5" />
             Official Links
           </h2>
-          <div className="grid md:grid-cols-2 gap-4">
-            <a href="#" className="flex items-center justify-between p-4 bg-secondary/50 rounded-lg hover:bg-primary/20">
+          <div className="grid sm:grid-cols-2 gap-4">
+            <a href="#" className="flex items-center justify-between p-4 bg-secondary/50 rounded-lg hover:bg-primary/20 transition-colors">
               <span>Main Website</span>
               <ExternalLink className="w-5 h-5" />
             </a>
-            <a href="#" className="flex items-center justify-between p-4 bg-secondary/50 rounded-lg hover:bg-primary/20">
+            <a href="#" className="flex items-center justify-between p-4 bg-secondary/50 rounded-lg hover:bg-primary/20 transition-colors">
               <span>Live Portal</span>
               <ExternalLink className="w-5 h-5" />
             </a>
@@ -187,24 +187,24 @@ const Index = () => {
       </section>
 
       {/* Agent Types */}
-      <section className="container py-12">
+      <section className="container py-8 md:py-12 px-4 md:px-6">
         <h2 className="text-2xl font-bold mb-6 text-center">Agent Categories</h2>
-        <div className="grid md:grid-cols-3 gap-6">
-          <div className="glass-card p-6">
+        <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
+          <div className="glass-card p-4 md:p-6">
             <h3 className="text-lg font-semibold mb-3">Online Super Agent</h3>
-            <p className="text-muted-foreground">
+            <p className="text-muted-foreground text-sm">
               Apply for super agent position through our official channels. Contact support for more information.
             </p>
           </div>
-          <div className="glass-card p-6">
+          <div className="glass-card p-4 md:p-6">
             <h3 className="text-lg font-semibold mb-3">Online Master Agent</h3>
-            <p className="text-muted-foreground">
+            <p className="text-muted-foreground text-sm">
               Join our master agent program with exclusive benefits and support.
             </p>
           </div>
-          <div className="glass-card p-6">
+          <div className="glass-card p-4 md:p-6">
             <h3 className="text-lg font-semibold mb-3">Local Master Agent</h3>
-            <p className="text-muted-foreground">
+            <p className="text-muted-foreground text-sm">
               Become a local master agent and grow your business in your area.
             </p>
           </div>
@@ -212,12 +212,12 @@ const Index = () => {
       </section>
 
       {/* Footer */}
-      <footer className="bg-secondary/50 mt-12 py-12">
-        <div className="container">
-          <div className="grid md:grid-cols-4 gap-8">
+      <footer className="bg-secondary/50 mt-8 md:mt-12 py-8 md:py-12">
+        <div className="container px-4 md:px-6">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
             <div>
               <h3 className="font-semibold mb-4">Quick Links</h3>
-              <ul className="space-y-2">
+              <ul className="space-y-2 text-sm">
                 <li><a href="#" className="text-muted-foreground hover:text-primary">Company Head</a></li>
                 <li><a href="#" className="text-muted-foreground hover:text-primary">Admin List</a></li>
                 <li><a href="#" className="text-muted-foreground hover:text-primary">Super Agent</a></li>
@@ -226,7 +226,7 @@ const Index = () => {
             </div>
             <div>
               <h3 className="font-semibold mb-4">Our Networks</h3>
-              <ul className="space-y-2">
+              <ul className="space-y-2 text-sm">
                 <li><a href="#" className="text-muted-foreground hover:text-primary">Main Website</a></li>
                 <li><a href="#" className="text-muted-foreground hover:text-primary">Games Portal</a></li>
                 <li><a href="#" className="text-muted-foreground hover:text-primary">Mobile App</a></li>
@@ -234,7 +234,7 @@ const Index = () => {
             </div>
             <div>
               <h3 className="font-semibold mb-4">Portals</h3>
-              <ul className="space-y-2">
+              <ul className="space-y-2 text-sm">
                 <li><a href="#" className="text-muted-foreground hover:text-primary">Live Portal</a></li>
                 <li><a href="#" className="text-muted-foreground hover:text-primary">Club Portal</a></li>
                 <li><a href="#" className="text-muted-foreground hover:text-primary">Info Portal</a></li>
@@ -242,14 +242,14 @@ const Index = () => {
             </div>
             <div>
               <h3 className="font-semibold mb-4">Policies</h3>
-              <ul className="space-y-2">
+              <ul className="space-y-2 text-sm">
                 <li><a href="#" className="text-muted-foreground hover:text-primary">Gambling Policy</a></li>
                 <li><a href="#" className="text-muted-foreground hover:text-primary">Privacy Policy</a></li>
                 <li><a href="#" className="text-muted-foreground hover:text-primary">Terms of Service</a></li>
               </ul>
             </div>
           </div>
-          <div className="mt-12 pt-8 border-t border-primary/20 text-center text-muted-foreground">
+          <div className="mt-8 md:mt-12 pt-6 md:pt-8 border-t border-primary/20 text-center text-sm text-muted-foreground">
             <p>&copy; 2024 Velki. All rights reserved.</p>
           </div>
         </div>
