@@ -1,5 +1,4 @@
 
-import { Button } from "@/components/ui/button"
 import {
   Dialog,
   DialogContent,
@@ -16,10 +15,9 @@ export function GamblingPolicyDialog() {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="outline" className="text-sm">
-          <Scale className="mr-2 h-4 w-4" />
+        <button className="text-muted-foreground hover:text-primary text-sm">
           Gambling Policy
-        </Button>
+        </button>
       </DialogTrigger>
       <DialogPortal>
         <DialogOverlay />
