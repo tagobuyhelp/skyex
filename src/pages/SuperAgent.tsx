@@ -69,12 +69,18 @@ const SuperAgent = () => {
             variant="outline"
             size="sm"
             onClick={() => setShowWarning(!showWarning)}
-            className="absolute right-2 top-2 z-10 text-xs sm:text-sm"
+            className="absolute right-2 top-2 z-10"
           >
             {showWarning ? (
-              <><ChevronUp className="mr-1" /> সরান</> 
+              <>
+                <ChevronUp className="mr-1" />
+                <span className="hidden sm:inline">সরান</span>
+              </> 
             ) : (
-              <><ChevronDown className="mr-1" /> দেখান</>
+              <>
+                <ChevronDown className="mr-1" />
+                <span className="hidden sm:inline">দেখান</span>
+              </>
             )}
           </Button>
           {showWarning && (
