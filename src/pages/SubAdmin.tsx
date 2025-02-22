@@ -28,13 +28,28 @@ const fetchSubAdmins = async () => {
 
   if (subAdminsError) throw subAdminsError;
 
-  // Combine both sets of data so we have upline information available
-  return [...(subAdmins || []), ...(siteAdmins || [])] as AgentWithContacts[];
+  // Finally fetch super agents and master agents (potential downlines)
+  const { data: downlineAgents, error: downlineAgentsError } = await supabase
+    .from('agents')
+    .select(`
+      *,
+      agent_contacts (*)
+    `)
+    .in('type', ['super_agent', 'master_agent']);
+
+  if (downlineAgentsError) throw downlineAgentsError;
+
+  // Combine all sets of data to have complete hierarchy information
+  return [
+    ...(subAdmins || []), 
+    ...(siteAdmins || []), 
+    ...(downlineAgents || [])
+  ] as AgentWithContacts[];
 };
 
 const SubAdmin = () => {
   const { data: agents = [], isLoading } = useQuery({
-    queryKey: ['sub-admins'],
+    queryKey: ['sub-admins-with-hierarchy'],
     queryFn: fetchSubAdmins,
   });
 
@@ -48,7 +63,7 @@ const SubAdmin = () => {
         <div className="container py-8">Loading...</div>
       ) : (
         <AgentTable 
-          agents={agents} // Pass full array for upline lookup
+          agents={agents} // Pass full array for hierarchy lookup
           displayAgents={subAdmins} // Only show sub admins in the table
           title="VELKI সাব এডমিন লিস্ট"
           showUpline={true}
