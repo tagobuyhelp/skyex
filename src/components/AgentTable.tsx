@@ -4,6 +4,7 @@ import { AgentWithContacts } from '@/types/agent';
 import { Star, Eye, AlertTriangle, ArrowUpRight } from 'lucide-react';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { AgentHierarchyModal } from './AgentHierarchyModal';
+import { AgentComplaintModal } from "./AgentComplaintModal";
 
 interface AgentTableProps {
   agents: AgentWithContacts[];
@@ -44,6 +45,7 @@ export const AgentTable = ({ agents, displayAgents, title, showUpline = true, fi
   const isMobile = useIsMobile();
   const [selectedAgent, setSelectedAgent] = useState<AgentWithContacts | null>(null);
   const [isHierarchyModalOpen, setIsHierarchyModalOpen] = useState(false);
+  const [isComplaintModalOpen, setIsComplaintModalOpen] = useState(false);
 
   const currentPageType = title.includes('সুপার') ? 'super_agent' 
     : title.includes('মাস্টার') ? 'master_agent'
@@ -59,17 +61,17 @@ export const AgentTable = ({ agents, displayAgents, title, showUpline = true, fi
   
   const getUplineInfo = (uplineId: string | null) => {
     if (!uplineId) return null;
-    const uplineAgent = agents.find(a => a.id === uplineId);
-    if (!uplineAgent) return null;
-    return {
-      name: uplineAgent.name,
-      type: getAgentTypeInBangla(uplineAgent.type)
-    };
+    return agents.find(agent => agent.id === uplineId);
   };
 
   const handleViewHierarchy = (agent: AgentWithContacts) => {
     setSelectedAgent(agent);
     setIsHierarchyModalOpen(true);
+  };
+
+  const handleComplaint = (agent: AgentWithContacts) => {
+    setSelectedAgent(agent);
+    setIsComplaintModalOpen(true);
   };
 
   if (isMobile) {
@@ -132,7 +134,10 @@ export const AgentTable = ({ agents, displayAgents, title, showUpline = true, fi
                     <Eye className="w-4 h-4 text-emerald-400" />
                     <span className="text-sm text-emerald-400">দেখুন</span>
                   </button>
-                  <button className="p-2 hover:bg-red-500/20 rounded-lg transition-colors flex items-center gap-1.5">
+                  <button 
+                    className="p-2 hover:bg-red-500/20 rounded-lg transition-colors flex items-center gap-1.5"
+                    onClick={() => handleComplaint(agent)}
+                  >
                     <AlertTriangle className="w-4 h-4 text-red-400" />
                     <span className="text-sm text-red-400">অভিযোগ</span>
                   </button>
@@ -147,6 +152,12 @@ export const AgentTable = ({ agents, displayAgents, title, showUpline = true, fi
           onOpenChange={setIsHierarchyModalOpen}
           selectedAgent={selectedAgent}
           agents={agents}
+        />
+        <AgentComplaintModal
+          open={isComplaintModalOpen}
+          onOpenChange={setIsComplaintModalOpen}
+          selectedAgent={selectedAgent}
+          uplineAgent={selectedAgent ? getUplineInfo(selectedAgent.reports_to) : null}
         />
       </div>
     );
@@ -228,7 +239,10 @@ export const AgentTable = ({ agents, displayAgents, title, showUpline = true, fi
                       <Eye className="w-4 h-4 text-emerald-400" />
                       <span className="text-sm text-emerald-400">দেখুন</span>
                     </button>
-                    <button className="p-2 hover:bg-red-500/20 rounded-lg transition-colors flex items-center gap-1.5 whitespace-nowrap">
+                    <button 
+                      className="p-2 hover:bg-red-500/20 rounded-lg transition-colors flex items-center gap-1.5 whitespace-nowrap"
+                      onClick={() => handleComplaint(agent)}
+                    >
                       <AlertTriangle className="w-4 h-4 text-red-400" />
                       <span className="text-sm text-red-400">অভিযোগ</span>
                     </button>
@@ -245,6 +259,12 @@ export const AgentTable = ({ agents, displayAgents, title, showUpline = true, fi
         onOpenChange={setIsHierarchyModalOpen}
         selectedAgent={selectedAgent}
         agents={agents}
+      />
+      <AgentComplaintModal
+        open={isComplaintModalOpen}
+        onOpenChange={setIsComplaintModalOpen}
+        selectedAgent={selectedAgent}
+        uplineAgent={selectedAgent ? getUplineInfo(selectedAgent.reports_to) : null}
       />
     </div>
   );
