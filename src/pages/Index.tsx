@@ -6,15 +6,16 @@ import { supabase } from "@/integrations/supabase/client";
 import { AgentWithContacts } from "@/types/agent";
 import { ExternalLink, Globe, MessageSquare, Phone, Shield, Users } from "lucide-react";
 
-const fetchAgents = async () => {
+const fetchRandomMasterAgents = async () => {
   const { data: agents, error } = await supabase
     .from("agents")
     .select(`
       *,
       agent_contacts (*)
     `)
-    .order("type")
-    .limit(5);
+    .eq('type', 'master_agent')
+    .order('created_at', { ascending: false })  // Get latest agents first
+    .limit(5);  // Limit to 5 agents
 
   if (error) throw error;
   return agents as AgentWithContacts[];
@@ -22,8 +23,8 @@ const fetchAgents = async () => {
 
 const Index = () => {
   const { data: agents, isLoading } = useQuery({
-    queryKey: ["agents"],
-    queryFn: fetchAgents,
+    queryKey: ["random-master-agents"],
+    queryFn: fetchRandomMasterAgents,
   });
 
   return (
@@ -39,12 +40,12 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Quick Agents List */}
+      {/* Quick Master Agents List */}
       <section className="container py-12">
         <div className="glass-card p-6">
           <h2 className="text-xl font-semibold mb-4 flex items-center gap-2">
             <Users className="w-5 h-5" />
-            Quick Agent List
+            কুইক মাস্টার এজেন্ট লিস্ট
           </h2>
           {isLoading ? (
             <div>Loading agents...</div>
