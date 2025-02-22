@@ -1,3 +1,4 @@
+
 import { useQuery } from '@tanstack/react-query';
 import { useState } from 'react';
 import { Header } from '@/components/Header';
@@ -71,9 +72,9 @@ const SubAdmin = () => {
             className="absolute right-2 top-2 z-10"
           >
             {showWarning ? (
-              <><ChevronUp className="mr-1" /> Hide Warning</> 
+              <><ChevronUp className="mr-1" /> সতর্কতা লুকান</> 
             ) : (
-              <><ChevronDown className="mr-1" /> Show Warning</>
+              <><ChevronDown className="mr-1" /> সতর্কতা দেখান</>
             )}
           </Button>
           {showWarning && (
