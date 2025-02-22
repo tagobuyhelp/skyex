@@ -51,11 +51,12 @@ export const Footer = () => {
             </ul>
           </div>
           <div>
-            <h3 className="font-semibold mb-4">Support</h3>
+            <h3 className="font-semibold mb-4">সাধারণ প্রশ্ন উত্তর</h3>
             <ul className="space-y-2 text-sm">
-              <li><a href="#" className="text-muted-foreground hover:text-primary">Contact Us</a></li>
-              <li><a href="#" className="text-muted-foreground hover:text-primary">FAQ</a></li>
-              <li><a href="#" className="text-muted-foreground hover:text-primary">Help Center</a></li>
+              <li><a href="/proxy-links" className="text-muted-foreground hover:text-primary">ভেল্কি প্রক্সি লিংক</a></li>
+              <li><a href="/create-account" className="text-muted-foreground hover:text-primary">ভেল্কিতে একাউন্ট খুলবেন?</a></li>
+              <li><a href="/new-agent-number" className="text-muted-foreground hover:text-primary">এজেন্ট এর নতুন নম্বর</a></li>
+              <li><a href="/search-by-phone" className="text-muted-foreground hover:text-primary">ফোন নম্বর দিয়ে সার্চ করুন</a></li>
             </ul>
           </div>
         </div>
