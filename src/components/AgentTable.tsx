@@ -94,7 +94,9 @@ export const AgentTable = ({ agents, displayAgents, title, showUpline = true, fi
               <div className="space-y-2">
                 <div className="flex justify-between items-center">
                   <span className="text-gray-400">আইডি:</span>
-                  <span className="text-emerald-400">{agent.agent_id}</span>
+                  <span className="text-lg font-semibold bg-gradient-to-r from-emerald-400 to-blue-400 bg-clip-text text-transparent">
+                    {agent.agent_id}
+                  </span>
                 </div>
                 
                 {showUpline && agent.reports_to && (
@@ -192,7 +194,9 @@ export const AgentTable = ({ agents, displayAgents, title, showUpline = true, fi
                   </div>
                 </TableCell>
                 <TableCell>
-                  <span className="text-emerald-400">{agent.agent_id}</span>
+                  <span className="text-lg font-semibold bg-gradient-to-r from-emerald-400 to-blue-400 bg-clip-text text-transparent">
+                    {agent.agent_id}
+                  </span>
                 </TableCell>
                 {showUpline && (
                   <TableCell>
