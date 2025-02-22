@@ -13,8 +13,8 @@ interface AgentHierarchyModalProps {
 const WhatsAppIcon = () => (
   <svg
     viewBox="0 0 24 24"
-    width="16"
-    height="16"
+    width="20"
+    height="20"
     fill="currentColor"
     className="text-emerald-400"
   >
