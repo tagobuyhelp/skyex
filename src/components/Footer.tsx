@@ -2,6 +2,7 @@
 import { ExternalLink } from 'lucide-react';
 import { GamblingPolicyDialog } from './GamblingPolicyDialog';
 import { PrivacyPolicyDialog } from './PrivacyPolicyDialog';
+import { TermsOfServiceDialog } from './TermsOfServiceDialog';
 
 export const Footer = () => {
   return (
@@ -46,7 +47,7 @@ export const Footer = () => {
             <ul className="space-y-2 text-sm">
               <li><GamblingPolicyDialog /></li>
               <li><PrivacyPolicyDialog /></li>
-              <li><a href="#" className="text-muted-foreground hover:text-primary">Terms of Service</a></li>
+              <li><TermsOfServiceDialog /></li>
             </ul>
           </div>
           <div>
