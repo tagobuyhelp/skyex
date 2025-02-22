@@ -126,13 +126,15 @@ export const AgentTable = ({ agents, displayAgents, title, showUpline = true, fi
                 
                 <div className="flex justify-end gap-2 mt-3">
                   <button 
-                    className="p-2 hover:bg-emerald-500/20 rounded-lg transition-colors"
+                    className="p-2 hover:bg-emerald-500/20 rounded-lg transition-colors flex items-center gap-1.5"
                     onClick={() => handleViewHierarchy(agent)}
                   >
                     <Eye className="w-4 h-4 text-emerald-400" />
+                    <span className="text-sm text-emerald-400">দেখুন</span>
                   </button>
-                  <button className="p-2 hover:bg-red-500/20 rounded-lg transition-colors">
+                  <button className="p-2 hover:bg-red-500/20 rounded-lg transition-colors flex items-center gap-1.5">
                     <AlertTriangle className="w-4 h-4 text-red-400" />
+                    <span className="text-sm text-red-400">অভিযোগ</span>
                   </button>
                 </div>
               </div>
@@ -220,13 +222,15 @@ export const AgentTable = ({ agents, displayAgents, title, showUpline = true, fi
                 <TableCell>
                   <div className="flex gap-2">
                     <button 
-                      className="p-2 hover:bg-emerald-500/20 rounded-lg transition-colors"
+                      className="p-2 hover:bg-emerald-500/20 rounded-lg transition-colors flex items-center gap-1.5 whitespace-nowrap"
                       onClick={() => handleViewHierarchy(agent)}
                     >
                       <Eye className="w-4 h-4 text-emerald-400" />
+                      <span className="text-sm text-emerald-400">দেখুন</span>
                     </button>
-                    <button className="p-2 hover:bg-red-500/20 rounded-lg transition-colors">
+                    <button className="p-2 hover:bg-red-500/20 rounded-lg transition-colors flex items-center gap-1.5 whitespace-nowrap">
                       <AlertTriangle className="w-4 h-4 text-red-400" />
+                      <span className="text-sm text-red-400">অভিযোগ</span>
                     </button>
                   </div>
                 </TableCell>
