@@ -7,9 +7,17 @@ import { AgentWithContacts } from "@/types/agent";
 import { AlertTriangle, Eye, ExternalLink, Globe, MessageSquare, Phone, Shield, Users } from "lucide-react";
 import { WhatsAppIcon } from "@/components/icons/WhatsAppIcon";
 import { Button } from "@/components/ui/button";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { AgentHierarchyModal } from "@/components/AgentHierarchyModal";
 import { AgentComplaintModal } from "@/components/AgentComplaintModal";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
+import Autoplay from "embla-carousel-autoplay";
 
 // Fetch all agents for hierarchy
 const fetchAllAgents = async () => {
@@ -29,6 +37,12 @@ const fetchAllAgents = async () => {
 const formatPhoneNumber = (phone: string) => {
   return phone.replace(/(\d{5})(\d{6})/, '$1 $2');
 };
+
+const heroImages = [
+  "/placeholder.svg",
+  "/og-image.png",
+  "/favicon.ico"
+];
 
 const Index = () => {
   // Query all agents for complete hierarchy data
@@ -54,17 +68,52 @@ const Index = () => {
   // Filter master agents for display
   const masterAgents = allAgents?.filter(agent => agent.type === 'master_agent').slice(0, 5);
 
+  const plugin = React.useRef(
+    Autoplay({ delay: 4000, stopOnInteraction: false })
+  );
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-background/90 to-background">
       <Header />
       
       {/* Hero Section */}
-      <section className="relative h-[400px] bg-gradient-to-r from-primary/20 via-primary/10 to-background">
-        <div className="container h-full flex items-center justify-center">
-          <h1 className="text-4xl md:text-6xl font-bold text-gradient">
-            Velki OFFICIAL WEBSITE
-          </h1>
-        </div>
+      <section className="relative h-[600px] overflow-hidden">
+        <Carousel
+          opts={{
+            align: "start",
+            loop: true,
+          }}
+          plugins={[plugin.current]}
+          className="w-full h-full"
+        >
+          <CarouselContent>
+            {heroImages.map((image, index) => (
+              <CarouselItem key={index} className="w-full h-[600px] relative">
+                <div 
+                  className="w-full h-full bg-cover bg-center"
+                  style={{ 
+                    backgroundImage: `url(${image})`,
+                  }}
+                >
+                  <div className="absolute inset-0 bg-gradient-to-r from-background/90 via-background/50 to-background/90">
+                    <div className="container h-full flex items-center justify-center">
+                      <div className="text-center space-y-6 animate-fade-in">
+                        <h1 className="text-4xl md:text-6xl font-bold text-gradient">
+                          Velki OFFICIAL WEBSITE
+                        </h1>
+                        <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
+                          Your trusted platform for gaming and entertainment
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+          <CarouselPrevious className="left-4" />
+          <CarouselNext className="right-4" />
+        </Carousel>
       </section>
 
       {/* Quick Master Agents List */}
