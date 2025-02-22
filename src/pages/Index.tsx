@@ -134,7 +134,9 @@ const Index = () => {
                     <div className="agent-avatar">{agent.name[0]}</div>
                     <div>
                       <p className="font-medium">{agent.name}</p>
-                      <p className="text-sm text-muted-foreground">{agent.agent_id}</p>
+                      <p className="px-2 py-0.5 bg-emerald-500/20 rounded text-emerald-400 font-medium inline-block">
+                        {agent.agent_id}
+                      </p>
                       {agent.agent_contacts[0]?.whatsapp && (
                         <div className="flex items-center gap-2 mt-1">
                           <WhatsAppIcon />
