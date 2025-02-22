@@ -5,6 +5,8 @@ import { AgentCard } from "@/components/AgentCard";
 import { supabase } from "@/integrations/supabase/client";
 import { AgentWithContacts } from "@/types/agent";
 import { ExternalLink, Globe, MessageSquare, Phone, Shield, Users } from "lucide-react";
+import { WhatsAppIcon } from "@/components/icons/WhatsAppIcon";
+import { Button } from "@/components/ui/button";
 
 const fetchRandomMasterAgents = async () => {
   const { data: agents, error } = await supabase
@@ -14,11 +16,16 @@ const fetchRandomMasterAgents = async () => {
       agent_contacts (*)
     `)
     .eq('type', 'master_agent')
-    .order('created_at', { ascending: false })  // Get latest agents first
-    .limit(5);  // Limit to 5 agents
+    .order('created_at', { ascending: false })
+    .limit(5);
 
   if (error) throw error;
   return agents as AgentWithContacts[];
+};
+
+// Format phone number for display
+const formatPhoneNumber = (phone: string) => {
+  return phone.replace(/(\d{5})(\d{6})/, '$1 $2');
 };
 
 const Index = () => {
@@ -52,24 +59,52 @@ const Index = () => {
           ) : (
             <div className="space-y-4">
               {agents?.map((agent) => (
-                <div key={agent.id} className="flex items-center justify-between p-3 bg-secondary/50 rounded-lg">
+                <div key={agent.id} className="flex flex-col sm:flex-row sm:items-center justify-between p-4 bg-secondary/50 rounded-lg gap-4">
                   <div className="flex items-center gap-4">
                     <div className="agent-avatar">{agent.name[0]}</div>
                     <div>
                       <p className="font-medium">{agent.name}</p>
                       <p className="text-sm text-muted-foreground">{agent.agent_id}</p>
+                      {agent.agent_contacts[0]?.whatsapp && (
+                        <div className="flex items-center gap-2 mt-1">
+                          <WhatsAppIcon />
+                          <span className="text-sm">{formatPhoneNumber(agent.agent_contacts[0].whatsapp)}</span>
+                        </div>
+                      )}
                     </div>
                   </div>
-                  <div className="flex gap-3">
+                  <div className="flex gap-3 items-center">
                     {agent.agent_contacts[0]?.whatsapp && (
-                      <a href={`https://wa.me/${agent.agent_contacts[0].whatsapp}`} className="p-2 hover:bg-primary/20 rounded-lg">
-                        <Phone className="w-5 h-5" />
-                      </a>
+                      <Button 
+                        variant="secondary"
+                        className="flex items-center gap-2"
+                        asChild
+                      >
+                        <a 
+                          href={`https://wa.me/${agent.agent_contacts[0].whatsapp}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          <WhatsAppIcon />
+                          Contact Now
+                        </a>
+                      </Button>
                     )}
                     {agent.agent_contacts[0]?.messenger && (
-                      <a href={agent.agent_contacts[0].messenger} className="p-2 hover:bg-primary/20 rounded-lg">
-                        <MessageSquare className="w-5 h-5" />
-                      </a>
+                      <Button
+                        variant="secondary"
+                        size="icon"
+                        asChild
+                      >
+                        <a 
+                          href={agent.agent_contacts[0].messenger}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="p-2 hover:bg-primary/20 rounded-lg"
+                        >
+                          <MessageSquare className="w-5 h-5" />
+                        </a>
+                      </Button>
                     )}
                   </div>
                 </div>
