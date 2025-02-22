@@ -1,4 +1,3 @@
-
 import { useQuery } from '@tanstack/react-query';
 import { useState } from 'react';
 import { Header } from '@/components/Header';
@@ -8,6 +7,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { AgentWithContacts } from '@/types/agent';
 import { AlertTriangle, ChevronDown, ChevronUp } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { GamblingPolicyDialog } from '@/components/GamblingPolicyDialog';
 
 const fetchSiteAdmins = async () => {
   const { data: siteAdmins, error: siteAdminsError } = await supabase
@@ -47,6 +47,9 @@ const SiteAdmin = () => {
       <Header />
       <div className="container mx-auto px-2 sm:px-6 py-2 md:py-6">
         <div className="relative">
+          <div className="absolute left-2 top-2 z-10">
+            <GamblingPolicyDialog />
+          </div>
           <Button
             variant="outline"
             size="sm"
