@@ -71,39 +71,43 @@ export const Header = () => {
               মাস্টার এজেন্ট
             </Link>
 
-            {/* New FAQ Dropdown Menu */}
-            <DropdownMenu>
-              <DropdownMenuTrigger className="text-sm hover:text-primary flex items-center gap-2">
+            {/* FAQ Dropdown Menu with Hover */}
+            <div className="relative group">
+              <button className="text-sm hover:text-primary flex items-center gap-2 cursor-pointer">
                 <List className="w-4 h-4" />
                 সাধারণ প্রশ্ন উত্তর
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="w-56 bg-[#1F2937]/95 backdrop-blur-sm border-primary/20">
-                <DropdownMenuItem className="focus:bg-primary/20 cursor-pointer">
-                  <Link to="/proxy-links" className="flex items-center gap-2 w-full">
-                    <ExternalLink className="w-4 h-4" />
-                    <span>ভেল্কি প্রক্সি লিংক</span>
-                  </Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem className="focus:bg-primary/20 cursor-pointer">
-                  <Link to="/create-account" className="flex items-center gap-2 w-full">
-                    <UserPlus className="w-4 h-4" />
-                    <span>ভেল্কিতে একাউন্ট খুলবেন?</span>
-                  </Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem className="focus:bg-primary/20 cursor-pointer">
-                  <Link to="/new-agent-number" className="flex items-center gap-2 w-full">
-                    <Phone className="w-4 h-4" />
-                    <span>এজেন্ট এর নতুন নম্বর</span>
-                  </Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem className="focus:bg-primary/20 cursor-pointer">
-                  <Link to="/search-by-phone" className="flex items-center gap-2 w-full">
-                    <Search className="w-4 h-4" />
-                    <span>ফোন নম্বর দিয়ে সার্চ করুন</span>
-                  </Link>
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
+              </button>
+              <div className="absolute top-full left-0 mt-1 w-56 bg-[#1F2937]/95 backdrop-blur-sm border border-primary/20 rounded-md overflow-hidden opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300">
+                <Link 
+                  to="/proxy-links" 
+                  className="flex items-center gap-2 px-4 py-2 hover:bg-primary/20 transition-colors"
+                >
+                  <ExternalLink className="w-4 h-4" />
+                  <span>ভেল্কি প্রক্সি লিংক</span>
+                </Link>
+                <Link 
+                  to="/create-account" 
+                  className="flex items-center gap-2 px-4 py-2 hover:bg-primary/20 transition-colors"
+                >
+                  <UserPlus className="w-4 h-4" />
+                  <span>ভেল্কিতে একাউন্ট খুলবেন?</span>
+                </Link>
+                <Link 
+                  to="/new-agent-number" 
+                  className="flex items-center gap-2 px-4 py-2 hover:bg-primary/20 transition-colors"
+                >
+                  <Phone className="w-4 h-4" />
+                  <span>এজেন্ট এর নতুন নম্বর</span>
+                </Link>
+                <Link 
+                  to="/search-by-phone" 
+                  className="flex items-center gap-2 px-4 py-2 hover:bg-primary/20 transition-colors"
+                >
+                  <Search className="w-4 h-4" />
+                  <span>ফোন নম্বর দিয়ে সার্চ করুন</span>
+                </Link>
+              </div>
+            </div>
           </nav>
 
           <div className="flex items-center gap-4">
