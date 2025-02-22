@@ -60,18 +60,23 @@ const SuperAgent = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
       <Header />
-      <div className="container py-4 md:py-6">
-        <div className="glass-card p-4 md:p-6 mb-6">
+      <div className="container mx-auto px-4 sm:px-6 py-4 md:py-6">
+        <div className="glass-card p-4 sm:p-6 mb-6">
           <div className="flex gap-3 items-start">
             <AlertTriangle className="w-5 h-5 text-yellow-500 mt-1 flex-shrink-0" />
-            <div className="space-y-3 text-sm">
+            <div className="space-y-3 text-sm sm:text-base">
               <p className="font-semibold text-yellow-500">
                 এজেন্ট দের সাথে লেনদেন এর আগে ভেল্কির নিয়ম গুলো জেনে নিন!!
               </p>
               <ul className="space-y-2 text-muted-foreground">
-                <li>
-                  <strong className="text-yellow-500">প্রতারনার হাত থেকে বাচতে সবার আগে ভিজিট করুন ভেল্কি সাইটঃ</strong>{" "}
-                  <a href="https://velki.com" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:text-blue-300">
+                <li className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2">
+                  <strong className="text-yellow-500 shrink-0">প্রতারনার হাত থেকে বাচতে সবার আগে ভিজিট করুন ভেল্কি সাইটঃ</strong>
+                  <a 
+                    href="https://velki.com" 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    className="text-blue-400 hover:text-blue-300 break-all sm:break-normal"
+                  >
                     VELKI.COM
                   </a>
                 </li>
@@ -83,7 +88,9 @@ const SuperAgent = () => {
           </div>
         </div>
         {isLoading ? (
-          <div className="container py-8">Loading...</div>
+          <div className="flex justify-center items-center py-8">
+            <div className="text-center">Loading...</div>
+          </div>
         ) : (
           <AgentTable 
             agents={agents}
