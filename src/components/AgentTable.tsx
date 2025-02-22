@@ -106,20 +106,6 @@ export const AgentTable = ({ agents, displayAgents, title, showUpline = true, fi
                 )}
                 
                 <div className="flex justify-between items-center">
-                  <span className="text-gray-400">রেটিং:</span>
-                  <div className="flex gap-1">
-                    {Array.from({ length: 5 }).map((_, i) => (
-                      <Star
-                        key={i}
-                        className={`w-4 h-4 ${
-                          i < (agent.rating || 0) ? 'text-yellow-400 fill-current' : 'text-gray-600'
-                        }`}
-                      />
-                    ))}
-                  </div>
-                </div>
-                
-                <div className="flex justify-between items-center">
                   <span className="text-gray-400">যোগাযোগ:</span>
                   {agent.agent_contacts[0]?.whatsapp ? (
                     <div className="flex items-center gap-2">
@@ -174,7 +160,6 @@ export const AgentTable = ({ agents, displayAgents, title, showUpline = true, fi
               <TableHead>নাম</TableHead>
               <TableHead>আইডি</TableHead>
               {showUpline && <TableHead>আপলাইন</TableHead>}
-              <TableHead>রেটিং</TableHead>
               <TableHead>যোগাযোগ</TableHead>
               <TableHead>অ্যাকশন</TableHead>
             </TableRow>
@@ -215,18 +200,6 @@ export const AgentTable = ({ agents, displayAgents, title, showUpline = true, fi
                     )}
                   </TableCell>
                 )}
-                <TableCell>
-                  <div className="flex gap-1">
-                    {Array.from({ length: 5 }).map((_, i) => (
-                      <Star
-                        key={i}
-                        className={`w-4 h-4 ${
-                          i < (agent.rating || 0) ? 'text-yellow-400 fill-current' : 'text-gray-600'
-                        }`}
-                      />
-                    ))}
-                  </div>
-                </TableCell>
                 <TableCell>
                   {agent.agent_contacts[0]?.whatsapp ? (
                     <div className="flex items-center gap-2">

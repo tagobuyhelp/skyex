@@ -68,22 +68,7 @@ const AgentCard = ({ agent, type }: { agent: AgentWithContacts; type: 'upline' |
         </div>
       </div>
       
-      <div className="mt-4 space-y-2">
-        {/* Rating */}
-        <div className="flex items-center gap-2 flex-wrap">
-          <span className="text-sm text-muted-foreground">Rating:</span>
-          <div className="flex gap-1">
-            {Array.from({ length: 5 }).map((_, i) => (
-              <Star
-                key={i}
-                className={`${isMobile ? 'w-3.5 h-3.5' : 'w-4 h-4'} ${
-                  i < (agent.rating || 0) ? 'text-yellow-400 fill-current' : 'text-gray-600'
-                }`}
-              />
-            ))}
-          </div>
-        </div>
-
+      <div className="mt-4">
         {/* Contact Information */}
         <div className="space-y-1">
           <span className="text-sm text-muted-foreground">Contact:</span>
