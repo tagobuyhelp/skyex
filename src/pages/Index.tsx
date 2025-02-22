@@ -78,7 +78,7 @@ const Index = () => {
       <Header />
       
       {/* Hero Section */}
-      <section className="relative h-[600px] overflow-hidden">
+      <section className="relative h-[400px] overflow-hidden"> {/* Changed height from 600px to 400px */}
         <Carousel
           opts={{
             align: "start",
@@ -89,7 +89,7 @@ const Index = () => {
         >
           <CarouselContent>
             {heroImages.map((image, index) => (
-              <CarouselItem key={index} className="w-full h-[600px] relative">
+              <CarouselItem key={index} className="w-full h-[400px] relative"> {/* Changed height from 600px to 400px */}
                 <div 
                   className="w-full h-full bg-cover bg-center"
                   style={{ 
@@ -98,11 +98,11 @@ const Index = () => {
                 >
                   <div className="absolute inset-0 bg-gradient-to-r from-background/90 via-background/50 to-background/90">
                     <div className="container h-full flex items-center justify-center">
-                      <div className="text-center space-y-6 animate-fade-in">
-                        <h1 className="text-4xl md:text-6xl font-bold text-gradient">
+                      <div className="text-center space-y-4"> {/* Reduced spacing from space-y-6 to space-y-4 */}
+                        <h1 className="text-3xl md:text-5xl font-bold text-gradient"> {/* Slightly reduced text size */}
                           Velki OFFICIAL WEBSITE
                         </h1>
-                        <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
+                        <p className="text-base md:text-lg text-muted-foreground max-w-2xl mx-auto"> {/* Slightly reduced text size */}
                           Your trusted platform for gaming and entertainment
                         </p>
                       </div>
