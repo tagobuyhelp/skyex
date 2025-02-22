@@ -4,9 +4,12 @@ import { Header } from "@/components/Header";
 import { AgentCard } from "@/components/AgentCard";
 import { supabase } from "@/integrations/supabase/client";
 import { AgentWithContacts } from "@/types/agent";
-import { ExternalLink, Globe, MessageSquare, Phone, Shield, Users } from "lucide-react";
+import { AlertTriangle, Eye, ExternalLink, Globe, MessageSquare, Phone, Shield, Users } from "lucide-react";
 import { WhatsAppIcon } from "@/components/icons/WhatsAppIcon";
 import { Button } from "@/components/ui/button";
+import { useState } from "react";
+import { AgentHierarchyModal } from "@/components/AgentHierarchyModal";
+import { AgentComplaintModal } from "@/components/AgentComplaintModal";
 
 const fetchRandomMasterAgents = async () => {
   const { data: agents, error } = await supabase
@@ -33,6 +36,20 @@ const Index = () => {
     queryKey: ["random-master-agents"],
     queryFn: fetchRandomMasterAgents,
   });
+
+  const [selectedAgent, setSelectedAgent] = useState<AgentWithContacts | null>(null);
+  const [isHierarchyModalOpen, setIsHierarchyModalOpen] = useState(false);
+  const [isComplaintModalOpen, setIsComplaintModalOpen] = useState(false);
+
+  const handleViewHierarchy = (agent: AgentWithContacts) => {
+    setSelectedAgent(agent);
+    setIsHierarchyModalOpen(true);
+  };
+
+  const handleComplaint = (agent: AgentWithContacts) => {
+    setSelectedAgent(agent);
+    setIsComplaintModalOpen(true);
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-background/90 to-background">
@@ -73,39 +90,21 @@ const Index = () => {
                       )}
                     </div>
                   </div>
-                  <div className="flex gap-3 items-center">
-                    {agent.agent_contacts[0]?.whatsapp && (
-                      <Button 
-                        variant="secondary"
-                        className="flex items-center gap-2"
-                        asChild
-                      >
-                        <a 
-                          href={`https://wa.me/${agent.agent_contacts[0].whatsapp}`}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          <WhatsAppIcon />
-                          Contact Now
-                        </a>
-                      </Button>
-                    )}
-                    {agent.agent_contacts[0]?.messenger && (
-                      <Button
-                        variant="secondary"
-                        size="icon"
-                        asChild
-                      >
-                        <a 
-                          href={agent.agent_contacts[0].messenger}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="p-2 hover:bg-primary/20 rounded-lg"
-                        >
-                          <MessageSquare className="w-5 h-5" />
-                        </a>
-                      </Button>
-                    )}
+                  <div className="flex gap-2">
+                    <button 
+                      className="p-2 hover:bg-emerald-500/20 rounded-lg transition-colors flex items-center gap-1.5 whitespace-nowrap"
+                      onClick={() => handleViewHierarchy(agent)}
+                    >
+                      <Eye className="w-4 h-4 text-emerald-400" />
+                      <span className="text-sm text-emerald-400">দেখুন</span>
+                    </button>
+                    <button 
+                      className="p-2 hover:bg-red-500/20 rounded-lg transition-colors flex items-center gap-1.5 whitespace-nowrap"
+                      onClick={() => handleComplaint(agent)}
+                    >
+                      <AlertTriangle className="w-4 h-4 text-red-400" />
+                      <span className="text-sm text-red-400">অভিযোগ</span>
+                    </button>
                   </div>
                 </div>
               ))}
@@ -202,6 +201,20 @@ const Index = () => {
           </div>
         </div>
       </footer>
+
+      {/* Modals */}
+      <AgentHierarchyModal
+        open={isHierarchyModalOpen}
+        onOpenChange={setIsHierarchyModalOpen}
+        selectedAgent={selectedAgent}
+        agents={agents || []}
+      />
+      <AgentComplaintModal
+        open={isComplaintModalOpen}
+        onOpenChange={setIsComplaintModalOpen}
+        selectedAgent={selectedAgent}
+        uplineAgent={null}
+      />
     </div>
   );
 };
