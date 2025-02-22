@@ -11,16 +11,15 @@ import { useState } from "react";
 import { AgentHierarchyModal } from "@/components/AgentHierarchyModal";
 import { AgentComplaintModal } from "@/components/AgentComplaintModal";
 
-const fetchRandomMasterAgents = async () => {
+// Fetch all agents for hierarchy
+const fetchAllAgents = async () => {
   const { data: agents, error } = await supabase
     .from("agents")
     .select(`
       *,
       agent_contacts (*)
     `)
-    .eq('type', 'master_agent')
-    .order('created_at', { ascending: false })
-    .limit(5);
+    .order('created_at', { ascending: false });
 
   if (error) throw error;
   return agents as AgentWithContacts[];
@@ -32,9 +31,10 @@ const formatPhoneNumber = (phone: string) => {
 };
 
 const Index = () => {
-  const { data: agents, isLoading } = useQuery({
-    queryKey: ["random-master-agents"],
-    queryFn: fetchRandomMasterAgents,
+  // Query all agents for complete hierarchy data
+  const { data: allAgents, isLoading } = useQuery({
+    queryKey: ["all-agents"],
+    queryFn: fetchAllAgents,
   });
 
   const [selectedAgent, setSelectedAgent] = useState<AgentWithContacts | null>(null);
@@ -50,6 +50,9 @@ const Index = () => {
     setSelectedAgent(agent);
     setIsComplaintModalOpen(true);
   };
+
+  // Filter master agents for display
+  const masterAgents = allAgents?.filter(agent => agent.type === 'master_agent').slice(0, 5);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-background/90 to-background">
@@ -75,7 +78,7 @@ const Index = () => {
             <div>Loading agents...</div>
           ) : (
             <div className="space-y-4">
-              {agents?.map((agent) => (
+              {masterAgents?.map((agent) => (
                 <div key={agent.id} className="flex flex-col sm:flex-row sm:items-center justify-between p-4 bg-secondary/50 rounded-lg gap-4">
                   <div className="flex items-center gap-4">
                     <div className="agent-avatar">{agent.name[0]}</div>
@@ -207,7 +210,7 @@ const Index = () => {
         open={isHierarchyModalOpen}
         onOpenChange={setIsHierarchyModalOpen}
         selectedAgent={selectedAgent}
-        agents={agents || []}
+        agents={allAgents || []}
       />
       <AgentComplaintModal
         open={isComplaintModalOpen}
