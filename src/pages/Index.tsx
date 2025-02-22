@@ -1,4 +1,3 @@
-
 import * as React from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Header } from "@/components/Header";
@@ -20,7 +19,6 @@ import {
 } from "@/components/ui/carousel";
 import Autoplay from "embla-carousel-autoplay";
 
-// Fetch all agents for hierarchy
 const fetchAllAgents = async () => {
   const { data: agents, error } = await supabase
     .from("agents")
@@ -34,7 +32,6 @@ const fetchAllAgents = async () => {
   return agents as AgentWithContacts[];
 };
 
-// Format phone number for display
 const formatPhoneNumber = (phone: string) => {
   return phone.replace(/(\d{5})(\d{6})/, '$1 $2');
 };
@@ -46,7 +43,6 @@ const heroImages = [
 ];
 
 const Index = () => {
-  // Query all agents for complete hierarchy data
   const { data: allAgents, isLoading } = useQuery({
     queryKey: ["all-agents"],
     queryFn: fetchAllAgents,
@@ -66,7 +62,6 @@ const Index = () => {
     setIsComplaintModalOpen(true);
   };
 
-  // Filter master agents for display
   const masterAgents = allAgents?.filter(agent => agent.type === 'master_agent').slice(0, 5);
 
   const plugin = React.useRef(

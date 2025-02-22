@@ -1,13 +1,12 @@
-
 import { useQuery } from '@tanstack/react-query';
 import { Header } from '@/components/Header';
+import { Footer } from '@/components/Footer';
 import { AgentTable } from '@/components/AgentTable';
 import { supabase } from '@/integrations/supabase/client';
 import { AgentWithContacts } from '@/types/agent';
 import { AlertTriangle } from 'lucide-react';
 
 const fetchMasterAgents = async () => {
-  // First, fetch all potential uplines (site admins, sub admins, and super agents)
   const { data: uplines, error: uplinesError } = await supabase
     .from('agents')
     .select(`
@@ -18,7 +17,6 @@ const fetchMasterAgents = async () => {
 
   if (uplinesError) throw uplinesError;
 
-  // Then fetch master agents
   const { data: masterAgents, error: masterAgentsError } = await supabase
     .from('agents')
     .select(`
@@ -29,7 +27,6 @@ const fetchMasterAgents = async () => {
 
   if (masterAgentsError) throw masterAgentsError;
 
-  // Combine both sets of data so we have upline information available
   return [...(masterAgents || []), ...(uplines || [])] as AgentWithContacts[];
 };
 
@@ -39,13 +36,12 @@ const MasterAgent = () => {
     queryFn: fetchMasterAgents,
   });
 
-  // Filter to show only master agents in the table
   const masterAgents = agents.filter(agent => agent.type === 'master_agent');
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
       <Header />
-      <div className="container mx-auto px-4 sm:px-6 py-4 md:py-6">
+      <div className="container mx-auto px-2 sm:px-6 py-2 md:py-6">
         <div className="glass-card p-4 sm:p-6 mb-6">
           <div className="flex gap-3 items-start">
             <AlertTriangle className="w-5 h-5 text-yellow-500 mt-1 flex-shrink-0" />
@@ -101,6 +97,7 @@ const MasterAgent = () => {
           />
         )}
       </div>
+      <Footer />
     </div>
   );
 };
