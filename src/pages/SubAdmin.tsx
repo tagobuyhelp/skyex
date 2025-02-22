@@ -72,9 +72,15 @@ const SubAdmin = () => {
             className="absolute right-2 top-2 z-10"
           >
             {showWarning ? (
-              <><ChevronUp className="mr-1" /> সতর্কতা লুকান</> 
+              <>
+                <ChevronUp className="mr-1" />
+                <span className="hidden sm:inline">সরান</span>
+              </> 
             ) : (
-              <><ChevronDown className="mr-1" /> সতর্কতা দেখান</>
+              <>
+                <ChevronDown className="mr-1" />
+                <span className="hidden sm:inline">দেখান</span>
+              </>
             )}
           </Button>
           {showWarning && (
