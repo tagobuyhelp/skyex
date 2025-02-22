@@ -77,26 +77,26 @@ export const Header = () => {
                 <List className="w-4 h-4" />
                 সাধারণ প্রশ্ন উত্তর
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="w-56">
-                <DropdownMenuItem>
+              <DropdownMenuContent align="end" className="w-56 bg-[#1F2937]/95 backdrop-blur-sm border-primary/20">
+                <DropdownMenuItem className="focus:bg-primary/20 cursor-pointer">
                   <Link to="/proxy-links" className="flex items-center gap-2 w-full">
                     <ExternalLink className="w-4 h-4" />
                     <span>ভেল্কি প্রক্সি লিংক</span>
                   </Link>
                 </DropdownMenuItem>
-                <DropdownMenuItem>
+                <DropdownMenuItem className="focus:bg-primary/20 cursor-pointer">
                   <Link to="/create-account" className="flex items-center gap-2 w-full">
                     <UserPlus className="w-4 h-4" />
                     <span>ভেল্কিতে একাউন্ট খুলবেন?</span>
                   </Link>
                 </DropdownMenuItem>
-                <DropdownMenuItem>
+                <DropdownMenuItem className="focus:bg-primary/20 cursor-pointer">
                   <Link to="/new-agent-number" className="flex items-center gap-2 w-full">
                     <Phone className="w-4 h-4" />
                     <span>এজেন্ট এর নতুন নম্বর</span>
                   </Link>
                 </DropdownMenuItem>
-                <DropdownMenuItem>
+                <DropdownMenuItem className="focus:bg-primary/20 cursor-pointer">
                   <Link to="/search-by-phone" className="flex items-center gap-2 w-full">
                     <Search className="w-4 h-4" />
                     <span>ফোন নম্বর দিয়ে সার্চ করুন</span>
