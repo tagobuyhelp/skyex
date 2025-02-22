@@ -28,13 +28,28 @@ const fetchSuperAgents = async () => {
 
   if (superAgentsError) throw superAgentsError;
 
-  // Combine both sets of data so we have upline information available
-  return [...(superAgents || []), ...(uplines || [])] as AgentWithContacts[];
+  // Finally fetch master agents (potential downlines)
+  const { data: masterAgents, error: masterAgentsError } = await supabase
+    .from('agents')
+    .select(`
+      *,
+      agent_contacts (*)
+    `)
+    .eq('type', 'master_agent');
+
+  if (masterAgentsError) throw masterAgentsError;
+
+  // Combine all data for complete hierarchy information
+  return [
+    ...(superAgents || []), 
+    ...(uplines || []), 
+    ...(masterAgents || [])
+  ] as AgentWithContacts[];
 };
 
 const SuperAgent = () => {
   const { data: agents = [], isLoading } = useQuery({
-    queryKey: ['super-agents'],
+    queryKey: ['super-agents-with-hierarchy'],
     queryFn: fetchSuperAgents,
   });
 
@@ -48,7 +63,8 @@ const SuperAgent = () => {
         <div className="container py-8">Loading...</div>
       ) : (
         <AgentTable 
-          agents={agents} 
+          agents={agents} // Pass full array for hierarchy lookup
+          displayAgents={superAgents} // Only show super agents in the table
           title="VELKI সুপার এজেন্ট লিস্ট"
           filterSiteAdmins={false} // Don't filter out site admins since we need them for upline info
         />
