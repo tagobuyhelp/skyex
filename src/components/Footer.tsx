@@ -10,7 +10,7 @@ export const Footer = () => {
           <div>
             <h3 className="font-semibold mb-4">দ্রুত লিঙ্কগুলি</h3>
             <ul className="space-y-2 text-sm">
-              <li><a href="/site-admin" className="text-muted-foreground hover:text-primary">অ্যাডমিন তালিকা</a></li>
+              <li><a href="/site-admin" className="text-muted-foreground hover:text-primary">সাইট এডমিন</a></li>
               <li><a href="/sub-admin" className="text-muted-foreground hover:text-primary">সাব অ্যাডমিন</a></li>
               <li><a href="/super-agent" className="text-muted-foreground hover:text-primary">সুপার এজেন্ট</a></li>
               <li><a href="/master-agent" className="text-muted-foreground hover:text-primary">মাস্টার এজেন্ট</a></li>
