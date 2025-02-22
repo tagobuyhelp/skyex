@@ -1,6 +1,7 @@
 import * as React from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Header } from "@/components/Header";
+import { Footer } from "@/components/Footer";
 import { AgentCard } from "@/components/AgentCard";
 import { supabase } from "@/integrations/supabase/client";
 import { AgentWithContacts } from "@/types/agent";
@@ -209,48 +210,7 @@ const Index = () => {
       </section>
 
       {/* Footer */}
-      <footer className="bg-secondary/50 mt-8 md:mt-12 py-8 md:py-12">
-        <div className="container px-4 md:px-6">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
-            <div>
-              <h3 className="font-semibold mb-4">Quick Links</h3>
-              <ul className="space-y-2 text-sm">
-                <li><a href="#" className="text-muted-foreground hover:text-primary">Company Head</a></li>
-                <li><a href="#" className="text-muted-foreground hover:text-primary">Admin List</a></li>
-                <li><a href="#" className="text-muted-foreground hover:text-primary">Super Agent</a></li>
-                <li><a href="#" className="text-muted-foreground hover:text-primary">Master Agent</a></li>
-              </ul>
-            </div>
-            <div>
-              <h3 className="font-semibold mb-4">Our Networks</h3>
-              <ul className="space-y-2 text-sm">
-                <li><a href="#" className="text-muted-foreground hover:text-primary">Main Website</a></li>
-                <li><a href="#" className="text-muted-foreground hover:text-primary">Games Portal</a></li>
-                <li><a href="#" className="text-muted-foreground hover:text-primary">Mobile App</a></li>
-              </ul>
-            </div>
-            <div>
-              <h3 className="font-semibold mb-4">Portals</h3>
-              <ul className="space-y-2 text-sm">
-                <li><a href="#" className="text-muted-foreground hover:text-primary">Live Portal</a></li>
-                <li><a href="#" className="text-muted-foreground hover:text-primary">Club Portal</a></li>
-                <li><a href="#" className="text-muted-foreground hover:text-primary">Info Portal</a></li>
-              </ul>
-            </div>
-            <div>
-              <h3 className="font-semibold mb-4">Policies</h3>
-              <ul className="space-y-2 text-sm">
-                <li><a href="#" className="text-muted-foreground hover:text-primary">Gambling Policy</a></li>
-                <li><a href="#" className="text-muted-foreground hover:text-primary">Privacy Policy</a></li>
-                <li><a href="#" className="text-muted-foreground hover:text-primary">Terms of Service</a></li>
-              </ul>
-            </div>
-          </div>
-          <div className="mt-8 md:mt-12 pt-6 md:pt-8 border-t border-primary/20 text-center text-sm text-muted-foreground">
-            <p>&copy; 2024 Velki. All rights reserved.</p>
-          </div>
-        </div>
-      </footer>
+      <Footer />
 
       {/* Modals */}
       <AgentHierarchyModal
