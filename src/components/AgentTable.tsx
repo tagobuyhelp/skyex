@@ -1,3 +1,4 @@
+
 import { useState } from 'react';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { AgentWithContacts } from '@/types/agent';
@@ -94,7 +95,7 @@ export const AgentTable = ({ agents, displayAgents, title, showUpline = true, fi
               <div className="space-y-2">
                 <div className="flex justify-between items-center">
                   <span className="text-gray-400">আইডি:</span>
-                  <span className="text-lg font-semibold bg-gradient-to-r from-emerald-400 to-blue-400 bg-clip-text text-transparent">
+                  <span className="px-2 py-0.5 bg-emerald-500/20 rounded text-emerald-400 font-medium">
                     {agent.agent_id}
                   </span>
                 </div>
@@ -194,7 +195,7 @@ export const AgentTable = ({ agents, displayAgents, title, showUpline = true, fi
                   </div>
                 </TableCell>
                 <TableCell>
-                  <span className="text-lg font-semibold bg-gradient-to-r from-emerald-400 to-blue-400 bg-clip-text text-transparent">
+                  <span className="px-2 py-0.5 bg-emerald-500/20 rounded text-emerald-400 font-medium">
                     {agent.agent_id}
                   </span>
                 </TableCell>
