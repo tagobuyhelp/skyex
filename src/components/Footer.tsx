@@ -61,7 +61,7 @@ export const Footer = () => {
           </div>
         </div>
         <div className="mt-8 md:mt-12 pt-6 md:pt-8 border-t border-primary/20 text-center text-sm text-muted-foreground">
-          <p>&copy; 2024 Velki. All rights reserved.</p>
+          <p>© ২০২৪ ভেল্কি। সর্বস্বত্ব সংরক্ষিত।</p>
         </div>
       </div>
     </footer>
