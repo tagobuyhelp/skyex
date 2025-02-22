@@ -1,12 +1,9 @@
-
 import { ExternalLink } from 'lucide-react';
 import { GamblingPolicyDialog } from './GamblingPolicyDialog';
 import { PrivacyPolicyDialog } from './PrivacyPolicyDialog';
 import { TermsOfServiceDialog } from './TermsOfServiceDialog';
-
 export const Footer = () => {
-  return (
-    <footer className="bg-secondary/50 mt-8 md:mt-12 py-8 md:py-12">
+  return <footer className="bg-secondary/50 mt-8 md:mt-12 py-8 md:py-12">
       <div className="container mx-auto px-4 md:px-6">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
           <div>
@@ -22,21 +19,13 @@ export const Footer = () => {
             <h3 className="font-semibold mb-4">Our Networks</h3>
             <ul className="space-y-2 text-sm">
               <li>
-                <a 
-                  href="https://velki.com" 
-                  target="_blank" 
-                  rel="noopener noreferrer" 
-                  className="text-muted-foreground hover:text-primary inline-flex items-center gap-1"
-                >
+                <a href="https://velki.com" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary inline-flex items-center gap-1">
                   Main Website
                   <ExternalLink className="w-3 h-3" />
                 </a>
               </li>
               <li>
-                <a 
-                  href="#" 
-                  className="text-muted-foreground hover:text-primary"
-                >
+                <a href="#" className="text-muted-foreground hover:text-primary">
                   Games Portal
                 </a>
               </li>
@@ -61,9 +50,8 @@ export const Footer = () => {
           </div>
         </div>
         <div className="mt-8 md:mt-12 pt-6 md:pt-8 border-t border-primary/20 text-center text-sm text-muted-foreground">
-          <p>&copy; 2024 Velki. All rights reserved.</p>
+          <p>© 2025 Velki. All rights reserved.</p>
         </div>
       </div>
-    </footer>
-  );
+    </footer>;
 };
