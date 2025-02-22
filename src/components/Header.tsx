@@ -1,7 +1,13 @@
 
 import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, Search, User, Home, Shield, Users, Star, Crown } from 'lucide-react';
+import { Menu, Search, User, Home, Shield, Users, Star, Crown, ExternalLink, UserPlus, Phone, List } from 'lucide-react';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 export const Header = () => {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
@@ -64,6 +70,40 @@ export const Header = () => {
               <Crown className="w-4 h-4" />
               মাস্টার এজেন্ট
             </Link>
+
+            {/* New FAQ Dropdown Menu */}
+            <DropdownMenu>
+              <DropdownMenuTrigger className="text-sm hover:text-primary flex items-center gap-2">
+                <List className="w-4 h-4" />
+                সাধারণ প্রশ্ন উত্তর
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-56">
+                <DropdownMenuItem>
+                  <Link to="/proxy-links" className="flex items-center gap-2 w-full">
+                    <ExternalLink className="w-4 h-4" />
+                    <span>ভেল্কি প্রক্সি লিংক</span>
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <Link to="/create-account" className="flex items-center gap-2 w-full">
+                    <UserPlus className="w-4 h-4" />
+                    <span>ভেল্কিতে একাউন্ট খুলবেন?</span>
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <Link to="/new-agent-number" className="flex items-center gap-2 w-full">
+                    <Phone className="w-4 h-4" />
+                    <span>এজেন্ট এর নতুন নম্বর</span>
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <Link to="/search-by-phone" className="flex items-center gap-2 w-full">
+                    <Search className="w-4 h-4" />
+                    <span>ফোন নম্বর দিয়ে সার্চ করুন</span>
+                  </Link>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
           </nav>
 
           <div className="flex items-center gap-4">
