@@ -1,18 +1,105 @@
+
 import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, Search, User, Home, Shield, Users, Star, Crown, ExternalLink, UserPlus, Phone, List } from 'lucide-react';
+import { Menu, Search, Home, Shield, Users, Star, Crown, ExternalLink, UserPlus, Phone, List, X } from 'lucide-react';
 import { AgentSearchModal } from './AgentSearchModal';
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
+
 export const Header = () => {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const location = useLocation();
-  return <header className="sticky top-0 z-50 bg-background/95 backdrop-blur-sm border-b border-primary/20">
+
+  return (
+    <header className="sticky top-0 z-50 bg-background/95 backdrop-blur-sm border-b border-primary/20">
       <div className="container">
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center gap-4">
-            <button className="p-2 hover:bg-primary/20 rounded-lg transition-colors">
-              <Menu className="w-6 h-6" />
-            </button>
+            <Sheet>
+              <SheetTrigger className="p-2 hover:bg-primary/20 rounded-lg transition-colors md:hidden">
+                <Menu className="w-6 h-6" />
+              </SheetTrigger>
+              <SheetContent side="left" className="w-[300px] sm:w-[400px] bg-background/95 backdrop-blur-sm border-r border-primary/20">
+                <SheetHeader>
+                  <SheetTitle className="text-xl font-semibold text-gradient">Skyex</SheetTitle>
+                </SheetHeader>
+                <nav className="mt-8 flex flex-col gap-4">
+                  <Link 
+                    to="/" 
+                    className={`text-sm hover:text-primary flex items-center gap-2 p-2 rounded-lg transition-colors ${location.pathname === '/' ? 'text-primary bg-primary/10' : ''}`}
+                  >
+                    <Home className="w-4 h-4" />
+                    হোম
+                  </Link>
+                  <Link 
+                    to="/site-admin" 
+                    className={`text-sm hover:text-primary flex items-center gap-2 p-2 rounded-lg transition-colors ${location.pathname === '/site-admin' ? 'text-primary bg-primary/10' : ''}`}
+                  >
+                    <Shield className="w-4 h-4" />
+                    সাইট এডমিন
+                  </Link>
+                  <Link 
+                    to="/sub-admin" 
+                    className={`text-sm hover:text-primary flex items-center gap-2 p-2 rounded-lg transition-colors ${location.pathname === '/sub-admin' ? 'text-primary bg-primary/10' : ''}`}
+                  >
+                    <Users className="w-4 h-4" />
+                    সাব এডমিন
+                  </Link>
+                  <Link 
+                    to="/super-agent" 
+                    className={`text-sm hover:text-primary flex items-center gap-2 p-2 rounded-lg transition-colors ${location.pathname === '/super-agent' ? 'text-primary bg-primary/10' : ''}`}
+                  >
+                    <Star className="w-4 h-4" />
+                    সুপার এজেন্ট
+                  </Link>
+                  <Link 
+                    to="/master-agent" 
+                    className={`text-sm hover:text-primary flex items-center gap-2 p-2 rounded-lg transition-colors ${location.pathname === '/master-agent' ? 'text-primary bg-primary/10' : ''}`}
+                  >
+                    <Crown className="w-4 h-4" />
+                    মাস্টার এজেন্ট
+                  </Link>
+
+                  {/* FAQ Section in Mobile Menu */}
+                  <div className="mt-4 border-t border-primary/10 pt-4">
+                    <div className="text-sm text-muted-foreground mb-2 px-2">সাধারণ প্রশ্ন উত্তর</div>
+                    <Link 
+                      to="/proxy-links" 
+                      className="flex items-center gap-2 p-2 hover:bg-primary/10 rounded-lg transition-colors text-sm"
+                    >
+                      <ExternalLink className="w-4 h-4" />
+                      স্কাইএক্স প্রক্সি লিংক
+                    </Link>
+                    <Link 
+                      to="/create-account" 
+                      className="flex items-center gap-2 p-2 hover:bg-primary/10 rounded-lg transition-colors text-sm"
+                    >
+                      <UserPlus className="w-4 h-4" />
+                      স্কাইএক্স একাউন্ট খুলবেন?
+                    </Link>
+                    <Link 
+                      to="/new-agent-number" 
+                      className="flex items-center gap-2 p-2 hover:bg-primary/10 rounded-lg transition-colors text-sm"
+                    >
+                      <Phone className="w-4 h-4" />
+                      এজেন্ট এর নতুন নম্বর
+                    </Link>
+                    <Link 
+                      to="/search-by-phone" 
+                      className="flex items-center gap-2 p-2 hover:bg-primary/10 rounded-lg transition-colors text-sm"
+                    >
+                      <Search className="w-4 h-4" />
+                      ফোন নম্বর দিয়ে সার্চ করুন
+                    </Link>
+                  </div>
+                </nav>
+              </SheetContent>
+            </Sheet>
             <Link to="/" className="text-xl font-semibold text-gradient">Skyex</Link>
           </div>
           
@@ -67,15 +154,9 @@ export const Header = () => {
 
           <div className="flex items-center gap-4">
             <AgentSearchModal />
-            <button className="p-2 hover:bg-primary/20 rounded-lg transition-colors">
-              
-            </button>
           </div>
         </div>
-
-        {isSearchOpen && <div className="absolute top-full left-0 w-full p-4 bg-background/95 backdrop-blur-sm border-b border-primary/20 animate-fade-in">
-            <input type="search" placeholder="এজেন্টদের খুঁজুন..." className="w-full p-2 rounded-lg bg-white/10 border border-primary/20 text-white placeholder:text-white/60" />
-          </div>}
       </div>
-    </header>;
+    </header>
+  );
 };
