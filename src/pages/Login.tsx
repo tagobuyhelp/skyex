@@ -15,32 +15,21 @@ const Login = () => {
   const { toast } = useToast();
   const navigate = useNavigate();
 
-  // Check if user is already logged in and is an admin
+  // Check if user is already logged in
   useEffect(() => {
     const checkAuth = async () => {
       const { data: { session } } = await supabase.auth.getSession();
-      if (session) {
-        try {
-          // Check if the user is an admin using a direct query
-          const { data, error } = await supabase
-            .from('agents')
-            .select('type')
-            .eq('id', session.user.id)
-            .maybeSingle();
-
-          if (error) {
-            console.error('Error fetching agent data:', error);
-            await supabase.auth.signOut();
-            return;
-          }
-
-          if (data?.type === 'site_admin' || data?.type === 'sub_admin') {
-            navigate('/admin');
-          } else {
-            await supabase.auth.signOut();
-          }
-        } catch (error) {
-          console.error('Error in auth check:', error);
+      if (session?.user?.id) {
+        const { data } = await supabase
+          .from('agents')
+          .select('type')
+          .eq('id', session.user.id)
+          .limit(1)
+          .single();
+          
+        if (data?.type === 'site_admin' || data?.type === 'sub_admin') {
+          navigate('/admin');
+        } else {
           await supabase.auth.signOut();
         }
       }
@@ -54,41 +43,31 @@ const Login = () => {
     setIsLoading(true);
 
     try {
-      // First, attempt to sign in
-      const { data, error: authError } = await supabase.auth.signInWithPassword({
+      const { data: { session }, error: authError } = await supabase.auth.signInWithPassword({
         email,
         password,
       });
 
       if (authError) throw authError;
+      if (!session) throw new Error("সেশন তৈরি করা যায়নি");
 
-      if (!data.session) {
-        throw new Error("সেশন তৈরি করা যায়নি");
-      }
-
-      // Then check if the user is an admin using a direct query
-      const { data: agentData, error: agentError } = await supabase
+      const { data: agentData } = await supabase
         .from('agents')
         .select('type')
-        .eq('id', data.session.user.id)
-        .maybeSingle();
+        .eq('id', session.user.id)
+        .limit(1)
+        .single();
 
-      if (agentError) {
-        await supabase.auth.signOut();
-        throw agentError;
-      }
-
-      if (!agentData || (agentData.type !== 'site_admin' && agentData.type !== 'sub_admin')) {
+      if (agentData?.type === 'site_admin' || agentData?.type === 'sub_admin') {
+        toast({
+          title: "স্বাগতম!",
+          description: "সফলভাবে লগইন হয়েছে",
+        });
+        navigate("/admin");
+      } else {
         await supabase.auth.signOut();
         throw new Error("অননুমোদিত অ্যাকাউন্ট। শুধুমাত্র এডমিনরা লগইন করতে পারবেন।");
       }
-
-      toast({
-        title: "স্বাগতম!",
-        description: "সফলভাবে লগইন হয়েছে",
-      });
-
-      navigate("/admin");
     } catch (error: any) {
       toast({
         variant: "destructive",
