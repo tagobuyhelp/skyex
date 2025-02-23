@@ -20,15 +20,28 @@ const Login = () => {
     const checkAuth = async () => {
       const { data: { session } } = await supabase.auth.getSession();
       if (session) {
-        // Check if the user is an admin
-        const { data: agentData } = await supabase
-          .from('agents')
-          .select('type')
-          .eq('id', session.user.id)
-          .single();
+        try {
+          // Check if the user is an admin
+          const { data: agentData, error } = await supabase
+            .from('agents')
+            .select('type')
+            .eq('id', session.user.id)
+            .single();
 
-        if (agentData && (agentData.type === 'site_admin' || agentData.type === 'sub_admin')) {
-          navigate('/admin');
+          if (error) {
+            console.error('Error fetching agent data:', error);
+            return;
+          }
+
+          if (agentData && (agentData.type === 'site_admin' || agentData.type === 'sub_admin')) {
+            navigate('/admin');
+          } else {
+            // If not an admin, sign out
+            await supabase.auth.signOut();
+          }
+        } catch (error) {
+          console.error('Error in auth check:', error);
+          await supabase.auth.signOut();
         }
       }
     };
@@ -41,21 +54,28 @@ const Login = () => {
     setIsLoading(true);
 
     try {
-      const { data: { session }, error: authError } = await supabase.auth.signInWithPassword({
+      const { data, error: authError } = await supabase.auth.signInWithPassword({
         email,
         password,
       });
 
       if (authError) throw authError;
 
+      if (!data.session) {
+        throw new Error("সেশন তৈরি করা যায়নি");
+      }
+
       // Check if the user is an admin
       const { data: agentData, error: agentError } = await supabase
         .from('agents')
         .select('type')
-        .eq('id', session?.user.id)
+        .eq('id', data.session.user.id)
         .single();
 
-      if (agentError) throw agentError;
+      if (agentError) {
+        await supabase.auth.signOut();
+        throw agentError;
+      }
 
       if (!agentData || (agentData.type !== 'site_admin' && agentData.type !== 'sub_admin')) {
         // Sign out if not an admin
@@ -75,6 +95,7 @@ const Login = () => {
         title: "লগইন ব্যর্থ হয়েছে",
         description: error.message,
       });
+      console.error('Login error:', error);
     } finally {
       setIsLoading(false);
     }
