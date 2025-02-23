@@ -60,7 +60,7 @@ export const AgentSearchModal = () => {
       agent.name.toLowerCase().includes(search.toLowerCase()) ||
       agent.agent_id.toLowerCase().includes(search.toLowerCase());
     
-    const matchesType = !selectedType || agent.type === selectedType;
+    const matchesType = !selectedType || selectedType === 'all' || agent.type === selectedType;
     
     return matchesSearch && matchesType;
   });
@@ -76,7 +76,7 @@ export const AgentSearchModal = () => {
           এজেন্ট খুঁজুন
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-xl">
+      <DialogContent className="max-w-4xl">
         <DialogHeader>
           <DialogTitle className="text-lg">এজেন্ট খুঁজুন</DialogTitle>
         </DialogHeader>
@@ -111,32 +111,46 @@ export const AgentSearchModal = () => {
           </Select>
         </div>
 
-        <div className="space-y-2 mt-4 max-h-[400px] overflow-y-auto pr-2 scrollbar-thin scrollbar-thumb-primary/10">
+        <div className="space-y-2 mt-4 max-h-[600px] overflow-y-auto pr-2 scrollbar-thin scrollbar-thumb-primary/10">
           {filteredAgents.map((agent) => (
             <div 
               key={agent.id}
               className="p-4 rounded-lg bg-card hover:bg-card/80 transition-colors border border-primary/10"
             >
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center">
-                  <span className="text-lg font-semibold">{agent.name[0].toUpperCase()}</span>
+                <div className="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center">
+                  <span className="text-xl font-semibold">{agent.name[0].toUpperCase()}</span>
                 </div>
                 <div className="flex-1 min-w-0">
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-2 mb-1">
                     <h3 className="font-medium truncate">{agent.name}</h3>
                     <span className="text-xs px-2 py-0.5 rounded-full bg-primary/20 text-primary whitespace-nowrap">
                       {agent.agent_id}
                     </span>
                   </div>
-                  <div className="flex items-center gap-2 mt-1">
-                    <p className="text-sm text-muted-foreground">
-                      {getAgentTypeInBangla(agent.type)}
-                    </p>
-                    <div className="flex items-center">
-                      {[...Array(agent.rating || 0)].map((_, i) => (
-                        <Star key={i} className="w-3 h-3 fill-yellow-500 text-yellow-500" />
-                      ))}
+                  <div className="flex items-center gap-4">
+                    <div className="flex items-center gap-2">
+                      <span className="text-sm text-muted-foreground">টাইপ:</span>
+                      <p className="text-sm text-primary font-medium">
+                        {getAgentTypeInBangla(agent.type)}
+                      </p>
                     </div>
+                    <div className="flex items-center gap-2">
+                      <span className="text-sm text-muted-foreground">রেটিং:</span>
+                      <div className="flex items-center">
+                        {[...Array(agent.rating || 0)].map((_, i) => (
+                          <Star key={i} className="w-3.5 h-3.5 fill-yellow-500 text-yellow-500" />
+                        ))}
+                      </div>
+                    </div>
+                    {agent.reports_to && (
+                      <div className="flex items-center gap-2">
+                        <span className="text-sm text-muted-foreground">আপলাইন:</span>
+                        <span className="text-sm text-primary font-medium">
+                          {agents.find(a => a.id === agent.reports_to)?.name || 'N/A'}
+                        </span>
+                      </div>
+                    )}
                   </div>
                 </div>
                 <div className="flex items-center gap-2">
@@ -145,16 +159,16 @@ export const AgentSearchModal = () => {
                       href={`https://wa.me/${agent.agent_contacts[0].whatsapp}`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-emerald-500 hover:bg-emerald-600 text-white text-sm font-medium transition-colors"
+                      className="flex items-center gap-2 px-3 py-2 rounded-lg bg-emerald-500 hover:bg-emerald-600 text-white text-sm font-medium transition-colors"
                     >
                       <WhatsAppIcon className="w-4 h-4" />
-                      Message
+                      হোয়াটসঅ্যাপ
                     </a>
                   )}
                   <Button
                     variant="ghost"
                     size="icon"
-                    className="h-8 w-8"
+                    className="h-9 w-9"
                     onClick={() => {
                       // Report functionality can be added here
                       console.log('Report agent:', agent.agent_id);
