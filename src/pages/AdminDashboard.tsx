@@ -1,3 +1,4 @@
+
 import { useQuery } from '@tanstack/react-query';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
@@ -45,12 +46,34 @@ const AdminDashboard = () => {
     },
   });
 
+  // Organize agents by type for upline selection
+  const siteAdmins = agents.filter(a => a.type === 'site_admin');
+  const subAdmins = agents.filter(a => a.type === 'sub_admin');
+  const superAgents = agents.filter(a => a.type === 'super_agent');
+  const masterAgents = agents.filter(a => a.type === 'master_agent');
+
+  // Get upline options based on agent type
+  const getUplineOptions = (agentType: string) => {
+    switch (agentType) {
+      case 'site_admin':
+        return [];
+      case 'sub_admin':
+        return siteAdmins;
+      case 'super_agent':
+        return [...siteAdmins, ...subAdmins];
+      case 'master_agent':
+        return [...siteAdmins, ...subAdmins, ...superAgents];
+      default:
+        return [];
+    }
+  };
+
   // Calculate stats
   const stats = {
-    siteAdmins: agents.filter(a => a.type === 'site_admin').length,
-    subAdmins: agents.filter(a => a.type === 'sub_admin').length,
-    superAgents: agents.filter(a => a.type === 'super_agent').length,
-    masterAgents: agents.filter(a => a.type === 'master_agent').length,
+    siteAdmins: siteAdmins.length,
+    subAdmins: subAdmins.length,
+    superAgents: superAgents.length,
+    masterAgents: masterAgents.length,
     totalAgents: agents.length,
     activeAgents: agents.filter(a => a.rating && a.rating > 0).length,
   };
@@ -66,12 +89,16 @@ const AdminDashboard = () => {
               সমস্ত এজেন্টের বিস্তারিত তথ্য এবং পরিসংখ্যান দেখুন
             </p>
           </div>
-          <AgentManageModal mode="create" trigger={
-            <Button>
-              <UserPlus className="w-4 h-4 mr-2" />
-              নতুন এজেন্ট
-            </Button>
-          } />
+          <AgentManageModal 
+            mode="create" 
+            uplineOptions={getUplineOptions('master_agent')}
+            trigger={
+              <Button>
+                <UserPlus className="w-4 h-4 mr-2" />
+                নতুন এজেন্ট
+              </Button>
+            } 
+          />
         </div>
 
         {isLoading ? (
