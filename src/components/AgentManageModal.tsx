@@ -1,6 +1,7 @@
+
 import { useState, useEffect } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { UserPlus, Save, X } from "lucide-react";
+import { UserPlus, Save, X, Search } from "lucide-react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -27,6 +28,7 @@ export const AgentManageModal = ({
 }: AgentManageModalProps) => {
   const [open, setOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
   const { toast } = useToast();
   const queryClient = useQueryClient();
 
@@ -55,18 +57,30 @@ export const AgentManageModal = ({
   });
 
   const getUplineOptions = (type: string) => {
-    switch (type) {
-      case 'site_admin':
-        return [];
-      case 'sub_admin':
-        return allAgents.filter(a => a.type === 'site_admin');
-      case 'super_agent':
-        return allAgents.filter(a => a.type === 'sub_admin');
-      case 'master_agent':
-        return allAgents.filter(a => a.type === 'super_agent');
-      default:
-        return [];
+    const options = (() => {
+      switch (type) {
+        case 'site_admin':
+          return [];
+        case 'sub_admin':
+          return allAgents.filter(a => a.type === 'site_admin');
+        case 'super_agent':
+          return allAgents.filter(a => a.type === 'sub_admin');
+        case 'master_agent':
+          return allAgents.filter(a => a.type === 'super_agent');
+        default:
+          return [];
+      }
+    })();
+
+    // Filter options based on search term
+    if (searchTerm) {
+      return options.filter(option => 
+        option.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        option.agent_id.toLowerCase().includes(searchTerm.toLowerCase())
+      );
     }
+
+    return options;
   };
 
   useEffect(() => {
@@ -230,7 +244,7 @@ export const AgentManageModal = ({
               </SelectContent>
             </Select>
           </div>
-          {requiresUpline(formData.type) && uplineOptions.length > 0 && (
+          {requiresUpline(formData.type) && (
             <div className="space-y-2">
               <Label htmlFor="reports_to">আপলাইন</Label>
               <Select
@@ -242,11 +256,30 @@ export const AgentManageModal = ({
                   <SelectValue placeholder="আপলাইন নির্বাচন করুন" />
                 </SelectTrigger>
                 <SelectContent className="bg-[#1F2937] border border-primary/20">
-                  {uplineOptions.map((upline) => (
-                    <SelectItem key={upline.id} value={upline.id}>
-                      {upline.name} ({upline.agent_id})
-                    </SelectItem>
-                  ))}
+                  <div className="p-2 pb-0">
+                    <div className="relative">
+                      <Search className="absolute left-2 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                      <Input
+                        placeholder="আপলাইন খুঁজুন..."
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)}
+                        className="pl-8"
+                      />
+                    </div>
+                  </div>
+                  <div className="p-2">
+                    {uplineOptions.length > 0 ? (
+                      uplineOptions.map((upline) => (
+                        <SelectItem key={upline.id} value={upline.id} className="my-1">
+                          {upline.name} ({upline.agent_id})
+                        </SelectItem>
+                      ))
+                    ) : (
+                      <div className="text-center py-2 text-sm text-muted-foreground">
+                        {searchTerm ? "কোন আপলাইন পাওয়া যায়নি" : "কোন আপলাইন নেই"}
+                      </div>
+                    )}
+                  </div>
                 </SelectContent>
               </Select>
             </div>

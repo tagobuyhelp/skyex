@@ -1,4 +1,3 @@
-
 import { useQuery } from '@tanstack/react-query';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
@@ -46,27 +45,11 @@ const AdminDashboard = () => {
     },
   });
 
-  // Organize agents by type for upline selection
+  // Organize agents by type for stats
   const siteAdmins = agents.filter(a => a.type === 'site_admin');
   const subAdmins = agents.filter(a => a.type === 'sub_admin');
   const superAgents = agents.filter(a => a.type === 'super_agent');
   const masterAgents = agents.filter(a => a.type === 'master_agent');
-
-  // Get upline options based on agent type
-  const getUplineOptions = (agentType: string) => {
-    switch (agentType) {
-      case 'site_admin':
-        return [];
-      case 'sub_admin':
-        return siteAdmins;
-      case 'super_agent':
-        return subAdmins;
-      case 'master_agent':
-        return superAgents;
-      default:
-        return [];
-    }
-  };
 
   // Calculate stats
   const stats = {
@@ -97,7 +80,6 @@ const AdminDashboard = () => {
                 নতুন এজেন্ট
               </Button>
             }
-            uplineOptions={[]} // This will be updated in the AgentManageModal
           />
         </div>
 
