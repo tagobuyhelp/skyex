@@ -135,13 +135,10 @@ export const AgentSearchModal = () => {
                         {getAgentTypeInBangla(agent.type)}
                       </p>
                     </div>
-                    <div className="flex items-center gap-2">
-                      <span className="text-sm text-muted-foreground">রেটিং:</span>
-                      <div className="flex items-center">
-                        {[...Array(agent.rating || 0)].map((_, i) => (
-                          <Star key={i} className="w-3.5 h-3.5 fill-yellow-500 text-yellow-500" />
-                        ))}
-                      </div>
+                    <div className="flex items-center">
+                      {[...Array(agent.rating || 0)].map((_, i) => (
+                        <Star key={i} className="w-3.5 h-3.5 fill-yellow-500 text-yellow-500" />
+                      ))}
                     </div>
                     {agent.reports_to && (
                       <div className="flex items-center gap-2">
@@ -153,29 +150,32 @@ export const AgentSearchModal = () => {
                     )}
                   </div>
                 </div>
-                <div className="flex items-center gap-2">
-                  {agent.agent_contacts[0]?.whatsapp && (
-                    <a
-                      href={`https://wa.me/${agent.agent_contacts[0].whatsapp}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-2 px-3 py-2 rounded-lg bg-emerald-500 hover:bg-emerald-600 text-white text-sm font-medium transition-colors"
+                <div className="flex flex-col items-end gap-1">
+                  <span className="text-xs text-muted-foreground mb-1">অ্যাকশন</span>
+                  <div className="flex items-center gap-2">
+                    {agent.agent_contacts[0]?.whatsapp && (
+                      <a
+                        href={`https://wa.me/${agent.agent_contacts[0].whatsapp}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-2 px-3 py-2 rounded-lg bg-emerald-500 hover:bg-emerald-600 text-white text-sm font-medium transition-colors"
+                      >
+                        <WhatsAppIcon className="w-4 h-4" />
+                        হোয়াটসঅ্যাপ
+                      </a>
+                    )}
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      className="h-9 w-9"
+                      onClick={() => {
+                        // Report functionality can be added here
+                        console.log('Report agent:', agent.agent_id);
+                      }}
                     >
-                      <WhatsAppIcon className="w-4 h-4" />
-                      হোয়াটসঅ্যাপ
-                    </a>
-                  )}
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    className="h-9 w-9"
-                    onClick={() => {
-                      // Report functionality can be added here
-                      console.log('Report agent:', agent.agent_id);
-                    }}
-                  >
-                    <AlertTriangle className="w-4 h-4 text-red-500" />
-                  </Button>
+                      <AlertTriangle className="w-4 h-4 text-red-500" />
+                    </Button>
+                  </div>
                 </div>
               </div>
             </div>
