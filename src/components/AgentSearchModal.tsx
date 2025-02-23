@@ -63,7 +63,8 @@ export const AgentSearchModal = () => {
   const filteredAgents = agents.filter(agent => {
     const matchesSearch = search.toLowerCase() === '' || 
       agent.name.toLowerCase().includes(search.toLowerCase()) ||
-      agent.agent_id.toLowerCase().includes(search.toLowerCase());
+      agent.agent_id.toLowerCase().includes(search.toLowerCase()) ||
+      (agent.agent_contacts[0]?.whatsapp || '').includes(search.toLowerCase());
     
     const matchesType = !selectedType || selectedType === 'all' || agent.type === selectedType;
     
@@ -108,7 +109,7 @@ export const AgentSearchModal = () => {
                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                 <input
                   type="text"
-                  placeholder="নাম বা আইডি দিয়ে খুঁজুন..."
+                  placeholder="নাম ফোন নম্বর, বা আইডি দিয়ে খুঁজুন"
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
                   className="w-full pl-9 pr-4 py-2 bg-card border border-primary/10 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary/20"
@@ -119,7 +120,7 @@ export const AgentSearchModal = () => {
               value={selectedType}
               onValueChange={setSelectedType}
             >
-              <SelectTrigger className="w-full sm:w-[140px] bg-card border-primary/10">
+              <SelectTrigger className="w-full sm:w-[140px] bg-[#F2FCE2] border-primary/10">
                 <SelectValue placeholder="সব.এজেন্ট" />
               </SelectTrigger>
               <SelectContent>
@@ -187,7 +188,7 @@ export const AgentSearchModal = () => {
                           className="flex items-center justify-center w-9 h-9 rounded-lg hover:bg-primary/10 transition-colors"
                           aria-label="Send WhatsApp message"
                         >
-                          <WhatsAppIcon className="w-4 h-4 text-muted-foreground" />
+                          <WhatsAppIcon className="w-4 h-4 text-emerald-500" />
                         </a>
                       )}
                       <Button
