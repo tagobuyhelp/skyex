@@ -19,11 +19,11 @@ const Login = () => {
   useEffect(() => {
     const checkAuth = async () => {
       const { data: { session } } = await supabase.auth.getSession();
-      if (session?.user?.id) {
+      if (session?.user?.email) {
         const { data } = await supabase
           .from('agents')
           .select('type')
-          .eq('id', session.user.id)
+          .eq('agent_id', session.user.email)
           .limit(1)
           .single();
           
@@ -54,7 +54,7 @@ const Login = () => {
       const { data: agentData } = await supabase
         .from('agents')
         .select('type')
-        .eq('id', session.user.id)
+        .eq('agent_id', email)
         .limit(1)
         .single();
 
