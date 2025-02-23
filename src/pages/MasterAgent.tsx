@@ -1,4 +1,3 @@
-
 import { useQuery } from '@tanstack/react-query';
 import { useState } from 'react';
 import { Header } from '@/components/Header';
@@ -8,6 +7,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { AgentWithContacts } from '@/types/agent';
 import { AlertTriangle, ChevronDown, ChevronUp } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { CustomerSupport } from '@/components/CustomerSupport';
 
 const fetchMasterAgents = async () => {
   const { data: uplines, error: uplinesError } = await supabase
@@ -86,7 +86,7 @@ const MasterAgent = () => {
                       </a>
                     </li>
                     <li>
-                      <strong className="text-yellow-500">হোয়াটসঅ্যাপ ব্যাতিত অন্য কোন এপ এর মাধ্যমে যোগাযোগ বা লেনদেন করা যাবে না এবং করলে তা গ্রহনযোগ্য হবে না।</strong>
+                      <strong className="text-yellow-500">হোয়াটসঅ��যাপ ব্যাতিত অন্য কোন এপ এর মাধ্যমে যোগাযোগ বা লেনদেন করা যাবে না এবং করলে তা গ্রহনযোগ্য হবে না।</strong>
                     </li>
                   </ul>
                 </div>
@@ -108,6 +108,7 @@ const MasterAgent = () => {
         )}
       </div>
       <Footer />
+      <CustomerSupport />
     </div>
   );
 };
