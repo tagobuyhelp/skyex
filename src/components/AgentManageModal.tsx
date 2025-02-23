@@ -42,6 +42,11 @@ export const AgentManageModal = ({
     messenger: agent?.agent_contacts[0]?.messenger || "",
   });
 
+  // Check if the current agent type requires an upline
+  const requiresUpline = (type: string) => {
+    return ["sub_admin", "super_agent", "master_agent"].includes(type);
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
@@ -184,7 +189,7 @@ export const AgentManageModal = ({
             <Label htmlFor="type">এজেন্ট টাইপ</Label>
             <Select
               value={formData.type}
-              onValueChange={(value: any) => setFormData({ ...formData, type: value })}
+              onValueChange={(value: any) => setFormData({ ...formData, type: value, reports_to: "" })}
               disabled={mode === "edit" || agentType !== undefined}
             >
               <SelectTrigger>
@@ -198,12 +203,13 @@ export const AgentManageModal = ({
               </SelectContent>
             </Select>
           </div>
-          {uplineOptions.length > 0 && (
+          {requiresUpline(formData.type) && uplineOptions.length > 0 && (
             <div className="space-y-2">
               <Label htmlFor="reports_to">আপলাইন</Label>
               <Select
                 value={formData.reports_to}
                 onValueChange={(value) => setFormData({ ...formData, reports_to: value })}
+                required
               >
                 <SelectTrigger>
                   <SelectValue placeholder="আপলাইন নির্বাচন করুন" />
