@@ -66,7 +66,7 @@ export const AgentSearchModal = () => {
   return <>
       <Dialog>
         <DialogTrigger asChild>
-          <Button variant="ghost" className="gap-2 text-sm bg-slate-600 hover:bg-slate-500 text-slate-50">
+          <Button variant="ghost" className="gap-2 text-sm text-slate-50 bg-emerald-700 hover:bg-emerald-600">
             <Search className="w-4 h-4" />
             এজেন্ট খুঁজুন
           </Button>
