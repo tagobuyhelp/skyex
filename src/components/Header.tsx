@@ -1,7 +1,7 @@
 
 import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, Search, Home, Shield, Users, Star, Crown, ExternalLink, UserPlus, Phone, List, X } from 'lucide-react';
+import { Menu, Search, Home, Shield, Users, Star, Crown, ExternalLink, UserPlus, Phone, List, X, LayoutDashboard } from 'lucide-react';
 import { AgentSearchModal } from './AgentSearchModal';
 import {
   Sheet,
@@ -35,6 +35,13 @@ export const Header = () => {
                   >
                     <Home className="w-4 h-4" />
                     হোম
+                  </Link>
+                  <Link 
+                    to="/admin" 
+                    className={`text-sm hover:text-primary flex items-center gap-2 p-2 rounded-lg transition-colors ${location.pathname === '/admin' ? 'text-primary bg-primary/10' : ''}`}
+                  >
+                    <LayoutDashboard className="w-4 h-4" />
+                    ড্যাশবোর্ড
                   </Link>
                   <Link 
                     to="/site-admin" 
@@ -107,6 +114,10 @@ export const Header = () => {
             <Link to="/" className={`text-sm hover:text-primary flex items-center gap-2 ${location.pathname === '/' ? 'text-primary' : ''}`}>
               <Home className="w-4 h-4" />
               হোম
+            </Link>
+            <Link to="/admin" className={`text-sm hover:text-primary flex items-center gap-2 ${location.pathname === '/admin' ? 'text-primary' : ''}`}>
+              <LayoutDashboard className="w-4 h-4" />
+              ড্যাশবোর্ড
             </Link>
             <Link to="/site-admin" className={`text-sm hover:text-primary flex items-center gap-2 ${location.pathname === '/site-admin' ? 'text-primary' : ''}`}>
               <Shield className="w-4 h-4" />

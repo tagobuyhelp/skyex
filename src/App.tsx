@@ -9,6 +9,7 @@ import SiteAdmin from "./pages/SiteAdmin";
 import SubAdmin from "./pages/SubAdmin";
 import SuperAgent from "./pages/SuperAgent";
 import MasterAgent from "./pages/MasterAgent";
+import AdminDashboard from "./pages/AdminDashboard";
 import NotFound from "./pages/NotFound";
 
 // Create a new QueryClient instance outside of the component
@@ -30,6 +31,7 @@ const App = () => {
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Index />} />
+            <Route path="/admin" element={<AdminDashboard />} />
             <Route path="/site-admin" element={<SiteAdmin />} />
             <Route path="/sub-admin" element={<SubAdmin />} />
             <Route path="/super-agent" element={<SuperAgent />} />
