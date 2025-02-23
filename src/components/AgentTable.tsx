@@ -1,5 +1,4 @@
-
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { AgentWithContacts } from '@/types/agent';
 import { AlertTriangle, Eye, Edit, Trash2, ArrowUpRight } from 'lucide-react';
@@ -63,8 +62,35 @@ export const AgentTable = ({ agents, displayAgents, title, showUpline = true, fi
   const [isHierarchyModalOpen, setIsHierarchyModalOpen] = useState(false);
   const [isComplaintModalOpen, setIsComplaintModalOpen] = useState(false);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
   const { toast } = useToast();
   const queryClient = useQueryClient();
+
+  useEffect(() => {
+    const checkAdminStatus = async () => {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session) {
+        setIsAdmin(false);
+        return;
+      }
+
+      const { data: agentData, error } = await supabase
+        .from('agents')
+        .select('type')
+        .eq('id', session.user.id)
+        .single();
+
+      if (error) {
+        console.error('Error checking admin status:', error);
+        setIsAdmin(false);
+        return;
+      }
+
+      setIsAdmin(agentData?.type === 'site_admin' || agentData?.type === 'sub_admin');
+    };
+
+    checkAdminStatus();
+  }, []);
 
   const currentPageType = title.includes('সুপার') ? 'super_agent' 
     : title.includes('মাস্টার') ? 'master_agent'
@@ -87,7 +113,6 @@ export const AgentTable = ({ agents, displayAgents, title, showUpline = true, fi
     if (!selectedAgent) return;
 
     try {
-      // First delete agent contacts
       const { error: contactsError } = await supabase
         .from('agent_contacts')
         .delete()
@@ -95,7 +120,6 @@ export const AgentTable = ({ agents, displayAgents, title, showUpline = true, fi
 
       if (contactsError) throw contactsError;
 
-      // Then delete the agent
       const { error: agentError } = await supabase
         .from('agents')
         .delete()
@@ -108,7 +132,6 @@ export const AgentTable = ({ agents, displayAgents, title, showUpline = true, fi
         description: "এজেন্টের সমস্ত তথ্য মুছে ফেলা হয়েছে।",
       });
 
-      // Invalidate queries to refetch data
       await queryClient.invalidateQueries({ queryKey: ["all-agents"] });
       await queryClient.invalidateQueries({ queryKey: ["site-admins-with-hierarchy"] });
       await queryClient.invalidateQueries({ queryKey: ["sub-admins-with-hierarchy"] });
@@ -191,16 +214,30 @@ export const AgentTable = ({ agents, displayAgents, title, showUpline = true, fi
                     <Eye className="w-3.5 h-3.5 text-emerald-400" />
                     <span className="text-xs text-emerald-400">দেখুন</span>
                   </button>
-                  <AgentManageModal
-                    mode="edit"
-                    agent={agent}
-                    trigger={
-                      <button className="p-1.5 hover:bg-blue-500/20 rounded-lg transition-colors flex items-center gap-1">
-                        <Edit className="w-3.5 h-3.5 text-blue-400" />
-                        <span className="text-xs text-blue-400">এডিট</span>
+                  {isAdmin && (
+                    <>
+                      <AgentManageModal
+                        mode="edit"
+                        agent={agent}
+                        trigger={
+                          <button className="p-1.5 hover:bg-blue-500/20 rounded-lg transition-colors flex items-center gap-1">
+                            <Edit className="w-3.5 h-3.5 text-blue-400" />
+                            <span className="text-xs text-blue-400">এডিট</span>
+                          </button>
+                        }
+                      />
+                      <button
+                        className="p-1.5 hover:bg-red-500/20 rounded-lg transition-colors flex items-center gap-1"
+                        onClick={() => {
+                          setSelectedAgent(agent);
+                          setIsDeleteDialogOpen(true);
+                        }}
+                      >
+                        <Trash2 className="w-3.5 h-3.5 text-red-400" />
+                        <span className="text-xs text-red-400">ডিলিট</span>
                       </button>
-                    }
-                  />
+                    </>
+                  )}
                   <button 
                     className="p-1.5 hover:bg-red-500/20 rounded-lg transition-colors flex items-center gap-1"
                     onClick={() => {
@@ -210,16 +247,6 @@ export const AgentTable = ({ agents, displayAgents, title, showUpline = true, fi
                   >
                     <AlertTriangle className="w-3.5 h-3.5 text-red-400" />
                     <span className="text-xs text-red-400">অভিযোগ</span>
-                  </button>
-                  <button
-                    className="p-1.5 hover:bg-red-500/20 rounded-lg transition-colors flex items-center gap-1"
-                    onClick={() => {
-                      setSelectedAgent(agent);
-                      setIsDeleteDialogOpen(true);
-                    }}
-                  >
-                    <Trash2 className="w-3.5 h-3.5 text-red-400" />
-                    <span className="text-xs text-red-400">ডিলিট</span>
                   </button>
                 </div>
               </div>
@@ -244,7 +271,7 @@ export const AgentTable = ({ agents, displayAgents, title, showUpline = true, fi
             <AlertDialogHeader>
               <AlertDialogTitle>আপনি কি নিশ্চিত?</AlertDialogTitle>
               <AlertDialogDescription>
-                এই এজেন্টের সমস্ত তথ্য স্থায়ীভাবে মুছে ফেলা হবে। এই ক্রিয়াটি আর ফিরিয়ে নেওয়া যাবে না।
+                ��ই এজেন্টের সমস্ত তথ্য স্থায়ীভাবে মুছে ফেলা হবে। এই ক্রিয়াটি আর ফিরিয়ে নেওয়া যাবে না।
               </AlertDialogDescription>
             </AlertDialogHeader>
             <AlertDialogFooter>
@@ -338,15 +365,29 @@ export const AgentTable = ({ agents, displayAgents, title, showUpline = true, fi
                     >
                       <Eye className="h-4 w-4" />
                     </Button>
-                    <AgentManageModal
-                      mode="edit"
-                      agent={agent}
-                      trigger={
-                        <Button variant="ghost" size="icon">
-                          <Edit className="h-4 w-4" />
+                    {isAdmin && (
+                      <>
+                        <AgentManageModal
+                          mode="edit"
+                          agent={agent}
+                          trigger={
+                            <Button variant="ghost" size="icon">
+                              <Edit className="h-4 w-4" />
+                            </Button>
+                          }
+                        />
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          onClick={() => {
+                            setSelectedAgent(agent);
+                            setIsDeleteDialogOpen(true);
+                          }}
+                        >
+                          <Trash2 className="h-4 w-4" />
                         </Button>
-                      }
-                    />
+                      </>
+                    )}
                     <Button
                       variant="ghost"
                       size="icon"
@@ -356,16 +397,6 @@ export const AgentTable = ({ agents, displayAgents, title, showUpline = true, fi
                       }}
                     >
                       <AlertTriangle className="h-4 w-4" />
-                    </Button>
-                    <Button
-                      variant="ghost"
-                      size="icon"
-                      onClick={() => {
-                        setSelectedAgent(agent);
-                        setIsDeleteDialogOpen(true);
-                      }}
-                    >
-                      <Trash2 className="h-4 w-4" />
                     </Button>
                   </div>
                 </TableCell>
