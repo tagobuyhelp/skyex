@@ -1,4 +1,3 @@
-
 import { useQuery } from '@tanstack/react-query';
 import { useState } from 'react';
 import { Header } from '@/components/Header';
@@ -8,6 +7,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { AgentWithContacts } from '@/types/agent';
 import { AlertTriangle, ChevronDown, ChevronUp } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { CustomerSupport } from '@/components/CustomerSupport';
 
 const fetchSubAdmins = async () => {
   // First, fetch all site admins (potential uplines)
@@ -126,6 +126,7 @@ const SubAdmin = () => {
         )}
       </div>
       <Footer />
+      <CustomerSupport />
     </div>
   );
 };

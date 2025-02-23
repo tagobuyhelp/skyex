@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
 import { AgentTable } from '@/components/AgentTable';
+import { CustomerSupport } from '@/components/CustomerSupport';
 import { supabase } from '@/integrations/supabase/client';
 import { AgentWithContacts } from '@/types/agent';
 import { AlertTriangle, ChevronDown, ChevronUp } from 'lucide-react';
@@ -108,6 +109,7 @@ const SiteAdmin = () => {
         )}
       </div>
       <Footer />
+      <CustomerSupport />
     </div>
   );
 };
