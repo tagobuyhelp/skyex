@@ -1,6 +1,6 @@
 
 import { useState } from 'react';
-import { Search, Star, AlertTriangle } from 'lucide-react';
+import { Search, Star, AlertTriangle, Eye, Phone } from 'lucide-react';
 import {
   Dialog,
   DialogContent,
@@ -20,6 +20,7 @@ import { useQuery } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
 import { AgentWithContacts } from '@/types/agent';
 import { WhatsAppIcon } from '@/components/icons/WhatsAppIcon';
+import { useNavigate } from 'react-router-dom';
 
 const getAgentTypeInBangla = (type: string) => {
   switch (type) {
@@ -39,6 +40,7 @@ const getAgentTypeInBangla = (type: string) => {
 export const AgentSearchModal = () => {
   const [search, setSearch] = useState('');
   const [selectedType, setSelectedType] = useState<string | undefined>();
+  const navigate = useNavigate();
 
   const { data: agents = [], isLoading } = useQuery({
     queryKey: ['agents'],
@@ -149,10 +151,27 @@ export const AgentSearchModal = () => {
                       </div>
                     )}
                   </div>
+                  {agent.agent_contacts[0]?.whatsapp && (
+                    <div className="flex items-center gap-2 mt-1">
+                      <Phone className="w-4 h-4 text-muted-foreground" />
+                      <span className="text-sm text-muted-foreground">
+                        {agent.agent_contacts[0].whatsapp}
+                      </span>
+                    </div>
+                  )}
                 </div>
                 <div className="flex flex-col items-end gap-1">
                   <span className="text-xs text-muted-foreground mb-1">অ্যাকশন</span>
                   <div className="flex items-center gap-2">
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      className="gap-2"
+                      onClick={() => navigate(`/agents/${agent.id}/view`)}
+                    >
+                      <Eye className="w-4 h-4" />
+                      দেখুন
+                    </Button>
                     {agent.agent_contacts[0]?.whatsapp && (
                       <a
                         href={`https://wa.me/${agent.agent_contacts[0].whatsapp}`}
@@ -161,7 +180,7 @@ export const AgentSearchModal = () => {
                         className="flex items-center gap-2 px-3 py-2 rounded-lg bg-emerald-500 hover:bg-emerald-600 text-white text-sm font-medium transition-colors"
                       >
                         <WhatsAppIcon className="w-4 h-4" />
-                        হোয়াটসঅ্যাপ
+                        মেসেজ
                       </a>
                     )}
                     <Button
