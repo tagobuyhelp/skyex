@@ -1,10 +1,12 @@
-
 import { useQuery } from '@tanstack/react-query';
+import { useState } from 'react';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
 import { AgentTable } from '@/components/AgentTable';
 import { supabase } from '@/integrations/supabase/client';
 import { AgentWithContacts } from '@/types/agent';
+import { AlertTriangle, ChevronDown, ChevronUp } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 import { CustomerSupport } from '@/components/CustomerSupport';
 
 const fetchSuperAgents = async () => {
@@ -50,6 +52,7 @@ const fetchSuperAgents = async () => {
 };
 
 const SuperAgent = () => {
+  const [showWarning, setShowWarning] = useState(true);
   const { data: agents = [], isLoading } = useQuery({
     queryKey: ['super-agents-with-hierarchy'],
     queryFn: fetchSuperAgents,
@@ -60,18 +63,68 @@ const SuperAgent = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
       <Header />
-      {isLoading ? (
-        <div className="flex justify-center items-center py-8">
-          <div className="text-center">Loading...</div>
+      <div className="container mx-auto px-2 sm:px-6 py-2 md:py-6">
+        <div className="relative">
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => setShowWarning(!showWarning)}
+            className="absolute right-2 top-2 z-10"
+          >
+            {showWarning ? (
+              <>
+                <ChevronUp className="mr-1" />
+                <span className="hidden sm:inline">সরান</span>
+              </> 
+            ) : (
+              <>
+                <ChevronDown className="mr-1" />
+                <span className="hidden sm:inline">দেখান</span>
+              </>
+            )}
+          </Button>
+          {showWarning && (
+            <div className="glass-card p-4 sm:p-6 mb-6">
+              <div className="flex gap-3 items-start">
+                <AlertTriangle className="w-5 h-5 text-yellow-500 mt-1 flex-shrink-0" />
+                <div className="space-y-3 text-sm sm:text-base">
+                  <p className="font-semibold text-yellow-500">
+                    এজেন্ট দের সাথে লেনদেন এর আগে ভেল্কির নিয়ম গুলো জেনে নিন!!
+                  </p>
+                  <ul className="space-y-2 text-muted-foreground">
+                    <li className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2">
+                      <strong className="text-yellow-500 shrink-0">প্রতারনার হাত থেকে বাচতে সবার আগে ভিজিট করুন ভেল্কি সাইটঃ</strong>
+                      <a 
+                        href="https://velki.com" 
+                        target="_blank" 
+                        rel="noopener noreferrer" 
+                        className="text-blue-400 hover:text-blue-300 break-all sm:break-normal"
+                      >
+                        VELKI.COM
+                      </a>
+                    </li>
+                    <li>
+                      <strong className="text-yellow-500">হোয়াটসঅ্যাপ ব্যাতিত অন্য কোন এপ এর মাধ্যমে যোগাযোগ বা লেনদেন করা যাবে না এবং করলে তা গ্রহনযোগ্য হবে না।</strong>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
-      ) : (
-        <AgentTable 
-          agents={agents}
-          displayAgents={superAgents}
-          title="VELKI সুপার এজেন্ট লিস্ট"
-          filterSiteAdmins={false}
-        />
-      )}
+        {isLoading ? (
+          <div className="flex justify-center items-center py-8">
+            <div className="text-center">Loading...</div>
+          </div>
+        ) : (
+          <AgentTable 
+            agents={agents}
+            displayAgents={superAgents}
+            title="VELKI সুপার এজেন্ট লিস্ট"
+            filterSiteAdmins={false}
+          />
+        )}
+      </div>
       <Footer />
       <CustomerSupport />
     </div>
