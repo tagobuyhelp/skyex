@@ -179,6 +179,17 @@ export const AgentSearchModal = () => {
                   <div className="flex justify-end sm:flex-col sm:items-end gap-1">
                     <span className="sr-only sm:not-sr-only text-xs text-muted-foreground mb-1">অ্যাকশন</span>
                     <div className="flex items-center gap-2">
+                      {agent.agent_contacts[0]?.whatsapp && (
+                        <a
+                          href={`https://wa.me/${agent.agent_contacts[0].whatsapp}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex items-center justify-center w-9 h-9 rounded-lg hover:bg-primary/10 transition-colors"
+                          aria-label="Send WhatsApp message"
+                        >
+                          <WhatsAppIcon className="w-4 h-4 text-muted-foreground" />
+                        </a>
+                      )}
                       <Button
                         variant="outline"
                         size="sm"
@@ -188,17 +199,6 @@ export const AgentSearchModal = () => {
                         <Eye className="w-4 h-4" />
                         দেখুন
                       </Button>
-                      {agent.agent_contacts[0]?.whatsapp && (
-                        <a
-                          href={`https://wa.me/${agent.agent_contacts[0].whatsapp}`}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="flex items-center justify-center w-9 h-9 rounded-lg bg-emerald-500 hover:bg-emerald-600 text-white transition-colors"
-                          aria-label="Send WhatsApp message"
-                        >
-                          <WhatsAppIcon className="w-4 h-4" />
-                        </a>
-                      )}
                       <Button
                         variant="ghost"
                         size="icon"
