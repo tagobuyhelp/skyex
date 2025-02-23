@@ -1,3 +1,4 @@
+
 import * as React from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Header } from "@/components/Header";
@@ -221,24 +222,30 @@ const Index = () => {
 
       {/* Agent Types */}
       <section className="container py-8 md:py-12 px-4 md:px-6">
-        <h2 className="text-2xl font-bold mb-6 text-center">Agent Categories</h2>
+        <h2 className="text-2xl font-bold mb-6 text-center">এজেন্ট কয় প্রকার</h2>
         <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
           <div className="glass-card p-4 md:p-6">
-            <h3 className="text-lg font-semibold mb-3">Online Super Agent</h3>
+            <h3 className="text-lg font-semibold mb-3">অনলাইন সুপার এজেন্ট</h3>
             <p className="text-muted-foreground text-sm">
-              Apply for super agent position through our official channels. Contact support for more information.
+              সুপার এজেন্টরা ইউজার একাউন্ট এবং মা্টার এজেন্ট একাউন্ট খুলে দিতে পারেন। কোন সুপার এজেন্টের নামে অভিযোগ থাকলে সরাসরি এডমিনকে জানাতে হবে উপরে মেনুতে এডমিন লিস্ট দেওয়া আছে।
             </p>
           </div>
           <div className="glass-card p-4 md:p-6">
-            <h3 className="text-lg font-semibold mb-3">Online Master Agent</h3>
+            <h3 className="text-lg font-semibold mb-3">অনলাইন মাস্টার এজেন্ট</h3>
             <p className="text-muted-foreground text-sm">
-              Join our master agent program with exclusive benefits and support.
+              অনলাইন মাস্টার এজেন্টরা শুধু ইউজার একাউন্ট খুলে দিতে পারেন। কোন মাস্টার এজেন্টের নামে অভিযোগ থাকলে সরাসরি সুপার এজেন্টের কাছে অভিযোগ করতে হবে{" "}
+              <a href="/super-agent" className="text-primary hover:underline">
+                বিস্তারিত জানতে এই লিংকে ক্লিক করুন
+              </a>।
             </p>
           </div>
           <div className="glass-card p-4 md:p-6">
-            <h3 className="text-lg font-semibold mb-3">Local Master Agent</h3>
+            <h3 className="text-lg font-semibold mb-3">লোকাল মাস্টার এজেন্ট</h3>
             <p className="text-muted-foreground text-sm">
-              Become a local master agent and grow your business in your area.
+              লোকাল মাস্টার এজেন্টরা শুধু ইউজার একাউন্ট খুলে দিতে পারেন। কোন লোকাল মাস্টার এজেন্টের নামে অভিযোগ থাকলে সরাসরি অনলাইন মাস্টার এজেন্টের কাছে অভিযোগ করতে হবে{" "}
+              <a href="/master-agent" className="text-primary hover:underline">
+                বিস্তারিত জানতে এই লিংকে ক্লিক করুন
+              </a>।
             </p>
           </div>
         </div>
