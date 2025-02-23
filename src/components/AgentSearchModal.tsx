@@ -122,12 +122,37 @@ export const AgentSearchModal = () => {
               <SelectTrigger className="w-full sm:w-[140px] border-primary/10">
                 <SelectValue placeholder="সব.এজেন্ট" />
               </SelectTrigger>
-              <SelectContent className="bg-[#F2FCE2] border-primary/10">
-                <SelectItem value="all" className="text-primary hover:bg-primary/10 hover:text-primary">সব এজেন্ট</SelectItem>
-                <SelectItem value="site_admin" className="text-primary hover:bg-primary/10 hover:text-primary">সাইট এডমিন</SelectItem>
-                <SelectItem value="sub_admin" className="text-primary hover:bg-primary/10 hover:text-primary">সাব এডমিন</SelectItem>
-                <SelectItem value="super_agent" className="text-primary hover:bg-primary/10 hover:text-primary">সুপার এজেন্ট</SelectItem>
-                <SelectItem value="master_agent" className="text-primary hover:bg-primary/10 hover:text-primary">মাস্টার এজেন্ট</SelectItem>
+              <SelectContent className="bg-gradient-to-b from-[#F2FCE2] to-white border-primary/10 shadow-lg backdrop-blur-sm">
+                <SelectItem 
+                  value="all" 
+                  className="text-primary hover:bg-primary/10 hover:text-primary transition-all duration-200 rounded-md px-3 py-2 my-1 cursor-pointer font-medium"
+                >
+                  সব এজেন্ট
+                </SelectItem>
+                <SelectItem 
+                  value="site_admin" 
+                  className="text-primary hover:bg-primary/10 hover:text-primary transition-all duration-200 rounded-md px-3 py-2 my-1 cursor-pointer font-medium"
+                >
+                  সাইট এডমিন
+                </SelectItem>
+                <SelectItem 
+                  value="sub_admin" 
+                  className="text-primary hover:bg-primary/10 hover:text-primary transition-all duration-200 rounded-md px-3 py-2 my-1 cursor-pointer font-medium"
+                >
+                  সাব এডমিন
+                </SelectItem>
+                <SelectItem 
+                  value="super_agent" 
+                  className="text-primary hover:bg-primary/10 hover:text-primary transition-all duration-200 rounded-md px-3 py-2 my-1 cursor-pointer font-medium"
+                >
+                  সুপার এজেন্ট
+                </SelectItem>
+                <SelectItem 
+                  value="master_agent" 
+                  className="text-primary hover:bg-primary/10 hover:text-primary transition-all duration-200 rounded-md px-3 py-2 my-1 cursor-pointer font-medium"
+                >
+                  মাস্টার এজেন্ট
+                </SelectItem>
               </SelectContent>
             </Select>
           </div>
