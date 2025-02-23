@@ -20,6 +20,7 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import Autoplay from "embla-carousel-autoplay";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const fetchAllAgents = async () => {
   const { data: agents, error } = await supabase
@@ -61,6 +62,7 @@ const Index = () => {
   const [isHierarchyModalOpen, setIsHierarchyModalOpen] = useState(false);
   const [isComplaintModalOpen, setIsComplaintModalOpen] = useState(false);
   const [currentNoticeIndex, setCurrentNoticeIndex] = useState(0);
+  const isMobile = useIsMobile();
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -135,14 +137,14 @@ const Index = () => {
       {/* Notice Ticker */}
       <div className="bg-gradient-to-r from-primary/10 via-primary/5 to-primary/10 border-y border-primary/20">
         <div className="container py-3 px-4">
-          <div className="flex items-center gap-3 overflow-hidden">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-3">
             <div className="flex items-center gap-2 shrink-0">
               <Info className="w-4 h-4 text-primary animate-pulse" />
               <span className="text-primary font-medium">নোটিশ:</span>
             </div>
-            <div className="relative flex-1 overflow-hidden">
+            <div className="relative flex-1 w-full overflow-hidden">
               <div 
-                className="whitespace-nowrap transition-transform duration-1000 ease-in-out"
+                className={`transition-transform duration-1000 ease-in-out ${isMobile ? '' : 'whitespace-nowrap'}`}
                 style={{ 
                   transform: `translateX(-${currentNoticeIndex * 100}%)`,
                 }}
@@ -150,7 +152,7 @@ const Index = () => {
                 {notices.map((notice, index) => (
                   <span
                     key={index}
-                    className={`inline-block w-full text-muted-foreground animate-fade-in`}
+                    className={`inline-block w-full text-muted-foreground animate-fade-in ${isMobile ? 'text-sm leading-relaxed' : ''}`}
                   >
                     {notice}
                   </span>
