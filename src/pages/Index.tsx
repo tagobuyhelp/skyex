@@ -6,7 +6,7 @@ import { CustomerSupport } from "@/components/CustomerSupport";
 import { AgentCard } from "@/components/AgentCard";
 import { supabase } from "@/integrations/supabase/client";
 import { AgentWithContacts } from "@/types/agent";
-import { AlertTriangle, Eye, ExternalLink, Globe, MessageSquare, Phone, Shield, Users, Link } from "lucide-react";
+import { AlertTriangle, Eye, ExternalLink, Globe, Info, MessageSquare, Phone, Shield, Users, Link } from "lucide-react";
 import { WhatsAppIcon } from "@/components/icons/WhatsAppIcon";
 import { Button } from "@/components/ui/button";
 import { useState, useEffect } from "react";
@@ -44,6 +44,13 @@ const heroImages = [
   "/favicon.ico"
 ];
 
+const notices = [
+  "আপডেট: সকল এজেন্টদের জন্য নতুন লাইভ পোর্টাল চালু করা হয়েছে",
+  "জরুরী: সার্ভার আপগ্রেড চলছে, কিছু সময়ের জন্য সিস্টেম স্লো হতে পারে",
+  "বিশেষ ঘোষণা: নতুন এজেন্ট রেজিস্ট্রেশন শুরু হয়েছে",
+  "সতর্কতা: যেকোনো লেনদেনের আগে এজেন্টের আইডি যাচাই করে নিন"
+];
+
 const Index = () => {
   const { data: allAgents, isLoading } = useQuery({
     queryKey: ["all-agents"],
@@ -53,6 +60,17 @@ const Index = () => {
   const [selectedAgent, setSelectedAgent] = useState<AgentWithContacts | null>(null);
   const [isHierarchyModalOpen, setIsHierarchyModalOpen] = useState(false);
   const [isComplaintModalOpen, setIsComplaintModalOpen] = useState(false);
+  const [currentNoticeIndex, setCurrentNoticeIndex] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentNoticeIndex((prevIndex) => 
+        prevIndex === notices.length - 1 ? 0 : prevIndex + 1
+      );
+    }, 5000);
+
+    return () => clearInterval(timer);
+  }, []);
 
   const handleViewHierarchy = (agent: AgentWithContacts) => {
     setSelectedAgent(agent);
@@ -113,6 +131,35 @@ const Index = () => {
           <CarouselNext className="right-2 md:right-4 h-8 w-8 md:h-10 md:w-10" />
         </Carousel>
       </section>
+
+      {/* Notice Ticker */}
+      <div className="bg-gradient-to-r from-primary/10 via-primary/5 to-primary/10 border-y border-primary/20">
+        <div className="container py-3 px-4">
+          <div className="flex items-center gap-3 overflow-hidden">
+            <div className="flex items-center gap-2 shrink-0">
+              <Info className="w-4 h-4 text-primary animate-pulse" />
+              <span className="text-primary font-medium">নোটিশ:</span>
+            </div>
+            <div className="relative flex-1 overflow-hidden">
+              <div 
+                className="whitespace-nowrap transition-transform duration-1000 ease-in-out"
+                style={{ 
+                  transform: `translateX(-${currentNoticeIndex * 100}%)`,
+                }}
+              >
+                {notices.map((notice, index) => (
+                  <span
+                    key={index}
+                    className={`inline-block w-full text-muted-foreground animate-fade-in`}
+                  >
+                    {notice}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 
       {/* Quick Master Agents List */}
       <section className="container py-6 md:py-12 px-4">
@@ -234,7 +281,7 @@ const Index = () => {
               </h3>
               <div className="bg-[#162133] rounded p-3 md:p-4">
                 <p className="text-gray-300 text-xs md:text-sm leading-relaxed">
-                  সুপার এজেন্টরা ইউজার একাউন্ট এবং মা্টার এজেন্ট একাউন্ট খুলে দিতে পারেন। কোন সুপার এজেন্টের নামে অভিযোগ থাকলে সরাসরি এডমিনকে জানাতে হবে উপরে মেনুতে এডমিন লিস্ট দেওয়া আছে।
+                  সুপার এজেন্টরা ইউজার একাউন্ট এবং মা্টার এজেন্ট একাউন্ট খুলে ��িতে পারেন। কোন সুপার এজেন্টের নামে অভিযোগ থাকলে সরাসরি এডমিনকে জানাতে হবে উপরে মেনুতে এডমিন লিস্ট দেওয়া আছে।
                 </p>
               </div>
             </div>
