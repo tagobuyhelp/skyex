@@ -190,7 +190,7 @@ export const AgentManageModal = ({
               <SelectTrigger>
                 <SelectValue />
               </SelectTrigger>
-              <SelectContent>
+              <SelectContent className="bg-[#1F2937] border border-primary/20">
                 <SelectItem value="site_admin">সাইট এডমিন</SelectItem>
                 <SelectItem value="sub_admin">সাব এডমিন</SelectItem>
                 <SelectItem value="super_agent">সুপার এজেন্ট</SelectItem>
@@ -208,7 +208,7 @@ export const AgentManageModal = ({
                 <SelectTrigger>
                   <SelectValue placeholder="আপলাইন নির্বাচন করুন" />
                 </SelectTrigger>
-                <SelectContent>
+                <SelectContent className="bg-[#1F2937] border border-primary/20">
                   {uplineOptions.map((upline) => (
                     <SelectItem key={upline.id} value={upline.id}>
                       {upline.name} ({upline.agent_id})
