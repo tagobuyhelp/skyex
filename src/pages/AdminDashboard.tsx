@@ -1,14 +1,14 @@
-
 import { useQuery } from '@tanstack/react-query';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
 import { CustomerSupport } from '@/components/CustomerSupport';
 import { supabase } from '@/integrations/supabase/client';
 import { AgentWithContacts } from '@/types/agent';
-import { Users, Shield, Star, Crown, TrendingUp, AlertTriangle } from 'lucide-react';
+import { Users, Shield, Star, Crown, TrendingUp, AlertTriangle, UserPlus } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { AgentManageModal } from '@/components/AgentManageModal';
 
-// Stats card component for reusability
 const StatCard = ({ title, value, icon: Icon, description }: {
   title: string;
   value: string | number;
@@ -59,11 +59,19 @@ const AdminDashboard = () => {
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
       <Header />
       <div className="container px-4 py-8">
-        <div className="mb-8">
-          <h1 className="text-2xl font-bold text-white mb-2">এডমিন ড্যাশবোর্ড</h1>
-          <p className="text-muted-foreground">
-            সমস্ত এজেন্টের বিস্তারিত তথ্য এবং পরিসংখ্যান দেখুন
-          </p>
+        <div className="mb-8 flex justify-between items-center">
+          <div>
+            <h1 className="text-2xl font-bold text-white mb-2">এডমিন ড্যাশবোর্ড</h1>
+            <p className="text-muted-foreground">
+              সমস্ত এজেন্টের বিস্তারিত তথ্য এবং পরিসংখ্যান দেখুন
+            </p>
+          </div>
+          <AgentManageModal mode="create" trigger={
+            <Button>
+              <UserPlus className="w-4 h-4 mr-2" />
+              নতুন এজেন্ট
+            </Button>
+          } />
         </div>
 
         {isLoading ? (
@@ -106,7 +114,6 @@ const AdminDashboard = () => {
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-4">
-                    {/* Activity feed items */}
                     <div className="flex items-center gap-4 p-3 rounded-lg bg-background/50">
                       <TrendingUp className="w-4 h-4 text-green-400" />
                       <div>
