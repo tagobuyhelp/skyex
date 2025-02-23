@@ -17,12 +17,12 @@ export const Header = () => {
 
   return (
     <header className="sticky top-0 z-50 bg-background/95 backdrop-blur-sm border-b border-primary/20">
-      <div className="container">
+      <div className="container px-2 md:px-8">
         <div className="flex items-center justify-between h-16">
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-2 md:gap-4">
             <Sheet>
-              <SheetTrigger className="p-2 hover:bg-primary/20 rounded-lg transition-colors md:hidden">
-                <Menu className="w-6 h-6" />
+              <SheetTrigger className="p-1.5 md:p-2 hover:bg-primary/20 rounded-lg transition-colors md:hidden">
+                <Menu className="w-5 h-5 md:w-6 md:h-6" />
               </SheetTrigger>
               <SheetContent side="left" className="w-[300px] sm:w-[400px] bg-background/95 backdrop-blur-sm border-r border-primary/20">
                 <SheetHeader>
@@ -100,7 +100,7 @@ export const Header = () => {
                 </nav>
               </SheetContent>
             </Sheet>
-            <Link to="/" className="text-xl font-semibold text-gradient">Skyex</Link>
+            <Link to="/" className="text-lg md:text-xl font-semibold text-gradient">Skyex</Link>
           </div>
           
           <nav className="hidden md:flex items-center gap-6">
@@ -152,7 +152,7 @@ export const Header = () => {
             </div>
           </nav>
 
-          <div className="flex items-center gap-4">
+          <div className="flex items-center">
             <AgentSearchModal />
           </div>
         </div>
