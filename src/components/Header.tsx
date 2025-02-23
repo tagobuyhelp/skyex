@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, Search, User, Home, Shield, Users, Star, Crown, ExternalLink, UserPlus, Phone, List } from 'lucide-react';
+import { AgentSearchModal } from './AgentSearchModal';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -111,12 +112,7 @@ export const Header = () => {
           </nav>
 
           <div className="flex items-center gap-4">
-            <button 
-              onClick={() => setIsSearchOpen(!isSearchOpen)}
-              className="p-2 hover:bg-primary/20 rounded-lg transition-colors"
-            >
-              <Search className="w-6 h-6" />
-            </button>
+            <AgentSearchModal />
             <button className="p-2 hover:bg-primary/20 rounded-lg transition-colors">
               <User className="w-6 h-6" />
             </button>
