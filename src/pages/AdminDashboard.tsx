@@ -1,3 +1,4 @@
+
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
@@ -165,14 +166,14 @@ const AdminDashboard = () => {
                       <TrendingUp className="w-4 h-4 text-green-400" />
                       <div>
                         <p className="text-sm">নতুন এজেন্ট যোগ হয়েছে</p>
-                        <p className="text-xs text-muted-foreground">১ ঘণ্টা আগে</p>
+                        <p className="text-xs text-muted-foreground mt-1">১ ঘণ্টা আগে</p>
                       </div>
                     </div>
                     <div className="flex items-center gap-4 p-3 rounded-lg bg-background/50">
                       <AlertTriangle className="w-4 h-4 text-yellow-400" />
                       <div>
                         <p className="text-sm">সিস্টেম আপডেট সম্পন্ন হয়েছে</p>
-                        <p className="text-xs text-muted-foreground">২ ঘণ্টা আগে</p>
+                        <p className="text-xs text-muted-foreground mt-1">২ ঘণ্টা আগে</p>
                       </div>
                     </div>
                   </div>
