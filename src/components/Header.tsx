@@ -21,7 +21,7 @@ export const Header = () => {
             <button className="p-2 hover:bg-primary/20 rounded-lg transition-colors">
               <Menu className="w-6 h-6" />
             </button>
-            <Link to="/" className="text-xl font-semibold text-gradient">Velki</Link>
+            <Link to="/" className="text-xl font-semibold text-gradient">Skyex</Link>
           </div>
           
           <nav className="hidden md:flex items-center gap-6">
@@ -83,14 +83,14 @@ export const Header = () => {
                   className="flex items-center gap-2 px-4 py-2 hover:bg-primary/20 transition-colors"
                 >
                   <ExternalLink className="w-4 h-4" />
-                  <span>ভেল্কি প্রক্সি লিংক</span>
+                  <span>স্কাইএক্স প্রক্সি লিংক</span>
                 </Link>
                 <Link 
                   to="/create-account" 
                   className="flex items-center gap-2 px-4 py-2 hover:bg-primary/20 transition-colors"
                 >
                   <UserPlus className="w-4 h-4" />
-                  <span>ভেল্কিতে একাউন্ট খুলবেন?</span>
+                  <span>স্কাইএক্স একাউন্ট খুলবেন?</span>
                 </Link>
                 <Link 
                   to="/new-agent-number" 
