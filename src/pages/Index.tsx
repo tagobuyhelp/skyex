@@ -5,7 +5,7 @@ import { Footer } from "@/components/Footer";
 import { AgentCard } from "@/components/AgentCard";
 import { supabase } from "@/integrations/supabase/client";
 import { AgentWithContacts } from "@/types/agent";
-import { AlertTriangle, Eye, ExternalLink, Globe, MessageSquare, Phone, Shield, Users } from "lucide-react";
+import { AlertTriangle, Eye, ExternalLink, Globe, MessageSquare, Phone, Shield, Users, Link } from "lucide-react";
 import { WhatsAppIcon } from "@/components/icons/WhatsAppIcon";
 import { Button } from "@/components/ui/button";
 import { useState, useEffect } from "react";
@@ -161,6 +161,41 @@ const Index = () => {
               ))}
             </div>
           )}
+        </div>
+      </section>
+
+      {/* Proxy Links Section */}
+      <section className="container py-8 md:py-12 px-4 md:px-6">
+        <div className="glass-card p-4 md:p-6">
+          <h2 className="text-xl font-semibold mb-4 flex items-center gap-2">
+            <Link className="w-5 h-5" />
+            ভেল্কি প্রক্সি লিঙ্ক
+          </h2>
+          <div className="space-y-4">
+            <div className="p-4 bg-secondary/50 rounded-lg">
+              <p className="text-lg mb-2">ভেল্কি সাইটের প্রক্সী লিঙ্কঃ</p>
+              <div className="space-y-2">
+                <a 
+                  href="http://adhmor247.live" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="flex items-center gap-2 text-primary hover:underline"
+                >
+                  <ExternalLink className="w-4 h-4" />
+                  http://adhmor247.live
+                </a>
+                <a 
+                  href="http://wikspin24.live" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="flex items-center gap-2 text-primary hover:underline"
+                >
+                  <ExternalLink className="w-4 h-4" />
+                  http://wikspin24.live
+                </a>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
