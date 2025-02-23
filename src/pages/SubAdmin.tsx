@@ -1,3 +1,4 @@
+
 import { useQuery } from '@tanstack/react-query';
 import { useState } from 'react';
 import { Header } from '@/components/Header';
@@ -7,9 +8,9 @@ import { supabase } from '@/integrations/supabase/client';
 import { AgentWithContacts } from '@/types/agent';
 import { AlertTriangle, ChevronDown, ChevronUp } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { CustomerSupport } from '@/components/CustomerSupport';
 
 const fetchSubAdmins = async () => {
+  // First, fetch all site admins (potential uplines)
   const { data: siteAdmins, error: siteAdminsError } = await supabase
     .from('agents')
     .select(`
@@ -20,6 +21,7 @@ const fetchSubAdmins = async () => {
 
   if (siteAdminsError) throw siteAdminsError;
 
+  // Then fetch sub admins
   const { data: subAdmins, error: subAdminsError } = await supabase
     .from('agents')
     .select(`
@@ -30,6 +32,7 @@ const fetchSubAdmins = async () => {
 
   if (subAdminsError) throw subAdminsError;
 
+  // Finally fetch super agents and master agents (potential downlines)
   const { data: downlineAgents, error: downlineAgentsError } = await supabase
     .from('agents')
     .select(`
@@ -40,6 +43,7 @@ const fetchSubAdmins = async () => {
 
   if (downlineAgentsError) throw downlineAgentsError;
 
+  // Combine all sets of data to have complete hierarchy information
   return [
     ...(subAdmins || []), 
     ...(siteAdmins || []), 
@@ -122,7 +126,6 @@ const SubAdmin = () => {
         )}
       </div>
       <Footer />
-      <CustomerSupport />
     </div>
   );
 };
