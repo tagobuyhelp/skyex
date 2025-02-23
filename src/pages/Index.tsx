@@ -1,3 +1,4 @@
+
 import * as React from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Header } from "@/components/Header";
@@ -114,47 +115,47 @@ const Index = () => {
       </section>
 
       {/* Quick Master Agents List */}
-      <section className="container py-8 md:py-12 px-4 md:px-6">
+      <section className="container py-6 md:py-12 px-4">
         <div className="glass-card p-4 md:p-6">
-          <h2 className="text-xl font-semibold mb-4 flex items-center gap-2">
-            <Users className="w-5 h-5" />
+          <h2 className="text-lg md:text-xl font-semibold mb-4 flex items-center gap-2">
+            <Users className="w-4 h-4 md:w-5 md:h-5" />
             কুইক মাস্টার এজেন্ট লিস্ট
           </h2>
           {isLoading ? (
             <div>Loading agents...</div>
           ) : (
-            <div className="space-y-4">
+            <div className="space-y-3 md:space-y-4">
               {masterAgents?.map((agent) => (
-                <div key={agent.id} className="flex flex-col sm:flex-row sm:items-center justify-between p-4 bg-secondary/50 rounded-lg gap-4">
-                  <div className="flex items-center gap-4">
-                    <div className="agent-avatar">{agent.name[0]}</div>
+                <div key={agent.id} className="flex flex-col sm:flex-row sm:items-center justify-between p-3 md:p-4 bg-secondary/50 rounded-lg gap-3 md:gap-4">
+                  <div className="flex items-center gap-3">
+                    <div className="agent-avatar text-base md:text-lg">{agent.name[0]}</div>
                     <div>
-                      <p className="font-medium">{agent.name}</p>
-                      <p className="px-2 py-0.5 bg-emerald-500/20 rounded text-emerald-400 font-medium inline-block">
+                      <p className="font-medium text-sm md:text-base">{agent.name}</p>
+                      <p className="px-2 py-0.5 bg-emerald-500/20 rounded text-emerald-400 font-medium text-xs md:text-sm inline-block">
                         {agent.agent_id}
                       </p>
                       {agent.agent_contacts[0]?.whatsapp && (
                         <div className="flex items-center gap-2 mt-1">
-                          <WhatsAppIcon />
-                          <span className="text-sm">{formatPhoneNumber(agent.agent_contacts[0].whatsapp)}</span>
+                          <WhatsAppIcon className="w-4 h-4" />
+                          <span className="text-xs md:text-sm">{formatPhoneNumber(agent.agent_contacts[0].whatsapp)}</span>
                         </div>
                       )}
                     </div>
                   </div>
-                  <div className="flex gap-2">
+                  <div className="flex gap-2 self-end sm:self-center">
                     <button 
-                      className="p-2 hover:bg-emerald-500/20 rounded-lg transition-colors flex items-center gap-1.5 whitespace-nowrap"
+                      className="p-2 hover:bg-emerald-500/20 rounded-lg transition-colors flex items-center gap-1.5 whitespace-nowrap text-xs md:text-sm"
                       onClick={() => handleViewHierarchy(agent)}
                     >
-                      <Eye className="w-4 h-4 text-emerald-400" />
-                      <span className="text-sm text-emerald-400">দেখুন</span>
+                      <Eye className="w-3 h-3 md:w-4 md:h-4 text-emerald-400" />
+                      <span className="text-emerald-400">দেখুন</span>
                     </button>
                     <button 
-                      className="p-2 hover:bg-red-500/20 rounded-lg transition-colors flex items-center gap-1.5 whitespace-nowrap"
+                      className="p-2 hover:bg-red-500/20 rounded-lg transition-colors flex items-center gap-1.5 whitespace-nowrap text-xs md:text-sm"
                       onClick={() => handleComplaint(agent)}
                     >
-                      <AlertTriangle className="w-4 h-4 text-red-400" />
-                      <span className="text-sm text-red-400">অভিযোগ</span>
+                      <AlertTriangle className="w-3 h-3 md:w-4 md:h-4 text-red-400" />
+                      <span className="text-red-400">অভিযোগ</span>
                     </button>
                   </div>
                 </div>
@@ -165,32 +166,32 @@ const Index = () => {
       </section>
 
       {/* Proxy Links Section */}
-      <section className="container py-8 md:py-12 px-4 md:px-6">
+      <section className="container py-6 md:py-12 px-4">
         <div className="glass-card p-4 md:p-6">
-          <h2 className="text-xl font-semibold mb-4 flex items-center gap-2">
-            <Link className="w-5 h-5" />
+          <h2 className="text-lg md:text-xl font-semibold mb-4 flex items-center gap-2">
+            <Link className="w-4 h-4 md:w-5 md:h-5" />
             ভেল্কি প্রক্সি লিঙ্ক
           </h2>
-          <div className="space-y-4">
-            <div className="p-4 bg-secondary/50 rounded-lg">
-              <p className="text-lg mb-2">ভেল���কি সাইটের প্রক্সী লিঙ্কঃ</p>
+          <div className="space-y-3 md:space-y-4">
+            <div className="p-3 md:p-4 bg-secondary/50 rounded-lg">
+              <p className="text-base md:text-lg mb-2">ভেল্কি সাইটের প্রক্সী লিঙ্কঃ</p>
               <div className="space-y-2">
                 <a 
                   href="http://adhmor247.live" 
                   target="_blank" 
                   rel="noopener noreferrer" 
-                  className="flex items-center gap-2 text-primary hover:underline"
+                  className="flex items-center gap-2 text-primary hover:underline text-sm md:text-base"
                 >
-                  <ExternalLink className="w-4 h-4" />
+                  <ExternalLink className="w-3 h-3 md:w-4 md:h-4" />
                   http://adhmor247.live
                 </a>
                 <a 
                   href="http://wikspin24.live" 
                   target="_blank" 
                   rel="noopener noreferrer" 
-                  className="flex items-center gap-2 text-primary hover:underline"
+                  className="flex items-center gap-2 text-primary hover:underline text-sm md:text-base"
                 >
-                  <ExternalLink className="w-4 h-4" />
+                  <ExternalLink className="w-3 h-3 md:w-4 md:h-4" />
                   http://wikspin24.live
                 </a>
               </div>
@@ -200,49 +201,49 @@ const Index = () => {
       </section>
 
       {/* Official Links */}
-      <section className="container py-8 md:py-12 px-4 md:px-6">
+      <section className="container py-6 md:py-12 px-4">
         <div className="glass-card p-4 md:p-6">
-          <h2 className="text-xl font-semibold mb-4 flex items-center gap-2">
-            <Globe className="w-5 h-5" />
+          <h2 className="text-lg md:text-xl font-semibold mb-4 flex items-center gap-2">
+            <Globe className="w-4 h-4 md:w-5 md:h-5" />
             Official Links
           </h2>
-          <div className="grid sm:grid-cols-2 gap-4">
-            <a href="#" className="flex items-center justify-between p-4 bg-secondary/50 rounded-lg hover:bg-primary/20 transition-colors">
-              <span>Main Website</span>
-              <ExternalLink className="w-5 h-5" />
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4">
+            <a href="#" className="flex items-center justify-between p-3 md:p-4 bg-secondary/50 rounded-lg hover:bg-primary/20 transition-colors">
+              <span className="text-sm md:text-base">Main Website</span>
+              <ExternalLink className="w-4 h-4 md:w-5 md:h-5" />
             </a>
-            <a href="#" className="flex items-center justify-between p-4 bg-secondary/50 rounded-lg hover:bg-primary/20 transition-colors">
-              <span>Live Portal</span>
-              <ExternalLink className="w-5 h-5" />
+            <a href="#" className="flex items-center justify-between p-3 md:p-4 bg-secondary/50 rounded-lg hover:bg-primary/20 transition-colors">
+              <span className="text-sm md:text-base">Live Portal</span>
+              <ExternalLink className="w-4 h-4 md:w-5 md:h-5" />
             </a>
           </div>
         </div>
       </section>
 
       {/* Agent Types */}
-      <section className="container py-8 md:py-12 px-4 md:px-6">
-        <div className="bg-[#0F1A2A] rounded-lg p-6 md:p-8">
-          <h2 className="text-2xl font-bold mb-8 text-center">
+      <section className="container py-6 md:py-12 px-4">
+        <div className="bg-[#0F1A2A] rounded-lg p-4 md:p-8">
+          <h2 className="text-xl md:text-2xl font-bold mb-6 md:mb-8 text-center">
             <span className="text-white">এজেন্ট কয়</span>{" "}
             <span className="text-emerald-400">প্রকার</span>
           </h2>
-          <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
-            <div className="bg-[#0A1321] rounded-lg p-6">
-              <h3 className="text-lg font-semibold mb-4 text-emerald-400 text-center">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
+            <div className="bg-[#0A1321] rounded-lg p-4 md:p-6">
+              <h3 className="text-base md:text-lg font-semibold mb-3 md:mb-4 text-emerald-400 text-center">
                 অনলাইন সুপার এজেন্ট
               </h3>
-              <div className="bg-[#162133] rounded p-4">
-                <p className="text-gray-300 text-sm leading-relaxed">
-                  সুপার এজ��ন্টরা ইউজার একাউন্ট এবং মা্টার এজেন্ট একাউন্ট খুলে দিতে পারেন। কোন সুপার এজেন্টের নামে অভিযোগ থাকলে সরাসরি এডমিনকে জানাতে হবে উপরে মেনুতে এডমিন লিস্ট দেওয়া আছে।
+              <div className="bg-[#162133] rounded p-3 md:p-4">
+                <p className="text-gray-300 text-xs md:text-sm leading-relaxed">
+                  সুপার এজেন্টরা ইউজার একাউন্ট এবং মা্টার এজেন্ট একাউন্ট খুলে দিতে পারেন। কোন সুপার এজেন্টের নামে অভিযোগ থাকলে সরাসরি এডমিনকে জানাতে হবে উপরে মেনুতে এডমিন লিস্ট দেওয়া আছে।
                 </p>
               </div>
             </div>
-            <div className="bg-[#0A1321] rounded-lg p-6">
-              <h3 className="text-lg font-semibold mb-4 text-emerald-400 text-center">
+            <div className="bg-[#0A1321] rounded-lg p-4 md:p-6">
+              <h3 className="text-base md:text-lg font-semibold mb-3 md:mb-4 text-emerald-400 text-center">
                 অনলাইন মাস্টার এজেন্ট
               </h3>
-              <div className="bg-[#162133] rounded p-4">
-                <p className="text-gray-300 text-sm leading-relaxed">
+              <div className="bg-[#162133] rounded p-3 md:p-4">
+                <p className="text-gray-300 text-xs md:text-sm leading-relaxed">
                   অনলাইন মাস্টার এজেন্টরা শুধু ইউজার একাউন্ট খুলে দিতে পারেন। কোন মাস্টার এজেন্টের নামে অভিযোগ থাকলে সরাসরি সুপার এজেন্টের কাছে অভিযোগ করতে হবে{" "}
                   <a href="/super-agent" className="text-emerald-400 hover:underline">
                     বিস্তারিত জানতে এই লিংকে ক্লিক করুন
@@ -250,12 +251,12 @@ const Index = () => {
                 </p>
               </div>
             </div>
-            <div className="bg-[#0A1321] rounded-lg p-6">
-              <h3 className="text-lg font-semibold mb-4 text-emerald-400 text-center">
+            <div className="bg-[#0A1321] rounded-lg p-4 md:p-6">
+              <h3 className="text-base md:text-lg font-semibold mb-3 md:mb-4 text-emerald-400 text-center">
                 লোকাল মাস্টার এজেন্ট
               </h3>
-              <div className="bg-[#162133] rounded p-4">
-                <p className="text-gray-300 text-sm leading-relaxed">
+              <div className="bg-[#162133] rounded p-3 md:p-4">
+                <p className="text-gray-300 text-xs md:text-sm leading-relaxed">
                   লোকাল মাস্টার এজেন্টরা শুধু ইউজার একাউন্ট খুলে দিতে পারেন। কোন লোকাল মাস্টার এজেন্টের নামে অভিযোগ থাকলে সরাসরি অনলাইন মাস্টার এজেন্টের কাছে অভিযোগ করতে হবে{" "}
                   <a href="/master-agent" className="text-emerald-400 hover:underline">
                     বিস্তারিত জানতে এই লিংকে ক্লিক করুন
@@ -268,37 +269,37 @@ const Index = () => {
       </section>
 
       {/* Agent List Instructions */}
-      <section className="container py-8 md:py-12 px-4 md:px-6">
-        <div className="bg-[#0F1A2A] rounded-lg p-6 md:p-8">
-          <h2 className="text-2xl font-bold mb-8 text-center">
+      <section className="container py-6 md:py-12 px-4">
+        <div className="bg-[#0F1A2A] rounded-lg p-4 md:p-8">
+          <h2 className="text-xl md:text-2xl font-bold mb-6 md:mb-8 text-center">
             <span className="text-white">এজেন্ট</span>{" "}
             <span className="text-emerald-400">লিস্ট</span>
           </h2>
-          <div className="bg-[#162133] rounded-lg p-6 space-y-4">
+          <div className="bg-[#162133] rounded-lg p-4 md:p-6 space-y-4">
             <div className="flex items-start gap-3">
-              <WhatsAppIcon />
-              <p className="text-gray-300 leading-relaxed">
+              <WhatsAppIcon className="w-4 h-4 md:w-5 md:h-5 shrink-0 mt-0.5" />
+              <p className="text-gray-300 text-xs md:text-sm leading-relaxed">
                 অ্যাকাউন্ট খুলতে নিম্নের অনলাইন এজেন্ট লিস্ট এ ক্লিক করুন। এজেন্ট লিস্ট এর এজেন্ট দের সাথে ইউজার দের শুধুমাত্র হোয়াটসঅ্যাপের মাধ্যমে যোগাযোগ করতে হবে।
               </p>
             </div>
             
             <div className="flex items-start gap-3">
-              <AlertTriangle className="w-5 h-5 text-red-400 shrink-0" />
-              <p className="text-gray-300 leading-relaxed">
+              <AlertTriangle className="w-4 h-4 md:w-5 md:h-5 text-red-400 shrink-0 mt-0.5" />
+              <p className="text-gray-300 text-xs md:text-sm leading-relaxed">
                 হোয়াটসঅ্যাপ ছাড়া অন্য কোন মাধ্যমে যোগাযোগ করলে তা গ্রহণযোগ্য হবে না।
               </p>
             </div>
 
             <div className="flex items-start gap-3">
-              <MessageSquare className="w-5 h-5 text-emerald-400 shrink-0" />
-              <p className="text-gray-300 leading-relaxed">
+              <MessageSquare className="w-4 h-4 md:w-5 md:h-5 text-emerald-400 shrink-0 mt-0.5" />
+              <p className="text-gray-300 text-xs md:text-sm leading-relaxed">
                 হোয়াটসঅ্যাপে যোগাযোগ করতে হলে এজেন্ট লিস্টে হোয়াটসঅ্যাপ আইকন উপরে ক্লিক করুন অথবা ফোন নাম্বারটা মোবাইলে সেভ করে তাকে হোয়াটসঅ্যাপে মেসেজ পাঠাতে পারবেন।
               </p>
             </div>
 
             <div className="flex items-start gap-3">
-              <Phone className="w-5 h-5 text-blue-400 shrink-0" />
-              <p className="text-gray-300 leading-relaxed">
+              <Phone className="w-4 h-4 md:w-5 md:h-5 text-blue-400 shrink-0 mt-0.5" />
+              <p className="text-gray-300 text-xs md:text-sm leading-relaxed">
                 হোয়াটসঅ্যাপ অ্যাপটি আপনার মোবাইলে আগে থেকেই থাকতে হবে না থাকলে গুগল প্লে থেকে ইন্সটল করে নিন।
               </p>
             </div>
