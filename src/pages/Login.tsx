@@ -20,14 +20,18 @@ const Login = () => {
     const checkAuth = async () => {
       const { data: { session } } = await supabase.auth.getSession();
       if (session?.user?.email) {
-        const { data } = await supabase
+        const { data, error } = await supabase
           .from('agents')
           .select('type')
           .eq('agent_id', session.user.email)
-          .limit(1)
           .single();
           
-        if (data?.type === 'site_admin' || data?.type === 'sub_admin') {
+        if (error || !data) {
+          await supabase.auth.signOut();
+          return;
+        }
+
+        if (data.type === 'site_admin' || data.type === 'sub_admin') {
           navigate('/admin');
         } else {
           await supabase.auth.signOut();
@@ -43,6 +47,22 @@ const Login = () => {
     setIsLoading(true);
 
     try {
+      // First check if the user is an admin in the agents table
+      const { data: agentData, error: agentError } = await supabase
+        .from('agents')
+        .select('type')
+        .eq('agent_id', email)
+        .single();
+
+      if (agentError || !agentData) {
+        throw new Error("অননুমোদিত অ্যাকাউন্ট। শুধুমাত্র এডমিনরা লগইন করতে পারবেন।");
+      }
+
+      if (agentData.type !== 'site_admin' && agentData.type !== 'sub_admin') {
+        throw new Error("অননুমোদিত অ্যাকাউন্ট। শুধুমাত্র এডমিনরা লগইন করতে পারবেন।");
+      }
+
+      // If agent check passes, proceed with authentication
       const { data: { session }, error: authError } = await supabase.auth.signInWithPassword({
         email,
         password,
@@ -51,23 +71,11 @@ const Login = () => {
       if (authError) throw authError;
       if (!session) throw new Error("সেশন তৈরি করা যায়নি");
 
-      const { data: agentData } = await supabase
-        .from('agents')
-        .select('type')
-        .eq('agent_id', email)
-        .limit(1)
-        .single();
-
-      if (agentData?.type === 'site_admin' || agentData?.type === 'sub_admin') {
-        toast({
-          title: "স্বাগতম!",
-          description: "সফলভাবে লগইন হয়েছে",
-        });
-        navigate("/admin");
-      } else {
-        await supabase.auth.signOut();
-        throw new Error("অননুমোদিত অ্যাকাউন্ট। শুধুমাত্র এডমিনরা লগইন করতে পারবেন।");
-      }
+      toast({
+        title: "স্বাগতম!",
+        description: "সফলভাবে লগইন হয়েছে",
+      });
+      navigate("/admin");
     } catch (error: any) {
       toast({
         variant: "destructive",
