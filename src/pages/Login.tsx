@@ -21,22 +21,22 @@ const Login = () => {
       const { data: { session } } = await supabase.auth.getSession();
       if (session) {
         try {
-          // Check if the user is an admin
-          const { data: agentData, error } = await supabase
+          // Check if the user is an admin using a direct query
+          const { data, error } = await supabase
             .from('agents')
             .select('type')
             .eq('id', session.user.id)
-            .single();
+            .maybeSingle();
 
           if (error) {
             console.error('Error fetching agent data:', error);
+            await supabase.auth.signOut();
             return;
           }
 
-          if (agentData && (agentData.type === 'site_admin' || agentData.type === 'sub_admin')) {
+          if (data?.type === 'site_admin' || data?.type === 'sub_admin') {
             navigate('/admin');
           } else {
-            // If not an admin, sign out
             await supabase.auth.signOut();
           }
         } catch (error) {
@@ -54,6 +54,7 @@ const Login = () => {
     setIsLoading(true);
 
     try {
+      // First, attempt to sign in
       const { data, error: authError } = await supabase.auth.signInWithPassword({
         email,
         password,
@@ -65,12 +66,12 @@ const Login = () => {
         throw new Error("সেশন তৈরি করা যায়নি");
       }
 
-      // Check if the user is an admin
+      // Then check if the user is an admin using a direct query
       const { data: agentData, error: agentError } = await supabase
         .from('agents')
         .select('type')
         .eq('id', data.session.user.id)
-        .single();
+        .maybeSingle();
 
       if (agentError) {
         await supabase.auth.signOut();
@@ -78,7 +79,6 @@ const Login = () => {
       }
 
       if (!agentData || (agentData.type !== 'site_admin' && agentData.type !== 'sub_admin')) {
-        // Sign out if not an admin
         await supabase.auth.signOut();
         throw new Error("অননুমোদিত অ্যাকাউন্ট। শুধুমাত্র এডমিনরা লগইন করতে পারবেন।");
       }
