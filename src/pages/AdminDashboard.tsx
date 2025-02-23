@@ -1,3 +1,5 @@
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
@@ -8,6 +10,7 @@ import { Users, Shield, Star, Crown, TrendingUp, AlertTriangle, UserPlus } from 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { AgentManageModal } from '@/components/AgentManageModal';
+import { useToast } from "@/components/ui/use-toast";
 
 const StatCard = ({ title, value, icon: Icon, description }: {
   title: string;
@@ -30,6 +33,43 @@ const StatCard = ({ title, value, icon: Icon, description }: {
 );
 
 const AdminDashboard = () => {
+  const navigate = useNavigate();
+  const { toast } = useToast();
+
+  useEffect(() => {
+    const checkAuth = async () => {
+      const { data: { session } } = await supabase.auth.getSession();
+      
+      if (!session) {
+        toast({
+          variant: "destructive",
+          title: "অননুমোদিত অ্যাক্সেস",
+          description: "অনুগ্রহ করে লগইন করুন",
+        });
+        navigate('/login');
+        return;
+      }
+
+      const { data: agentData, error } = await supabase
+        .from('agents')
+        .select('type')
+        .eq('id', session.user.id)
+        .single();
+
+      if (error || !agentData || (agentData.type !== 'site_admin' && agentData.type !== 'sub_admin')) {
+        await supabase.auth.signOut();
+        toast({
+          variant: "destructive",
+          title: "অননুমোদিত অ্যাক্সেস",
+          description: "শুধুমাত্র এডমিনরা এই পেজ দেখতে পারবেন",
+        });
+        navigate('/login');
+      }
+    };
+
+    checkAuth();
+  }, [navigate, toast]);
+
   const { data: agents = [], isLoading } = useQuery({
     queryKey: ['all-agents-dashboard'],
     queryFn: async () => {
@@ -45,13 +85,11 @@ const AdminDashboard = () => {
     },
   });
 
-  // Organize agents by type for stats
   const siteAdmins = agents.filter(a => a.type === 'site_admin');
   const subAdmins = agents.filter(a => a.type === 'sub_admin');
   const superAgents = agents.filter(a => a.type === 'super_agent');
   const masterAgents = agents.filter(a => a.type === 'master_agent');
 
-  // Calculate stats
   const stats = {
     siteAdmins: siteAdmins.length,
     subAdmins: subAdmins.length,

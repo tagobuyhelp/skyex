@@ -1,5 +1,5 @@
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { ArrowRight, Lock, Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -15,17 +15,53 @@ const Login = () => {
   const { toast } = useToast();
   const navigate = useNavigate();
 
+  // Check if user is already logged in and is an admin
+  useEffect(() => {
+    const checkAuth = async () => {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (session) {
+        // Check if the user is an admin
+        const { data: agentData } = await supabase
+          .from('agents')
+          .select('type')
+          .eq('id', session.user.id)
+          .single();
+
+        if (agentData && (agentData.type === 'site_admin' || agentData.type === 'sub_admin')) {
+          navigate('/admin');
+        }
+      }
+    };
+
+    checkAuth();
+  }, [navigate]);
+
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
 
     try {
-      const { error } = await supabase.auth.signInWithPassword({
+      const { data: { session }, error: authError } = await supabase.auth.signInWithPassword({
         email,
         password,
       });
 
-      if (error) throw error;
+      if (authError) throw authError;
+
+      // Check if the user is an admin
+      const { data: agentData, error: agentError } = await supabase
+        .from('agents')
+        .select('type')
+        .eq('id', session?.user.id)
+        .single();
+
+      if (agentError) throw agentError;
+
+      if (!agentData || (agentData.type !== 'site_admin' && agentData.type !== 'sub_admin')) {
+        // Sign out if not an admin
+        await supabase.auth.signOut();
+        throw new Error("অননুমোদিত অ্যাকাউন্ট। শুধুমাত্র এডমিনরা লগইন করতে পারবেন।");
+      }
 
       toast({
         title: "স্বাগতম!",
