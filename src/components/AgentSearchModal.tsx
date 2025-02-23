@@ -102,7 +102,7 @@ export const AgentSearchModal = () => {
             <DialogTitle className="text-lg">এজেন্ট খুঁজুন</DialogTitle>
           </DialogHeader>
           
-          <div className="flex gap-2">
+          <div className="flex flex-col sm:flex-row gap-2">
             <div className="flex-1">
               <div className="relative">
                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
@@ -119,7 +119,7 @@ export const AgentSearchModal = () => {
               value={selectedType}
               onValueChange={setSelectedType}
             >
-              <SelectTrigger className="w-[140px] bg-card border-primary/10">
+              <SelectTrigger className="w-full sm:w-[140px] bg-card border-primary/10">
                 <SelectValue placeholder="সব.এজেন্ট" />
               </SelectTrigger>
               <SelectContent>
@@ -138,44 +138,46 @@ export const AgentSearchModal = () => {
                 key={agent.id}
                 className="p-4 rounded-lg bg-card hover:bg-card/80 transition-colors border border-primary/10"
               >
-                <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center">
-                    <span className="text-xl font-semibold">{agent.name[0].toUpperCase()}</span>
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-center gap-2 mb-1">
-                      <h3 className="font-medium truncate">{agent.name}</h3>
-                      <span className="text-xs px-2 py-0.5 rounded-full bg-primary/20 text-primary whitespace-nowrap">
-                        {agent.agent_id}
-                      </span>
+                <div className="flex flex-col sm:flex-row gap-4">
+                  <div className="flex items-center gap-3 flex-1">
+                    <div className="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center">
+                      <span className="text-xl font-semibold">{agent.name[0].toUpperCase()}</span>
                     </div>
-                    <div className="flex items-center gap-4">
-                      <div className="flex items-center gap-2">
-                        <span className="text-sm text-muted-foreground">টাইপ:</span>
-                        <p className="text-sm text-primary font-medium">
-                          {getAgentTypeInBangla(agent.type)}
-                        </p>
-                      </div>
-                      {agent.reports_to && (
-                        <div className="flex items-center gap-2">
-                          <span className="text-sm text-muted-foreground">আপলাইন:</span>
-                          <span className="text-sm text-primary font-medium">
-                            {agents.find(a => a.id === agent.reports_to)?.name || 'N/A'}
-                          </span>
-                        </div>
-                      )}
-                    </div>
-                    {agent.agent_contacts[0]?.whatsapp && (
-                      <div className="flex items-center gap-2 mt-1">
-                        <Phone className="w-4 h-4 text-muted-foreground" />
-                        <span className="text-sm text-muted-foreground">
-                          {agent.agent_contacts[0].whatsapp}
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center gap-2 mb-1">
+                        <h3 className="font-medium truncate">{agent.name}</h3>
+                        <span className="text-xs px-2 py-0.5 rounded-full bg-primary/20 text-primary whitespace-nowrap">
+                          {agent.agent_id}
                         </span>
                       </div>
-                    )}
+                      <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
+                        <div className="flex items-center gap-2">
+                          <span className="text-sm text-muted-foreground">টাইপ:</span>
+                          <p className="text-sm text-primary font-medium">
+                            {getAgentTypeInBangla(agent.type)}
+                          </p>
+                        </div>
+                        {agent.reports_to && (
+                          <div className="flex items-center gap-2">
+                            <span className="text-sm text-muted-foreground">আপলাইন:</span>
+                            <span className="text-sm text-primary font-medium">
+                              {agents.find(a => a.id === agent.reports_to)?.name || 'N/A'}
+                            </span>
+                          </div>
+                        )}
+                        {agent.agent_contacts[0]?.whatsapp && (
+                          <div className="flex items-center gap-2">
+                            <Phone className="w-4 h-4 text-muted-foreground" />
+                            <span className="text-sm text-muted-foreground">
+                              {agent.agent_contacts[0].whatsapp}
+                            </span>
+                          </div>
+                        )}
+                      </div>
+                    </div>
                   </div>
-                  <div className="flex flex-col items-end gap-1">
-                    <span className="text-xs text-muted-foreground mb-1">অ্যাকশন</span>
+                  <div className="flex justify-end sm:flex-col sm:items-end gap-1">
+                    <span className="sr-only sm:not-sr-only text-xs text-muted-foreground mb-1">অ্যাকশন</span>
                     <div className="flex items-center gap-2">
                       <Button
                         variant="outline"
@@ -191,10 +193,10 @@ export const AgentSearchModal = () => {
                           href={`https://wa.me/${agent.agent_contacts[0].whatsapp}`}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="flex items-center gap-2 px-3 py-2 rounded-lg bg-emerald-500 hover:bg-emerald-600 text-white text-sm font-medium transition-colors"
+                          className="flex items-center justify-center w-9 h-9 rounded-lg bg-emerald-500 hover:bg-emerald-600 text-white transition-colors"
+                          aria-label="Send WhatsApp message"
                         >
                           <WhatsAppIcon className="w-4 h-4" />
-                          মেসেজ
                         </a>
                       )}
                       <Button
