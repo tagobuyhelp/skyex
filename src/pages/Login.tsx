@@ -1,5 +1,5 @@
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { ArrowRight, Lock, Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -15,23 +15,66 @@ const Login = () => {
   const { toast } = useToast();
   const navigate = useNavigate();
 
+  // Check if user is already logged in
+  useEffect(() => {
+    const checkAuth = async () => {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (session?.user?.email) {
+        const { data, error } = await supabase
+          .from('agents')
+          .select('type')
+          .eq('agent_id', session.user.email)
+          .single();
+          
+        if (error || !data) {
+          await supabase.auth.signOut();
+          return;
+        }
+
+        if (data.type === 'site_admin' || data.type === 'sub_admin') {
+          navigate('/admin');
+        } else {
+          await supabase.auth.signOut();
+        }
+      }
+    };
+
+    checkAuth();
+  }, [navigate]);
+
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
 
     try {
-      const { error } = await supabase.auth.signInWithPassword({
+      // First check if the user is an admin in the agents table
+      const { data: agentData, error: agentError } = await supabase
+        .from('agents')
+        .select('type')
+        .eq('agent_id', email)
+        .single();
+
+      if (agentError || !agentData) {
+        throw new Error("অননুমোদিত অ্যাকাউন্ট। শুধুমাত্র এডমিনরা লগইন করতে পারবেন।");
+      }
+
+      if (agentData.type !== 'site_admin' && agentData.type !== 'sub_admin') {
+        throw new Error("অননুমোদিত অ্যাকাউন্ট। শুধুমাত্র এডমিনরা লগইন করতে পারবেন।");
+      }
+
+      // If agent check passes, proceed with authentication
+      const { data: { session }, error: authError } = await supabase.auth.signInWithPassword({
         email,
         password,
       });
 
-      if (error) throw error;
+      if (authError) throw authError;
+      if (!session) throw new Error("সেশন তৈরি করা যায়নি");
 
       toast({
         title: "স্বাগতম!",
         description: "সফলভাবে লগইন হয়েছে",
       });
-
       navigate("/admin");
     } catch (error: any) {
       toast({
@@ -39,6 +82,7 @@ const Login = () => {
         title: "লগইন ব্যর্থ হয়েছে",
         description: error.message,
       });
+      console.error('Login error:', error);
     } finally {
       setIsLoading(false);
     }
