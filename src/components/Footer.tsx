@@ -54,7 +54,7 @@ export const Footer = () => {
               <ul className="space-y-2">
                 <li>
                   <a 
-                    href="https://velki.com" 
+                    href="https://skyex.com" 
                     target="_blank" 
                     rel="noopener noreferrer" 
                     className="text-gray-300 hover:text-emerald-400 transition-colors text-sm flex items-center gap-2"
@@ -96,12 +96,12 @@ export const Footer = () => {
               <ul className="space-y-2">
                 <li>
                   <a href="/proxy-links" className="text-gray-300 hover:text-emerald-400 transition-colors text-sm flex items-center gap-2">
-                    ভেল্কি প্রক্সি লিংক
+                    স্কাইএক্স প্রক্সি লিংক
                   </a>
                 </li>
                 <li>
                   <a href="/create-account" className="text-gray-300 hover:text-emerald-400 transition-colors text-sm flex items-center gap-2">
-                    ভেল্কিতে একাউন্ট খুলবেন?
+                    স্কাইএক্স একাউন্ট খুলবেন?
                   </a>
                 </li>
                 <li>
@@ -121,7 +121,7 @@ export const Footer = () => {
           {/* Copyright */}
           <div className="mt-12 pt-8 border-t border-gray-800/50">
             <p className="text-center text-sm text-gray-400">
-              © ২০২৫ ভেল্কি। সর্বস্বত্ব সংরক্ষিত।
+              © ২০২৫ স্কাইএক্স। সর্বস্বত্ব সংরক্ষিত।
             </p>
           </div>
         </div>
