@@ -21,6 +21,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { AgentWithContacts } from '@/types/agent';
 import { WhatsAppIcon } from '@/components/icons/WhatsAppIcon';
 import { AgentHierarchyModal } from './AgentHierarchyModal';
+import { AgentComplaintModal } from './AgentComplaintModal';
 
 const getAgentTypeInBangla = (type: string) => {
   switch (type) {
@@ -42,6 +43,7 @@ export const AgentSearchModal = () => {
   const [selectedType, setSelectedType] = useState<string | undefined>();
   const [selectedAgent, setSelectedAgent] = useState<AgentWithContacts | null>(null);
   const [isHierarchyModalOpen, setIsHierarchyModalOpen] = useState(false);
+  const [isComplaintModalOpen, setIsComplaintModalOpen] = useState(false);
 
   const { data: agents = [], isLoading } = useQuery({
     queryKey: ['agents'],
@@ -71,6 +73,16 @@ export const AgentSearchModal = () => {
   const handleViewAgent = (agent: AgentWithContacts) => {
     setSelectedAgent(agent);
     setIsHierarchyModalOpen(true);
+  };
+
+  const handleComplaintAgent = (agent: AgentWithContacts) => {
+    setSelectedAgent(agent);
+    setIsComplaintModalOpen(true);
+  };
+
+  const getUplineAgent = (agent: AgentWithContacts) => {
+    if (!agent.reports_to) return null;
+    return agents.find(a => a.id === agent.reports_to) || null;
   };
 
   return (
@@ -189,10 +201,7 @@ export const AgentSearchModal = () => {
                         variant="ghost"
                         size="icon"
                         className="h-9 w-9"
-                        onClick={() => {
-                          // Report functionality can be added here
-                          console.log('Report agent:', agent.agent_id);
-                        }}
+                        onClick={() => handleComplaintAgent(agent)}
                       >
                         <AlertTriangle className="w-4 h-4 text-red-500" />
                       </Button>
@@ -216,6 +225,13 @@ export const AgentSearchModal = () => {
         onOpenChange={setIsHierarchyModalOpen}
         selectedAgent={selectedAgent}
         agents={agents}
+      />
+
+      <AgentComplaintModal
+        open={isComplaintModalOpen}
+        onOpenChange={setIsComplaintModalOpen}
+        selectedAgent={selectedAgent}
+        uplineAgent={selectedAgent ? getUplineAgent(selectedAgent) : null}
       />
     </>
   );
