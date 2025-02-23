@@ -2,10 +2,25 @@
 import { useState } from 'react';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { AgentWithContacts } from '@/types/agent';
-import { Star, Eye, AlertTriangle, ArrowUpRight } from 'lucide-react';
+import { AlertTriangle, Eye, Edit, Trash2, ArrowUpRight } from 'lucide-react';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { AgentHierarchyModal } from './AgentHierarchyModal';
 import { AgentComplaintModal } from "./AgentComplaintModal";
+import { AgentManageModal } from './AgentManageModal';
+import { Button } from './ui/button';
+import { useToast } from './ui/use-toast';
+import { useQueryClient } from '@tanstack/react-query';
+import { supabase } from '@/integrations/supabase/client';
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
 
 interface AgentTableProps {
   agents: AgentWithContacts[];
@@ -47,6 +62,9 @@ export const AgentTable = ({ agents, displayAgents, title, showUpline = true, fi
   const [selectedAgent, setSelectedAgent] = useState<AgentWithContacts | null>(null);
   const [isHierarchyModalOpen, setIsHierarchyModalOpen] = useState(false);
   const [isComplaintModalOpen, setIsComplaintModalOpen] = useState(false);
+  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
+  const { toast } = useToast();
+  const queryClient = useQueryClient();
 
   const currentPageType = title.includes('সুপার') ? 'super_agent' 
     : title.includes('মাস্টার') ? 'master_agent'
@@ -65,14 +83,47 @@ export const AgentTable = ({ agents, displayAgents, title, showUpline = true, fi
     return agents.find(agent => agent.id === uplineId);
   };
 
-  const handleViewHierarchy = (agent: AgentWithContacts) => {
-    setSelectedAgent(agent);
-    setIsHierarchyModalOpen(true);
-  };
+  const handleDelete = async () => {
+    if (!selectedAgent) return;
 
-  const handleComplaint = (agent: AgentWithContacts) => {
-    setSelectedAgent(agent);
-    setIsComplaintModalOpen(true);
+    try {
+      // First delete agent contacts
+      const { error: contactsError } = await supabase
+        .from('agent_contacts')
+        .delete()
+        .eq('agent_id', selectedAgent.id);
+
+      if (contactsError) throw contactsError;
+
+      // Then delete the agent
+      const { error: agentError } = await supabase
+        .from('agents')
+        .delete()
+        .eq('id', selectedAgent.id);
+
+      if (agentError) throw agentError;
+
+      toast({
+        title: "এজেন্ট ডিলিট করা হয়েছে",
+        description: "এজেন্টের সমস্ত তথ্য মুছে ফেলা হয়েছে।",
+      });
+
+      // Invalidate queries to refetch data
+      await queryClient.invalidateQueries({ queryKey: ["all-agents"] });
+      await queryClient.invalidateQueries({ queryKey: ["site-admins-with-hierarchy"] });
+      await queryClient.invalidateQueries({ queryKey: ["sub-admins-with-hierarchy"] });
+      await queryClient.invalidateQueries({ queryKey: ["super-agents-with-hierarchy"] });
+      await queryClient.invalidateQueries({ queryKey: ["master-agents-with-hierarchy"] });
+    } catch (error: any) {
+      toast({
+        variant: "destructive",
+        title: "একটি সমস্যা হয়েছে",
+        description: error.message,
+      });
+    } finally {
+      setIsDeleteDialogOpen(false);
+      setSelectedAgent(null);
+    }
   };
 
   if (isMobile) {
@@ -132,17 +183,43 @@ export const AgentTable = ({ agents, displayAgents, title, showUpline = true, fi
                 <div className="flex justify-end gap-1.5 mt-2">
                   <button 
                     className="p-1.5 hover:bg-emerald-500/20 rounded-lg transition-colors flex items-center gap-1"
-                    onClick={() => handleViewHierarchy(agent)}
+                    onClick={() => {
+                      setSelectedAgent(agent);
+                      setIsHierarchyModalOpen(true);
+                    }}
                   >
                     <Eye className="w-3.5 h-3.5 text-emerald-400" />
                     <span className="text-xs text-emerald-400">দেখুন</span>
                   </button>
+                  <AgentManageModal
+                    mode="edit"
+                    agent={agent}
+                    trigger={
+                      <button className="p-1.5 hover:bg-blue-500/20 rounded-lg transition-colors flex items-center gap-1">
+                        <Edit className="w-3.5 h-3.5 text-blue-400" />
+                        <span className="text-xs text-blue-400">এডিট</span>
+                      </button>
+                    }
+                  />
                   <button 
                     className="p-1.5 hover:bg-red-500/20 rounded-lg transition-colors flex items-center gap-1"
-                    onClick={() => handleComplaint(agent)}
+                    onClick={() => {
+                      setSelectedAgent(agent);
+                      setIsComplaintModalOpen(true);
+                    }}
                   >
                     <AlertTriangle className="w-3.5 h-3.5 text-red-400" />
                     <span className="text-xs text-red-400">অভিযোগ</span>
+                  </button>
+                  <button
+                    className="p-1.5 hover:bg-red-500/20 rounded-lg transition-colors flex items-center gap-1"
+                    onClick={() => {
+                      setSelectedAgent(agent);
+                      setIsDeleteDialogOpen(true);
+                    }}
+                  >
+                    <Trash2 className="w-3.5 h-3.5 text-red-400" />
+                    <span className="text-xs text-red-400">ডিলিট</span>
                   </button>
                 </div>
               </div>
@@ -162,6 +239,20 @@ export const AgentTable = ({ agents, displayAgents, title, showUpline = true, fi
           selectedAgent={selectedAgent}
           uplineAgent={selectedAgent ? getUplineInfo(selectedAgent.reports_to) : null}
         />
+        <AlertDialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
+          <AlertDialogContent>
+            <AlertDialogHeader>
+              <AlertDialogTitle>আপনি কি নিশ্চিত?</AlertDialogTitle>
+              <AlertDialogDescription>
+                এই এজেন্টের সমস্ত তথ্য স্থায়ীভাবে মুছে ফেলা হবে। এই ক্রিয়াটি আর ফিরিয়ে নেওয়া যাবে না।
+              </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+              <AlertDialogCancel>বাতিল</AlertDialogCancel>
+              <AlertDialogAction onClick={handleDelete}>ডিলিট করুন</AlertDialogAction>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
       </div>
     );
   }
@@ -209,12 +300,12 @@ export const AgentTable = ({ agents, displayAgents, title, showUpline = true, fi
                             {getUplineInfo(agent.reports_to)?.name}
                           </p>
                           <p className="text-sm text-gray-400">
-                            {getUplineInfo(agent.reports_to)?.type}
+                            {getAgentTypeInBangla(getUplineInfo(agent.reports_to)?.type || '')}
                           </p>
                         </div>
                       </div>
                     ) : (
-                      <span className="text-gray-500">No upline</span>
+                      <span className="text-gray-500">কোন আপলাইন নেই</span>
                     )}
                   </TableCell>
                 )}
@@ -232,25 +323,50 @@ export const AgentTable = ({ agents, displayAgents, title, showUpline = true, fi
                       </a>
                     </div>
                   ) : (
-                    <span className="text-gray-500">No contact</span>
+                    <span className="text-gray-500">যোগাযোগের তথ্য নেই</span>
                   )}
                 </TableCell>
                 <TableCell>
-                  <div className="flex gap-2">
-                    <button 
-                      className="p-2 hover:bg-emerald-500/20 rounded-lg transition-colors flex items-center gap-1.5 whitespace-nowrap"
-                      onClick={() => handleViewHierarchy(agent)}
+                  <div className="flex items-center gap-2">
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      onClick={() => {
+                        setSelectedAgent(agent);
+                        setIsHierarchyModalOpen(true);
+                      }}
                     >
-                      <Eye className="w-4 h-4 text-emerald-400" />
-                      <span className="text-sm text-emerald-400">দেখুন</span>
-                    </button>
-                    <button 
-                      className="p-2 hover:bg-red-500/20 rounded-lg transition-colors flex items-center gap-1.5 whitespace-nowrap"
-                      onClick={() => handleComplaint(agent)}
+                      <Eye className="h-4 w-4" />
+                    </Button>
+                    <AgentManageModal
+                      mode="edit"
+                      agent={agent}
+                      trigger={
+                        <Button variant="ghost" size="icon">
+                          <Edit className="h-4 w-4" />
+                        </Button>
+                      }
+                    />
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      onClick={() => {
+                        setSelectedAgent(agent);
+                        setIsComplaintModalOpen(true);
+                      }}
                     >
-                      <AlertTriangle className="w-4 h-4 text-red-400" />
-                      <span className="text-sm text-red-400">অভিযোগ</span>
-                    </button>
+                      <AlertTriangle className="h-4 w-4" />
+                    </Button>
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      onClick={() => {
+                        setSelectedAgent(agent);
+                        setIsDeleteDialogOpen(true);
+                      }}
+                    >
+                      <Trash2 className="h-4 w-4" />
+                    </Button>
                   </div>
                 </TableCell>
               </TableRow>
@@ -271,6 +387,20 @@ export const AgentTable = ({ agents, displayAgents, title, showUpline = true, fi
         selectedAgent={selectedAgent}
         uplineAgent={selectedAgent ? getUplineInfo(selectedAgent.reports_to) : null}
       />
+      <AlertDialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>আপনি কি নিশ্চিত?</AlertDialogTitle>
+            <AlertDialogDescription>
+              এই এজেন্টের সমস্ত তথ্য স্থায়ীভাবে মুছে ফেলা হবে। এই ক্রিয়াটি আর ফিরিয়ে নেওয়া যাবে না।
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>বাতিল</AlertDialogCancel>
+            <AlertDialogAction onClick={handleDelete}>ডিলিট করুন</AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   );
 };
