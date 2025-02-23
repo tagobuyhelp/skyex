@@ -120,7 +120,7 @@ export const AgentSearchModal = () => {
               onValueChange={setSelectedType}
             >
               <SelectTrigger className="w-full sm:w-[140px] border-primary/10">
-                <SelectValue placeholder="সব.এজেন্ট" />
+                <SelectValue placeholder="সব এজেন্ট" />
               </SelectTrigger>
               <SelectContent className="bg-gradient-to-b from-[#F2FCE2] to-white border-primary/10 shadow-lg backdrop-blur-sm">
                 <SelectItem 
