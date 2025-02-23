@@ -60,9 +60,9 @@ const AdminDashboard = () => {
       case 'sub_admin':
         return siteAdmins;
       case 'super_agent':
-        return [...siteAdmins, ...subAdmins];
+        return subAdmins;
       case 'master_agent':
-        return [...siteAdmins, ...subAdmins, ...superAgents];
+        return superAgents;
       default:
         return [];
     }
@@ -90,14 +90,14 @@ const AdminDashboard = () => {
             </p>
           </div>
           <AgentManageModal 
-            mode="create" 
-            uplineOptions={getUplineOptions('master_agent')}
+            mode="create"
             trigger={
               <Button>
                 <UserPlus className="w-4 h-4 mr-2" />
                 নতুন এজেন্ট
               </Button>
-            } 
+            }
+            uplineOptions={[]} // This will be updated in the AgentManageModal
           />
         </div>
 

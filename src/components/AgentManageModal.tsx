@@ -1,6 +1,5 @@
-
-import { useState } from "react";
-import { useQueryClient } from "@tanstack/react-query";
+import { useState, useEffect } from "react";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { UserPlus, Save, X } from "lucide-react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
@@ -15,7 +14,6 @@ type AgentManageModalProps = {
   agent?: AgentWithContacts;
   mode: "create" | "edit";
   agentType?: "site_admin" | "sub_admin" | "super_agent" | "master_agent";
-  uplineOptions?: AgentWithContacts[];
   trigger?: React.ReactNode;
   onSuccess?: () => void;
 };
@@ -24,7 +22,6 @@ export const AgentManageModal = ({
   agent,
   mode,
   agentType,
-  uplineOptions = [],
   trigger,
   onSuccess,
 }: AgentManageModalProps) => {
@@ -42,7 +39,40 @@ export const AgentManageModal = ({
     messenger: agent?.agent_contacts[0]?.messenger || "",
   });
 
-  // Check if the current agent type requires an upline
+  const { data: allAgents = [] } = useQuery({
+    queryKey: ['all-agents'],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from('agents')
+        .select(`
+          *,
+          agent_contacts (*)
+        `);
+      
+      if (error) throw error;
+      return data as AgentWithContacts[];
+    },
+  });
+
+  const getUplineOptions = (type: string) => {
+    switch (type) {
+      case 'site_admin':
+        return [];
+      case 'sub_admin':
+        return allAgents.filter(a => a.type === 'site_admin');
+      case 'super_agent':
+        return allAgents.filter(a => a.type === 'sub_admin');
+      case 'master_agent':
+        return allAgents.filter(a => a.type === 'super_agent');
+      default:
+        return [];
+    }
+  };
+
+  useEffect(() => {
+    setFormData(prev => ({ ...prev, reports_to: '' }));
+  }, [formData.type]);
+
   const requiresUpline = (type: string) => {
     return ["sub_admin", "super_agent", "master_agent"].includes(type);
   };
@@ -53,7 +83,6 @@ export const AgentManageModal = ({
 
     try {
       if (mode === "create") {
-        // Create new agent
         const { data: newAgent, error: agentError } = await supabase
           .from("agents")
           .insert({
@@ -68,7 +97,6 @@ export const AgentManageModal = ({
 
         if (agentError) throw agentError;
 
-        // Create agent contacts
         if (formData.whatsapp || formData.messenger) {
           const { error: contactsError } = await supabase
             .from("agent_contacts")
@@ -86,7 +114,6 @@ export const AgentManageModal = ({
           description: "নতুন এজেন্ট সফলভাবে যোগ করা হয়েছে।",
         });
       } else {
-        // Update existing agent
         if (!agent) throw new Error("No agent provided for update");
 
         const { error: agentError } = await supabase
@@ -101,7 +128,6 @@ export const AgentManageModal = ({
 
         if (agentError) throw agentError;
 
-        // Update or create agent contacts
         if (agent.agent_contacts[0]?.id) {
           const { error: contactsError } = await supabase
             .from("agent_contacts")
@@ -130,7 +156,6 @@ export const AgentManageModal = ({
         });
       }
 
-      // Invalidate and refetch queries
       await queryClient.invalidateQueries({ queryKey: ["all-agents-dashboard"] });
       await queryClient.invalidateQueries({ queryKey: ["site-admins-with-hierarchy"] });
       await queryClient.invalidateQueries({ queryKey: ["sub-admins-with-hierarchy"] });
@@ -149,6 +174,8 @@ export const AgentManageModal = ({
       setIsLoading(false);
     }
   };
+
+  const uplineOptions = getUplineOptions(formData.type);
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
