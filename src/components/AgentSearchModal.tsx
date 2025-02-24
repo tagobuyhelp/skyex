@@ -9,6 +9,7 @@ import { AgentWithContacts } from '@/types/agent';
 import { WhatsAppIcon } from '@/components/icons/WhatsAppIcon';
 import { AgentHierarchyModal } from './AgentHierarchyModal';
 import { AgentComplaintModal } from './AgentComplaintModal';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 const getAgentTypeInBangla = (type: string) => {
   switch (type) {
@@ -26,6 +27,7 @@ const getAgentTypeInBangla = (type: string) => {
 };
 
 export const AgentSearchModal = () => {
+  const isMobile = useIsMobile();
   const [search, setSearch] = useState('');
   const [selectedType, setSelectedType] = useState<string | undefined>();
   const [selectedAgent, setSelectedAgent] = useState<AgentWithContacts | null>(null);
@@ -86,23 +88,29 @@ export const AgentSearchModal = () => {
             এজেন্ট খুঁজুন
           </Button>
         </DialogTrigger>
-        <DialogContent className="max-w-4xl">
+        <DialogContent className="max-w-4xl p-3 sm:p-6">
           <DialogHeader>
-            <DialogTitle className="text-lg">এজেন্ট খুঁজুন</DialogTitle>
+            <DialogTitle className="text-lg sm:text-xl">এজেন্ট খুঁজুন</DialogTitle>
           </DialogHeader>
           
-          <div className="flex flex-col sm:flex-row gap-2">
+          <div className="flex flex-col sm:flex-row gap-2 mt-2">
             <div className="flex-1">
               <div className="relative">
                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-                <input type="text" placeholder="নাম ফোন নম্বর বা আইডি দিয়ে খুঁজুন" value={search} onChange={e => setSearch(e.target.value)} className="w-full pl-9 pr-4 py-2 bg-card border border-primary/10 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary/20" />
+                <input 
+                  type="text" 
+                  placeholder="নাম ফোন নম্বর বা আইডি দিয়ে খুঁজুন" 
+                  value={search} 
+                  onChange={e => setSearch(e.target.value)} 
+                  className="w-full pl-9 pr-4 py-2.5 bg-card border border-primary/10 rounded-lg text-base focus:outline-none focus:ring-2 focus:ring-primary/20" 
+                />
               </div>
             </div>
             <Select value={selectedType} onValueChange={setSelectedType}>
-              <SelectTrigger className="w-full sm:w-[140px] border-primary/10">
+              <SelectTrigger className="w-full sm:w-[140px] border-primary/10 h-[42px]">
                 <SelectValue placeholder="সব এজেন্ট" />
               </SelectTrigger>
-              <SelectContent className="bg-gradient-to-b from-[#F2FCE2] to-white border-primary/10 shadow-lg backdrop-blur-sm">
+              <SelectContent>
                 <SelectItem value="all" className="text-primary hover:bg-primary/10 hover:text-primary transition-all duration-200 rounded-md px-3 py-2 my-1 cursor-pointer font-medium">
                   সব এজেন্ট
                 </SelectItem>
@@ -122,21 +130,21 @@ export const AgentSearchModal = () => {
             </Select>
           </div>
 
-          <div className="space-y-2 mt-4 max-h-[600px] overflow-y-auto pr-2 scrollbar-thin scrollbar-thumb-primary/10">
-            {filteredAgents.map(agent => <div key={agent.id} className="p-4 rounded-lg bg-card hover:bg-card/80 transition-colors border border-primary/10">
-                <div className="flex flex-col sm:flex-row gap-4">
+          <div className="space-y-3 mt-4 max-h-[60vh] sm:max-h-[600px] overflow-y-auto pr-2 scrollbar-thin scrollbar-thumb-primary/10">
+            {filteredAgents.map(agent => <div key={agent.id} className="p-3 sm:p-4 rounded-lg bg-card hover:bg-card/80 transition-colors border border-primary/10">
+                <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
                   <div className="flex items-center gap-3 flex-1">
-                    <div className="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center">
-                      <span className="text-xl font-semibold">{agent.name[0].toUpperCase()}</span>
+                    <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-primary/20 flex items-center justify-center">
+                      <span className="text-lg sm:text-xl font-semibold">{agent.name[0].toUpperCase()}</span>
                     </div>
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-2 mb-1">
-                        <h3 className="font-medium truncate">{agent.name}</h3>
+                        <h3 className="font-medium text-base sm:text-lg truncate">{agent.name}</h3>
                         <span className="text-xs px-2 py-0.5 rounded-full bg-primary/20 text-primary whitespace-nowrap">
                           {agent.agent_id}
                         </span>
                       </div>
-                      <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
+                      <div className="flex flex-col sm:flex-row sm:items-center gap-1.5 sm:gap-4">
                         <div className="flex items-center gap-2">
                           <span className="text-sm text-muted-foreground">টাইপ:</span>
                           <p className="text-sm text-primary font-medium">
@@ -161,14 +169,30 @@ export const AgentSearchModal = () => {
                   <div className="flex justify-end sm:flex-col sm:items-end gap-1">
                     <span className="sr-only sm:not-sr-only text-xs text-muted-foreground mb-1">অ্যাকশন</span>
                     <div className="flex items-center gap-2">
-                      {agent.agent_contacts[0]?.whatsapp && <a href={`https://wa.me/${agent.agent_contacts[0].whatsapp}`} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center w-9 h-9 rounded-lg hover:bg-primary/10 transition-colors" aria-label="Send WhatsApp message">
+                      {agent.agent_contacts[0]?.whatsapp && <a 
+                          href={`https://wa.me/${agent.agent_contacts[0].whatsapp}`} 
+                          target="_blank" 
+                          rel="noopener noreferrer" 
+                          className="flex items-center justify-center w-9 h-9 rounded-lg hover:bg-primary/10 transition-colors" 
+                          aria-label="Send WhatsApp message"
+                        >
                           <WhatsAppIcon className="w-4 h-4 text-emerald-500" />
                         </a>}
-                      <Button variant="outline" size="sm" className="gap-2" onClick={() => handleViewAgent(agent)}>
+                      <Button 
+                        variant="outline" 
+                        size="sm" 
+                        className="gap-2 h-9" 
+                        onClick={() => handleViewAgent(agent)}
+                      >
                         <Eye className="w-4 h-4" />
-                        দেখুন
+                        <span className={isMobile ? "sr-only" : ""}>দেখুন</span>
                       </Button>
-                      <Button variant="ghost" size="icon" className="h-9 w-9" onClick={() => handleComplaintAgent(agent)}>
+                      <Button 
+                        variant="ghost" 
+                        size="icon" 
+                        className="h-9 w-9" 
+                        onClick={() => handleComplaintAgent(agent)}
+                      >
                         <AlertTriangle className="w-4 h-4 text-red-500" />
                       </Button>
                     </div>
@@ -176,15 +200,25 @@ export const AgentSearchModal = () => {
                 </div>
               </div>)}
 
-            {filteredAgents.length === 0 && <div className="text-center py-8 text-muted-foreground">
+            {filteredAgents.length === 0 && <div className="text-center py-8 text-muted-foreground text-base">
                 কোন এজেন্ট পাওয়া যায়নি
               </div>}
           </div>
         </DialogContent>
       </Dialog>
 
-      <AgentHierarchyModal open={isHierarchyModalOpen} onOpenChange={setIsHierarchyModalOpen} selectedAgent={selectedAgent} agents={agents} />
+      <AgentHierarchyModal 
+        open={isHierarchyModalOpen} 
+        onOpenChange={setIsHierarchyModalOpen} 
+        selectedAgent={selectedAgent} 
+        agents={agents} 
+      />
 
-      <AgentComplaintModal open={isComplaintModalOpen} onOpenChange={setIsComplaintModalOpen} selectedAgent={selectedAgent} uplineAgent={selectedAgent ? getUplineAgent(selectedAgent) : null} />
+      <AgentComplaintModal 
+        open={isComplaintModalOpen} 
+        onOpenChange={setIsComplaintModalOpen} 
+        selectedAgent={selectedAgent} 
+        uplineAgent={selectedAgent ? getUplineAgent(selectedAgent) : null} 
+      />
     </>;
 };
