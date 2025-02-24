@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { AgentWithContacts } from '@/types/agent';
@@ -63,56 +62,23 @@ export const AgentTable = ({ agents, displayAgents, title, showUpline = true, fi
   const [isHierarchyModalOpen, setIsHierarchyModalOpen] = useState(false);
   const [isComplaintModalOpen, setIsComplaintModalOpen] = useState(false);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
-  const [isAdmin, setIsAdmin] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const { toast } = useToast();
   const queryClient = useQueryClient();
 
   useEffect(() => {
-    const checkAdminStatus = async () => {
-      try {
-        const { data: { session } } = await supabase.auth.getSession();
-        
-        // Log session for debugging
-        console.log("Current session:", session);
-
-        if (!session?.user) {
-          console.log("No user in session");
-          setIsAdmin(false);
-          return;
-        }
-
-        // Get user's email from session
-        const userEmail = session.user.email;
-        console.log("User email:", userEmail);
-
-        // Find the agent record by matching email with agent_id (which stores email)
-        const { data: agentData, error } = await supabase
-          .from('agents')
-          .select('type')
-          .eq('agent_id', userEmail)
-          .maybeSingle();
-
-        if (error) {
-          console.error('Error checking admin status:', error);
-          setIsAdmin(false);
-          return;
-        }
-
-        console.log("Agent data:", agentData);
-
-        // Check if the user is either a site_admin or sub_admin
-        const isAdminUser = agentData?.type === 'site_admin' || agentData?.type === 'sub_admin';
-        setIsAdmin(isAdminUser);
-        
-        console.log('User type:', agentData?.type);
-        console.log('Is admin:', isAdminUser);
-      } catch (error) {
-        console.error('Error in checkAdminStatus:', error);
-        setIsAdmin(false);
-      }
+    const checkAuthStatus = async () => {
+      const { data: { session } } = await supabase.auth.getSession();
+      setIsAuthenticated(!!session?.user);
     };
 
-    checkAdminStatus();
+    checkAuthStatus();
+
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      setIsAuthenticated(!!session?.user);
+    });
+
+    return () => subscription.unsubscribe();
   }, []);
 
   const currentPageType = title.includes('সুপার') ? 'super_agent' 
@@ -237,7 +203,7 @@ export const AgentTable = ({ agents, displayAgents, title, showUpline = true, fi
                     <Eye className="w-3.5 h-3.5 text-emerald-400" />
                     <span className="text-xs text-emerald-400">দেখুন</span>
                   </button>
-                  {isAdmin && (
+                  {isAuthenticated && (
                     <>
                       <AgentManageModal
                         mode="edit"
@@ -294,7 +260,7 @@ export const AgentTable = ({ agents, displayAgents, title, showUpline = true, fi
             <AlertDialogHeader>
               <AlertDialogTitle>আপনি কি নিশ্চিত?</AlertDialogTitle>
               <AlertDialogDescription>
-                ��ই এজেন্টের সমস্ত তথ্য স্থায়ীভাবে মুছে ফেলা হবে। এই ক্রিয়াটি আর ফিরিয়ে নেওয়া যাবে না।
+                এই এজেন্টের সমস্ত তথ্য স্থায়ীভাবে মুছে ফেলা হবে। এই ক্রিয়াটি আর ফিরিয়ে নেওয়া যাবে না।
               </AlertDialogDescription>
             </AlertDialogHeader>
             <AlertDialogFooter>
@@ -390,7 +356,7 @@ export const AgentTable = ({ agents, displayAgents, title, showUpline = true, fi
                       <Eye className="h-4 w-4" />
                       <span>দেখুন</span>
                     </Button>
-                    {isAdmin && (
+                    {isAuthenticated && (
                       <>
                         <AgentManageModal
                           mode="edit"
