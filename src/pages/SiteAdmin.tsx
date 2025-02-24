@@ -10,6 +10,8 @@ import { AgentWithContacts } from '@/types/agent';
 import { AlertTriangle, ChevronDown, ChevronUp } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
+const SITE_NAME = 'VELKI';
+
 const fetchSiteAdmins = async () => {
   const { data: siteAdmins, error: siteAdminsError } = await supabase
     .from('agents')
@@ -83,7 +85,7 @@ const SiteAdmin = () => {
                         rel="noopener noreferrer" 
                         className="text-blue-400 hover:text-blue-300 break-all sm:break-normal"
                       >
-                        VELKI.COM
+                        {SITE_NAME}.COM
                       </a>
                     </li>
                     <li>
@@ -103,7 +105,7 @@ const SiteAdmin = () => {
           <AgentTable 
             agents={agents}
             displayAgents={siteAdmins}
-            title="VELKI সাইট এডমিন লিস্ট" 
+            title={`${SITE_NAME} সাইট এডমিন লিস্ট`}
             showUpline={false}
           />
         )}
