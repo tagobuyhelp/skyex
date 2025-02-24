@@ -141,12 +141,18 @@ const Index = () => {
                     </div>
                   </div>
                   <div className="flex gap-2 self-end sm:self-center">
-                    <button className="p-2 hover:bg-emerald-500/20 rounded-lg transition-colors flex items-center gap-1.5 whitespace-nowrap text-sm md:text-base" onClick={() => handleViewHierarchy(agent)}>
-                      <Eye className="w-4 h-4 md:w-5 md:h-5 text-emerald-400" />
+                    <button 
+                      className="px-2.5 py-1.5 hover:bg-emerald-500/20 rounded-lg transition-colors flex items-center gap-1.5 whitespace-nowrap text-xs md:text-sm" 
+                      onClick={() => handleViewHierarchy(agent)}
+                    >
+                      <Eye className="w-3.5 h-3.5 md:w-4 md:h-4 text-emerald-400" />
                       <span className="text-emerald-400">দেখুন</span>
                     </button>
-                    <button className="p-2 hover:bg-red-500/20 rounded-lg transition-colors flex items-center gap-1.5 whitespace-nowrap text-sm md:text-base" onClick={() => handleComplaint(agent)}>
-                      <AlertTriangle className="w-4 h-4 md:w-5 md:h-5 text-red-400" />
+                    <button 
+                      className="px-2.5 py-1.5 hover:bg-red-500/20 rounded-lg transition-colors flex items-center gap-1.5 whitespace-nowrap text-xs md:text-sm" 
+                      onClick={() => handleComplaint(agent)}
+                    >
+                      <AlertTriangle className="w-3.5 h-3.5 md:w-4 md:h-4 text-red-400" />
                       <span className="text-red-400">অভিযোগ</span>
                     </button>
                   </div>
@@ -257,7 +263,7 @@ const Index = () => {
             <div className="flex items-start gap-3">
               <WhatsAppIcon className="w-4 h-4 md:w-5 md:h-5 shrink-0 mt-0.5" />
               <p className="text-gray-300 text-xs md:text-sm leading-relaxed">
-                অ্যাকাউন��ট খুলতে নিম্নের অনলাইন এজেন্ট লিস্ট এ ক্লিক করুন। এজেন্ট লিস্ট এর এজেন্ট দের সাথে ইউজার দের শুধুমাত্র হোয়াটসঅ্যাপের মাধ্যমে যোগাযোগ করতে হবে।
+                একাউন্ট খুলতে নিম্নের অনলাইন এজেন্ট লিস্ট এ ক্লিক করুন। এজেন্ট লিস্ট এর এজেন্ট দের সাথে ইউজার দের শুধুমাত্র হোয়াটসঅ্যাপের মাধ্যমে যোগাযোগ করতে হবে।
               </p>
             </div>
             
