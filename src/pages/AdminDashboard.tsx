@@ -12,6 +12,7 @@ import { AgentManageModal } from '@/components/AgentManageModal';
 import { NoticeManageModal } from '@/components/NoticeManageModal';
 import { NoticeListStatic } from '@/components/NoticeListStatic';
 import { useToast } from "@/components/ui/use-toast";
+import { cn } from "@/lib/utils";
 import {
   DropdownMenu,
   DropdownMenuContent,
