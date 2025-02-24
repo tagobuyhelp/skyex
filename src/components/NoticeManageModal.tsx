@@ -17,7 +17,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/components/ui/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { useNavigate } from "react-router-dom";
@@ -30,7 +29,6 @@ interface NoticeManageModalProps {
 export const NoticeManageModal = ({ trigger, onSuccess }: NoticeManageModalProps) => {
   const [open, setOpen] = useState(false);
   const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
   const [type, setType] = useState<"info" | "warning" | "success" | "error">("info");
   const { toast } = useToast();
   const navigate = useNavigate();
@@ -56,7 +54,7 @@ export const NoticeManageModal = ({ trigger, onSuccess }: NoticeManageModalProps
     
     const { error } = await supabase
       .from('notices')
-      .insert([{ title, content, type }]);
+      .insert([{ title, type, content: "" }]);
 
     if (error) {
       toast({
@@ -74,7 +72,6 @@ export const NoticeManageModal = ({ trigger, onSuccess }: NoticeManageModalProps
 
     setOpen(false);
     setTitle("");
-    setContent("");
     setType("info");
     onSuccess?.();
   };
@@ -93,15 +90,6 @@ export const NoticeManageModal = ({ trigger, onSuccess }: NoticeManageModalProps
               id="title"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
-              required
-            />
-          </div>
-          <div className="space-y-2">
-            <Label htmlFor="content">বিষয়বস্তু</Label>
-            <Textarea
-              id="content"
-              value={content}
-              onChange={(e) => setContent(e.target.value)}
               required
             />
           </div>
