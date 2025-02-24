@@ -71,15 +71,25 @@ export const AgentTable = ({ agents, displayAgents, title, showUpline = true, fi
     const checkAdminStatus = async () => {
       try {
         const { data: { session } } = await supabase.auth.getSession();
-        if (!session?.user?.id) {
+        
+        // Log session for debugging
+        console.log("Current session:", session);
+
+        if (!session?.user) {
+          console.log("No user in session");
           setIsAdmin(false);
           return;
         }
 
+        // Get user's email from session
+        const userEmail = session.user.email;
+        console.log("User email:", userEmail);
+
+        // Find the agent record by matching email with agent_id (which stores email)
         const { data: agentData, error } = await supabase
           .from('agents')
           .select('type')
-          .eq('id', session.user.id)
+          .eq('agent_id', userEmail)
           .maybeSingle();
 
         if (error) {
@@ -88,12 +98,14 @@ export const AgentTable = ({ agents, displayAgents, title, showUpline = true, fi
           return;
         }
 
+        console.log("Agent data:", agentData);
+
         // Check if the user is either a site_admin or sub_admin
-        setIsAdmin(agentData?.type === 'site_admin' || agentData?.type === 'sub_admin');
+        const isAdminUser = agentData?.type === 'site_admin' || agentData?.type === 'sub_admin';
+        setIsAdmin(isAdminUser);
         
-        // Log the admin status for debugging
         console.log('User type:', agentData?.type);
-        console.log('Is admin:', agentData?.type === 'site_admin' || agentData?.type === 'sub_admin');
+        console.log('Is admin:', isAdminUser);
       } catch (error) {
         console.error('Error in checkAdminStatus:', error);
         setIsAdmin(false);
