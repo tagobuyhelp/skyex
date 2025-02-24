@@ -1,3 +1,4 @@
+
 import { useQuery } from '@tanstack/react-query';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
@@ -8,6 +9,7 @@ import { Users, Shield, Star, Crown, TrendingUp, AlertTriangle, UserPlus } from 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { AgentManageModal } from '@/components/AgentManageModal';
+import { useToast } from "@/components/ui/use-toast";
 
 const StatCard = ({ title, value, icon: Icon, description }: {
   title: string;
@@ -30,6 +32,8 @@ const StatCard = ({ title, value, icon: Icon, description }: {
 );
 
 const AdminDashboard = () => {
+  const { toast } = useToast();
+
   const { data: agents = [], isLoading } = useQuery({
     queryKey: ['all-agents-dashboard'],
     queryFn: async () => {
@@ -40,10 +44,31 @@ const AdminDashboard = () => {
           agent_contacts (*)
         `);
       
-      if (error) throw error;
+      if (error) {
+        toast({
+          variant: "destructive",
+          title: "এজেন্ট লোড করতে ব্যর্থ হয়েছে",
+          description: error.message,
+        });
+        throw error;
+      }
       return data as AgentWithContacts[];
     },
   });
+
+  const handleAgentUpdate = () => {
+    toast({
+      title: "এজেন্ট আপডেট করা হয়েছে",
+      description: "এজেন্টের তথ্য সফলভাবে আপডেট করা হয়েছে।",
+    });
+  };
+
+  const handleAgentCreate = () => {
+    toast({
+      title: "নতুন এজেন্ট যোগ করা হয়েছে",
+      description: "নতুন এজেন্ট সফলভাবে যোগ করা হয়েছে।",
+    });
+  };
 
   // Organize agents by type for stats
   const siteAdmins = agents.filter(a => a.type === 'site_admin');
@@ -74,6 +99,7 @@ const AdminDashboard = () => {
           </div>
           <AgentManageModal 
             mode="create"
+            onSuccess={handleAgentCreate}
             trigger={
               <Button>
                 <UserPlus className="w-4 h-4 mr-2" />
