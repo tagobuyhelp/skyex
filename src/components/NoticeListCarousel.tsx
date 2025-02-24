@@ -73,16 +73,16 @@ export const NoticeListCarousel = () => {
         {notices.map((notice) => {
           const Icon = getIcon(notice.type);
           return (
-            <CarouselItem key={notice.id} className="flex-[0_0_100%] sm:flex-[0_0_75%] md:flex-[0_0_66.666667%] lg:flex-[0_0_50%]">
+            <CarouselItem key={notice.id} className="basis-full sm:basis-3/4 md:basis-2/3 lg:basis-1/2">
               <div className={cn(
-                "flex items-start gap-2 sm:gap-3 p-2 sm:p-3 rounded-lg transition-colors",
+                "flex items-start gap-2 sm:gap-3 p-2.5 sm:p-3 rounded-lg transition-colors min-h-[3rem]",
                 getTypeStyles(notice.type)
               )}>
                 <Icon className="w-4 h-4 sm:w-5 sm:h-5 shrink-0 mt-0.5" />
-                <div className="min-w-0 flex-1 text-sm sm:text-base">
-                  <p className="font-medium line-clamp-2">{notice.title}</p>
+                <div className="min-w-0 flex-1">
+                  <p className="text-sm sm:text-base font-medium line-clamp-1">{notice.title}</p>
                   {notice.content && (
-                    <p className="mt-0.5 sm:mt-1 text-muted-foreground text-xs sm:text-sm line-clamp-1">
+                    <p className="mt-0.5 sm:mt-1 text-muted-foreground text-xs sm:text-sm line-clamp-1 break-words">
                       {notice.content}
                     </p>
                   )}
