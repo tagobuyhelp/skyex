@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from 'react';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { AgentWithContacts } from '@/types/agent';
@@ -68,25 +69,35 @@ export const AgentTable = ({ agents, displayAgents, title, showUpline = true, fi
 
   useEffect(() => {
     const checkAdminStatus = async () => {
-      const { data: { session } } = await supabase.auth.getSession();
-      if (!session) {
+      try {
+        const { data: { session } } = await supabase.auth.getSession();
+        if (!session?.user?.id) {
+          setIsAdmin(false);
+          return;
+        }
+
+        const { data: agentData, error } = await supabase
+          .from('agents')
+          .select('type')
+          .eq('id', session.user.id)
+          .maybeSingle();
+
+        if (error) {
+          console.error('Error checking admin status:', error);
+          setIsAdmin(false);
+          return;
+        }
+
+        // Check if the user is either a site_admin or sub_admin
+        setIsAdmin(agentData?.type === 'site_admin' || agentData?.type === 'sub_admin');
+        
+        // Log the admin status for debugging
+        console.log('User type:', agentData?.type);
+        console.log('Is admin:', agentData?.type === 'site_admin' || agentData?.type === 'sub_admin');
+      } catch (error) {
+        console.error('Error in checkAdminStatus:', error);
         setIsAdmin(false);
-        return;
       }
-
-      const { data: agentData, error } = await supabase
-        .from('agents')
-        .select('type')
-        .eq('id', session.user.id)
-        .single();
-
-      if (error) {
-        console.error('Error checking admin status:', error);
-        setIsAdmin(false);
-        return;
-      }
-
-      setIsAdmin(agentData?.type === 'site_admin' || agentData?.type === 'sub_admin');
     };
 
     checkAdminStatus();
