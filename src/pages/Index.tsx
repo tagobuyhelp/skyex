@@ -1,3 +1,4 @@
+
 import * as React from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Header } from "@/components/Header";
@@ -12,6 +13,7 @@ import { Button } from "@/components/ui/button";
 import { useState, useEffect } from "react";
 import { AgentHierarchyModal } from "@/components/AgentHierarchyModal";
 import { AgentComplaintModal } from "@/components/AgentComplaintModal";
+import { NoticeList } from "@/components/NoticeList";
 import {
   Carousel,
   CarouselContent,
