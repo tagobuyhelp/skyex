@@ -1,4 +1,3 @@
-
 import * as React from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Header } from "@/components/Header";
@@ -46,6 +45,25 @@ const heroImages = [
   "/og-image.png",
   "/favicon.ico"
 ];
+
+const NoticeListCarousel = () => {
+  return (
+    <Carousel
+      opts={{
+        align: "start",
+        loop: true,
+      }}
+      plugins={[React.useRef(Autoplay({ delay: 4000, stopOnInteraction: false }))]}
+      className="w-full h-full"
+    >
+      <CarouselContent>
+        <NoticeList />
+      </CarouselContent>
+      <CarouselPrevious className="left-2 md:left-4 h-8 w-8 md:h-10 md:w-10" />
+      <CarouselNext className="right-2 md:right-4 h-8 w-8 md:h-10 md:w-10" />
+    </Carousel>
+  );
+};
 
 const Index = () => {
   const { data: allAgents, isLoading } = useQuery({
@@ -127,7 +145,7 @@ const Index = () => {
               <span className="text-primary font-medium">নোটিশ:</span>
             </div>
             <div className="flex-1">
-              <NoticeList />
+              <NoticeListCarousel />
             </div>
           </div>
         </div>

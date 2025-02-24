@@ -1,4 +1,3 @@
-
 import { useQuery } from '@tanstack/react-query';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
@@ -10,7 +9,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { AgentManageModal } from '@/components/AgentManageModal';
 import { NoticeManageModal } from '@/components/NoticeManageModal';
-import { NoticeList } from '@/components/NoticeList';
+import { NoticeListStatic } from '@/components/NoticeListStatic';
 import { useToast } from "@/components/ui/use-toast";
 import {
   DropdownMenu,
@@ -221,7 +220,7 @@ const AdminDashboard = () => {
                   <CardTitle className="text-lg">সাম্প্রতিক বিজ্ঞপ্তি</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <NoticeList />
+                  <NoticeListStatic />
                 </CardContent>
               </Card>
 
