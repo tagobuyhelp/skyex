@@ -1,3 +1,4 @@
+
 import { useQuery } from '@tanstack/react-query';
 import { useState } from 'react';
 import { Header } from '@/components/Header';
@@ -8,7 +9,6 @@ import { supabase } from '@/integrations/supabase/client';
 import { AgentWithContacts } from '@/types/agent';
 import { AlertTriangle, ChevronDown, ChevronUp } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { SITE_NAME } from '@/lib/constants';
 
 const fetchSiteAdmins = async () => {
   const { data: siteAdmins, error: siteAdminsError } = await supabase
@@ -72,18 +72,18 @@ const SiteAdmin = () => {
                 <AlertTriangle className="w-5 h-5 text-yellow-500 mt-1 flex-shrink-0" />
                 <div className="space-y-3 text-sm sm:text-base">
                   <p className="font-semibold text-yellow-500">
-                    এজেন্ট দের সাথে লেনদেন এর আগে {SITE_NAME}র ��িয়ম গুলো জেনে নিন!!
+                    এজেন্ট দের সাথে লেনদেন এর আগে ভেল্কির নিয়ম গুলো জেনে নিন!!
                   </p>
                   <ul className="space-y-2 text-muted-foreground">
                     <li className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2">
-                      <strong className="text-yellow-500 shrink-0">প্রতারনার হাত থেকে বাচতে সবার আগে ভিজিট করুন {SITE_NAME} সাইটঃ</strong>
+                      <strong className="text-yellow-500 shrink-0">প্রতারনার হাত থেকে বাচতে সবার আগে ভিজিট করুন ভেল্কি সাইটঃ</strong>
                       <a 
-                        href={`https://${SITE_NAME.toLowerCase()}.com`}
+                        href="https://velki.com" 
                         target="_blank" 
                         rel="noopener noreferrer" 
                         className="text-blue-400 hover:text-blue-300 break-all sm:break-normal"
                       >
-                        {SITE_NAME}.COM
+                        VELKI.COM
                       </a>
                     </li>
                     <li>
@@ -103,7 +103,7 @@ const SiteAdmin = () => {
           <AgentTable 
             agents={agents}
             displayAgents={siteAdmins}
-            title={`${SITE_NAME} সাইট এডমিন লিস্ট`}
+            title="VELKI সাইট এডমিন লিস্ট" 
             showUpline={false}
           />
         )}
