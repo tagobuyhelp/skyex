@@ -1,3 +1,4 @@
+
 import { useQuery } from '@tanstack/react-query';
 import { useState } from 'react';
 import { Header } from '@/components/Header';
@@ -10,18 +11,6 @@ import { Button } from '@/components/ui/button';
 import { CustomerSupport } from '@/components/CustomerSupport';
 
 const fetchSubAdmins = async () => {
-  // First, fetch all site admins (potential uplines)
-  const { data: siteAdmins, error: siteAdminsError } = await supabase
-    .from('agents')
-    .select(`
-      *,
-      agent_contacts (*)
-    `)
-    .eq('type', 'site_admin');
-
-  if (siteAdminsError) throw siteAdminsError;
-
-  // Then fetch sub admins
   const { data: subAdmins, error: subAdminsError } = await supabase
     .from('agents')
     .select(`
@@ -32,7 +21,6 @@ const fetchSubAdmins = async () => {
 
   if (subAdminsError) throw subAdminsError;
 
-  // Finally fetch super agents and master agents (potential downlines)
   const { data: downlineAgents, error: downlineAgentsError } = await supabase
     .from('agents')
     .select(`
@@ -43,19 +31,15 @@ const fetchSubAdmins = async () => {
 
   if (downlineAgentsError) throw downlineAgentsError;
 
-  // Combine all sets of data to have complete hierarchy information
-  return [
-    ...(subAdmins || []), 
-    ...(siteAdmins || []), 
-    ...(downlineAgents || [])
-  ] as AgentWithContacts[];
+  return [...(subAdmins || []), ...(downlineAgents || [])] as AgentWithContacts[];
 };
 
 const SubAdmin = () => {
   const [showWarning, setShowWarning] = useState(true);
+
   const { data: agents = [], isLoading } = useQuery({
     queryKey: ['sub-admins-with-hierarchy'],
-    queryFn: fetchSubAdmins,
+    queryFn: fetchSubAdmins
   });
 
   const subAdmins = agents.filter(agent => agent.type === 'sub_admin');
@@ -75,7 +59,7 @@ const SubAdmin = () => {
               <>
                 <ChevronUp className="mr-1" />
                 <span className="hidden sm:inline">সরান</span>
-              </> 
+              </>
             ) : (
               <>
                 <ChevronDown className="mr-1" />
@@ -87,17 +71,17 @@ const SubAdmin = () => {
             <div className="glass-card p-4 sm:p-6 mb-6">
               <div className="flex gap-3 items-start">
                 <AlertTriangle className="w-5 h-5 text-yellow-500 mt-1 flex-shrink-0" />
-                <div className="space-y-3 text-sm sm:text-base">
-                  <p className="font-semibold text-yellow-500">
+                <div className="space-y-3">
+                  <p className="font-semibold text-yellow-500 warning-title">
                     এজেন্ট দের সাথে লেনদেন এর আগে ভেল্কির নিয়ম গুলো জেনে নিন!!
                   </p>
-                  <ul className="space-y-2 text-muted-foreground">
+                  <ul className="space-y-2 text-muted-foreground warning-text">
                     <li className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2">
                       <strong className="text-yellow-500 shrink-0">প্রতারনার হাত থেকে বাচতে সবার আগে ভিজিট করুন ভেল্কি সাইটঃ</strong>
-                      <a 
-                        href="https://velki.com" 
-                        target="_blank" 
-                        rel="noopener noreferrer" 
+                      <a
+                        href="https://velki.com"
+                        target="_blank"
+                        rel="noopener noreferrer"
                         className="text-blue-400 hover:text-blue-300 break-all sm:break-normal"
                       >
                         VELKI.COM
@@ -117,11 +101,11 @@ const SubAdmin = () => {
             <div className="text-center">Loading...</div>
           </div>
         ) : (
-          <AgentTable 
+          <AgentTable
             agents={agents}
             displayAgents={subAdmins}
             title="VELKI সাব এডমিন লিস্ট"
-            filterSiteAdmins={false}
+            showUpline={false}
           />
         )}
       </div>
