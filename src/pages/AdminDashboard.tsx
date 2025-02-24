@@ -1,4 +1,3 @@
-
 import { useQuery } from '@tanstack/react-query';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
@@ -131,19 +130,19 @@ const AdminDashboard = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
       <Header />
-      <div className="container px-4 py-8">
-        <div className="mb-8 flex justify-between items-center backdrop-blur-lg bg-white/5 p-6 rounded-lg border border-white/10">
+      <div className="container px-4 py-4 md:py-8">
+        <div className="mb-6 md:mb-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-4 backdrop-blur-lg bg-white/5 p-4 md:p-6 rounded-lg border border-white/10">
           <div>
-            <h1 className="text-3xl font-bold text-white mb-2">এডমিন ড্যাশবোর্ড</h1>
-            <p className="text-muted-foreground">
+            <h1 className="text-2xl md:text-3xl font-bold text-white mb-2">এডমিন ড্যাশবোর্ড</h1>
+            <p className="text-sm md:text-base text-muted-foreground">
               সমস্ত এজেন্টের বিস্তারিত তথ্য এবং পরিসংখ্যান দেখুন
             </p>
           </div>
-          <div className="flex items-center gap-4">
-            <div className="flex gap-2">
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 md:gap-4 w-full md:w-auto">
+            <div className="flex flex-col sm:flex-row gap-2 w-full sm:w-auto">
               <NoticeManageModal
                 trigger={
-                  <Button variant="outline" className="bg-white/5 hover:bg-white/10 border-white/10">
+                  <Button variant="outline" className="w-full sm:w-auto bg-white/5 hover:bg-white/10 border-white/10">
                     <BellPlus className="w-4 h-4 mr-2" />
                     নতুন বিজ্ঞপ্তি
                   </Button>
@@ -153,7 +152,7 @@ const AdminDashboard = () => {
                 mode="create"
                 onSuccess={handleAgentCreate}
                 trigger={
-                  <Button className="bg-primary/90 hover:bg-primary">
+                  <Button className="w-full sm:w-auto bg-primary/90 hover:bg-primary">
                     <UserPlus className="w-4 h-4 mr-2" />
                     নতুন এজেন্ট
                   </Button>
@@ -190,7 +189,7 @@ const AdminDashboard = () => {
           </div>
         ) : (
           <>
-            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4 mb-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4 mb-6 md:mb-8">
               <StatCard
                 title="মোট এজেন্ট"
                 value={stats.totalAgents}
@@ -221,37 +220,37 @@ const AdminDashboard = () => {
               />
             </div>
 
-            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 mb-8">
-              <Card className="bg-gradient-to-br from-gray-800/50 to-gray-900/50 backdrop-blur-sm col-span-full lg:col-span-2 border-white/10">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-3 md:gap-4 mb-6 md:mb-8">
+              <Card className="bg-gradient-to-br from-gray-800/50 to-gray-900/50 backdrop-blur-sm col-span-1 lg:col-span-2 border-white/10">
                 <CardHeader className="border-b border-white/10">
-                  <CardTitle className="text-lg flex items-center gap-2">
+                  <CardTitle className="text-base md:text-lg flex items-center gap-2">
                     <Activity className="w-5 h-5 text-primary" />
                     সাম্প্রতিক বিজ্ঞপ্তি
                   </CardTitle>
                 </CardHeader>
-                <CardContent className="pt-6">
+                <CardContent className="pt-4 md:pt-6">
                   <NoticeListStatic />
                 </CardContent>
               </Card>
 
               <Card className="bg-gradient-to-br from-gray-800/50 to-gray-900/50 backdrop-blur-sm border-white/10">
                 <CardHeader className="border-b border-white/10">
-                  <CardTitle className="text-lg flex items-center gap-2">
+                  <CardTitle className="text-base md:text-lg flex items-center gap-2">
                     <Rocket className="w-5 h-5 text-primary" />
                     দ্রুত অ্যাকশন
                   </CardTitle>
                 </CardHeader>
-                <CardContent className="pt-6">
+                <CardContent className="pt-4 md:pt-6">
                   <div className="space-y-2">
-                    <button className="w-full text-left px-4 py-3 rounded-lg bg-white/5 hover:bg-white/10 transition-colors text-sm flex items-center gap-2">
+                    <button className="w-full text-left px-3 md:px-4 py-2.5 md:py-3 rounded-lg bg-white/5 hover:bg-white/10 transition-colors text-sm flex items-center gap-2">
                       <Users className="w-4 h-4 text-primary" />
                       নতুন এজেন্ট যোগ করুন
                     </button>
-                    <button className="w-full text-left px-4 py-3 rounded-lg bg-white/5 hover:bg-white/10 transition-colors text-sm flex items-center gap-2">
+                    <button className="w-full text-left px-3 md:px-4 py-2.5 md:py-3 rounded-lg bg-white/5 hover:bg-white/10 transition-colors text-sm flex items-center gap-2">
                       <AlertTriangle className="w-4 h-4 text-primary" />
                       অভিযোগ তালিকা দেখুন
                     </button>
-                    <button className="w-full text-left px-4 py-3 rounded-lg bg-white/5 hover:bg-white/10 transition-colors text-sm flex items-center gap-2">
+                    <button className="w-full text-left px-3 md:px-4 py-2.5 md:py-3 rounded-lg bg-white/5 hover:bg-white/10 transition-colors text-sm flex items-center gap-2">
                       <Shield className="w-4 h-4 text-primary" />
                       সিস্টেম সেটিংস
                     </button>
