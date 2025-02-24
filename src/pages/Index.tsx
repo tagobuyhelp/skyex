@@ -16,6 +16,7 @@ import { NoticeListCarousel } from '@/components/NoticeListCarousel';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import Autoplay from "embla-carousel-autoplay";
 import { useIsMobile } from "@/hooks/use-mobile";
+
 const fetchAllAgents = async () => {
   const {
     data: agents,
@@ -29,10 +30,13 @@ const fetchAllAgents = async () => {
   if (error) throw error;
   return agents as AgentWithContacts[];
 };
+
 const formatPhoneNumber = (phone: string) => {
   return phone.replace(/(\d{5})(\d{6})/, '$1 $2');
 };
+
 const heroImages = ["/placeholder.svg", "/og-image.png", "/favicon.ico"];
+
 const Index = () => {
   const {
     data: allAgents,
@@ -41,23 +45,30 @@ const Index = () => {
     queryKey: ["all-agents"],
     queryFn: fetchAllAgents
   });
+
   const [selectedAgent, setSelectedAgent] = useState<AgentWithContacts | null>(null);
   const [isHierarchyModalOpen, setIsHierarchyModalOpen] = useState(false);
   const [isComplaintModalOpen, setIsComplaintModalOpen] = useState(false);
+
   const isMobile = useIsMobile();
+
   const handleViewHierarchy = (agent: AgentWithContacts) => {
     setSelectedAgent(agent);
     setIsHierarchyModalOpen(true);
   };
+
   const handleComplaint = (agent: AgentWithContacts) => {
     setSelectedAgent(agent);
     setIsComplaintModalOpen(true);
   };
+
   const masterAgents = allAgents?.filter(agent => agent.type === 'master_agent').slice(0, 5);
+
   const plugin = React.useRef(Autoplay({
     delay: 4000,
     stopOnInteraction: false
   }));
+
   return <div className="min-h-screen bg-gradient-to-br from-background via-background/90 to-background">
       <Header />
       
@@ -75,10 +86,10 @@ const Index = () => {
                   <div className="absolute inset-0 bg-gradient-to-r from-background/90 via-background/50 to-background/90">
                     <div className="container h-full flex items-center justify-center px-4">
                       <div className="text-center space-y-3">
-                        <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gradient">
+                        <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gradient">
                           Skyex OFFICIAL WEBSITE
                         </h1>
-                        <p className="text-sm sm:text-base md:text-lg text-muted-foreground max-w-2xl mx-auto">
+                        <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
                           Your trusted platform for gaming and entertainment
                         </p>
                       </div>
@@ -97,10 +108,10 @@ const Index = () => {
         <div className="container py-3 px-4">
           <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-3">
             <div className="flex items-center gap-2 shrink-0">
-              <Info className="w-4 h-4 text-primary animate-pulse" />
-              <span className="text-primary font-medium">নোটিশ:</span>
+              <Info className="w-5 h-5 text-primary animate-pulse" />
+              <span className="text-primary font-medium text-base sm:text-lg">নোটিশ:</span>
             </div>
-            <div className="flex-1">
+            <div className="flex-1 text-base sm:text-lg">
               <NoticeListCarousel />
             </div>
           </div>
@@ -110,32 +121,32 @@ const Index = () => {
       {/* Quick Master Agents List */}
       <section className="container py-6 md:py-12 px-4">
         <div className="glass-card p-4 md:p-6">
-          <h2 className="text-lg md:text-xl font-semibold mb-4 flex items-center gap-2">
-            <Users className="w-4 h-4 md:w-5 md:h-5" />
+          <h2 className="text-xl md:text-2xl font-semibold mb-4 flex items-center gap-2">
+            <Users className="w-5 h-5 md:w-6 md:h-6" />
             কুইক মাস্টার এজেন্ট লিস্ট
           </h2>
           {isLoading ? <div>Loading agents...</div> : <div className="space-y-3 md:space-y-4">
               {masterAgents?.map(agent => <div key={agent.id} className="flex flex-col sm:flex-row sm:items-center justify-between p-3 md:p-4 bg-secondary/50 rounded-lg gap-3 md:gap-4">
                   <div className="flex items-center gap-3">
-                    <div className="agent-avatar text-base md:text-lg">{agent.name[0]}</div>
+                    <div className="agent-avatar text-lg md:text-xl">{agent.name[0]}</div>
                     <div>
-                      <p className="font-medium text-sm md:text-base">{agent.name}</p>
-                      <p className="px-2 py-0.5 bg-emerald-500/20 rounded text-emerald-400 font-medium text-xs md:text-sm inline-block">
+                      <p className="font-medium text-base md:text-lg">{agent.name}</p>
+                      <p className="px-2 py-0.5 bg-emerald-500/20 rounded text-emerald-400 font-medium text-sm md:text-base inline-block">
                         {agent.agent_id}
                       </p>
                       {agent.agent_contacts[0]?.whatsapp && <div className="flex items-center gap-2 mt-1">
-                          <WhatsAppIcon className="w-4 h-4" />
-                          <span className="text-xs md:text-sm">{formatPhoneNumber(agent.agent_contacts[0].whatsapp)}</span>
+                          <WhatsAppIcon className="w-4 h-4 md:w-5 md:h-5" />
+                          <span className="text-sm md:text-base">{formatPhoneNumber(agent.agent_contacts[0].whatsapp)}</span>
                         </div>}
                     </div>
                   </div>
                   <div className="flex gap-2 self-end sm:self-center">
-                    <button className="p-2 hover:bg-emerald-500/20 rounded-lg transition-colors flex items-center gap-1.5 whitespace-nowrap text-xs md:text-sm" onClick={() => handleViewHierarchy(agent)}>
-                      <Eye className="w-3 h-3 md:w-4 md:h-4 text-emerald-400" />
+                    <button className="p-2 hover:bg-emerald-500/20 rounded-lg transition-colors flex items-center gap-1.5 whitespace-nowrap text-sm md:text-base" onClick={() => handleViewHierarchy(agent)}>
+                      <Eye className="w-4 h-4 md:w-5 md:h-5 text-emerald-400" />
                       <span className="text-emerald-400">দেখুন</span>
                     </button>
-                    <button className="p-2 hover:bg-red-500/20 rounded-lg transition-colors flex items-center gap-1.5 whitespace-nowrap text-xs md:text-sm" onClick={() => handleComplaint(agent)}>
-                      <AlertTriangle className="w-3 h-3 md:w-4 md:h-4 text-red-400" />
+                    <button className="p-2 hover:bg-red-500/20 rounded-lg transition-colors flex items-center gap-1.5 whitespace-nowrap text-sm md:text-base" onClick={() => handleComplaint(agent)}>
+                      <AlertTriangle className="w-4 h-4 md:w-5 md:h-5 text-red-400" />
                       <span className="text-red-400">অভিযোগ</span>
                     </button>
                   </div>
@@ -246,7 +257,7 @@ const Index = () => {
             <div className="flex items-start gap-3">
               <WhatsAppIcon className="w-4 h-4 md:w-5 md:h-5 shrink-0 mt-0.5" />
               <p className="text-gray-300 text-xs md:text-sm leading-relaxed">
-                অ্যাকাউন্ট খুলতে নিম্নের অনলাইন এজেন্ট লিস্ট এ ক্লিক করুন। এজেন্ট লিস্ট এর এজেন্ট দের সাথে ইউজার দের শুধুমাত্র হোয়াটসঅ্যাপের মাধ্যমে যোগাযোগ করতে হবে।
+                অ্যাকাউন��ট খুলতে নিম্নের অনলাইন এজেন্ট লিস্ট এ ক্লিক করুন। এজেন্ট লিস্ট এর এজেন্ট দের সাথে ইউজার দের শুধুমাত্র হোয়াটসঅ্যাপের মাধ্যমে যোগাযোগ করতে হবে।
               </p>
             </div>
             
@@ -283,4 +294,5 @@ const Index = () => {
       <CustomerSupport />
     </div>;
 };
+
 export default Index;
