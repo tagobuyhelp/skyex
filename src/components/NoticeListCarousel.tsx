@@ -20,10 +20,6 @@ interface Notice {
 }
 
 export const NoticeListCarousel = () => {
-  const plugin = React.useRef(
-    Autoplay({ delay: 3000, stopOnInteraction: false })
-  );
-
   const { data: notices = [] } = useQuery({
     queryKey: ["notices"],
     queryFn: async () => {
@@ -70,7 +66,7 @@ export const NoticeListCarousel = () => {
         align: "start",
         loop: true,
       }}
-      plugins={[plugin.current]}
+      plugins={[Autoplay({ delay: 3000, stopOnInteraction: false })]}
       className="w-full"
     >
       <CarouselContent>

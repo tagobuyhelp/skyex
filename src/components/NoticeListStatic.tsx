@@ -14,7 +14,7 @@ interface Notice {
   created_at: string;
 }
 
-export const NoticeList = () => {
+export const NoticeListStatic = () => {
   const { toast } = useToast();
   const queryClient = useQueryClient();
   const user = supabase.auth.getUser();

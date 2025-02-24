@@ -12,7 +12,7 @@ import { Button } from "@/components/ui/button";
 import { useState, useEffect } from "react";
 import { AgentHierarchyModal } from "@/components/AgentHierarchyModal";
 import { AgentComplaintModal } from "@/components/AgentComplaintModal";
-import { NoticeList } from "@/components/NoticeList";
+import { NoticeListCarousel } from '@/components/NoticeListCarousel';
 import {
   Carousel,
   CarouselContent,
@@ -45,25 +45,6 @@ const heroImages = [
   "/og-image.png",
   "/favicon.ico"
 ];
-
-const NoticeListCarousel = () => {
-  return (
-    <Carousel
-      opts={{
-        align: "start",
-        loop: true,
-      }}
-      plugins={[React.useRef(Autoplay({ delay: 4000, stopOnInteraction: false }))]}
-      className="w-full h-full"
-    >
-      <CarouselContent>
-        <NoticeList />
-      </CarouselContent>
-      <CarouselPrevious className="left-2 md:left-4 h-8 w-8 md:h-10 md:w-10" />
-      <CarouselNext className="right-2 md:right-4 h-8 w-8 md:h-10 md:w-10" />
-    </Carousel>
-  );
-};
 
 const Index = () => {
   const { data: allAgents, isLoading } = useQuery({
