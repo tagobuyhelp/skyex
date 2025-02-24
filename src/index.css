@@ -2,85 +2,63 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
+ 
 @layer base {
   :root {
-    --background: 224 71% 4%;
-    --foreground: 213 31% 91%;
-    --card: 224 71% 4%;
-    --card-foreground: 213 31% 91%;
-    --popover: 224 71% 4%;
-    --popover-foreground: 213 31% 91%;
-    --primary: 266 100% 50%;
-    --primary-foreground: 210 40% 98%;
-    --secondary: 215 27% 17%;
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 217.2 91.2% 59.8%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 217.2 32.6% 17.5%;
     --secondary-foreground: 210 40% 98%;
-    --muted: 215 27% 17%;
-    --muted-foreground: 215 20% 65%;
-    --accent: 266 100% 50%;
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+    --accent: 217.2 32.6% 17.5%;
     --accent-foreground: 210 40% 98%;
-    --destructive: 0 63% 31%;
+    --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 210 40% 98%;
-    --border: 215 27% 17%;
-    --input: 215 27% 17%;
-    --ring: 266 100% 50%;
-    --radius: 0.75rem;
-  }
-
-  * {
-    @apply border-border;
-  }
-
-  html {
-    font-size: 16px;
-    @screen sm {
-      font-size: 15px;
-    }
-    @screen md {
-      font-size: 14px;
-    }
-  }
-
-  body {
-    @apply bg-background text-foreground antialiased;
-    font-feature-settings: "ss01", "ss02", "cv01", "cv02", "cv03";
-  }
-
-  h1 {
-    @apply text-2xl sm:text-2xl md:text-3xl font-bold;
-  }
-
-  h2 {
-    @apply text-xl sm:text-xl md:text-2xl font-semibold;
-  }
-
-  h3 {
-    @apply text-lg sm:text-lg md:text-xl font-semibold;
-  }
-
-  p, li, a {
-    @apply text-base sm:text-base;
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 224.3 76.3% 48%;
+    --radius: 0.5rem;
   }
 }
 
-@layer components {
+@layer utilities {
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-primary via-primary/90 to-primary;
+  }
+  
   .glass-card {
-    @apply bg-card/80 backdrop-blur-md border border-primary/20 rounded-lg shadow-xl;
+    @apply bg-secondary/50 backdrop-blur-sm border border-white/10 rounded-lg;
   }
-  
+
   .agent-avatar {
-    @apply w-12 h-12 rounded-full bg-primary text-white flex items-center justify-center font-semibold text-lg sm:text-base;
-  }
-  
-  .rating-stars {
-    @apply flex gap-0.5 text-yellow-400;
-  }
-
-  .warning-text {
-    @apply text-xs sm:text-sm md:text-sm;
-  }
-
-  .warning-title {
-    @apply text-sm sm:text-base md:text-base;
+    @apply w-10 h-10 rounded-full bg-primary/20 text-primary flex items-center justify-center font-semibold;
   }
 }
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  animation: marquee 20s linear infinite;
+}
+
+.notice-content-wrapper {
+  max-width: 300px;
+  overflow: hidden;
+  mask-image: linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%);
+}
+

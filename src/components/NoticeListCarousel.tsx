@@ -1,11 +1,12 @@
 
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
-import { AlertCircle, Info, AlertTriangle, CheckCircle } from "lucide-react";
+import { AlertCircle, Info, AlertTriangle, CheckCircle, Clock } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Carousel, CarouselContent, CarouselItem } from "@/components/ui/carousel";
 import Autoplay from "embla-carousel-autoplay";
 import * as React from "react";
+import { formatDistanceToNow } from "date-fns";
 
 interface Notice {
   id: string;
@@ -32,26 +33,13 @@ export const NoticeListCarousel = () => {
   const getIcon = (type: Notice["type"]) => {
     switch (type) {
       case "info":
-        return Info;
+        return "bg-blue-500 shadow-blue-500/50";
       case "warning":
-        return AlertTriangle;
+        return "bg-yellow-500 shadow-yellow-500/50";
       case "success":
-        return CheckCircle;
+        return "bg-green-500 shadow-green-500/50";
       case "error":
-        return AlertCircle;
-    }
-  };
-
-  const getTypeStyles = (type: Notice["type"]) => {
-    switch (type) {
-      case "info":
-        return "text-blue-400 bg-blue-400/10";
-      case "warning":
-        return "text-yellow-400 bg-yellow-400/10";
-      case "success":
-        return "text-green-400 bg-green-400/10";
-      case "error":
-        return "text-red-400 bg-red-400/10";
+        return "bg-red-500 shadow-red-500/50";
     }
   };
 
@@ -65,7 +53,7 @@ export const NoticeListCarousel = () => {
       }}
       plugins={[
         Autoplay({ 
-          delay: 2000, 
+          delay: 3000, 
           stopOnInteraction: false,
           stopOnMouseEnter: false,
           rootNode: (emblaRoot) => emblaRoot.parentElement,
@@ -74,30 +62,42 @@ export const NoticeListCarousel = () => {
       className="w-full"
     >
       <CarouselContent>
-        {notices.map(notice => {
-          const Icon = getIcon(notice.type);
-          return (
-            <CarouselItem key={notice.id}>
-              <div className={cn(
-                "flex items-start gap-2.5 px-3 py-2 rounded-lg transition-colors max-w-xl mx-auto",
-                getTypeStyles(notice.type)
-              )}>
-                <Icon className="w-4 h-4 sm:w-5 sm:h-5 shrink-0 mt-0.5" />
-                <div className="min-w-0 flex-1">
-                  <p className="text-sm sm:text-base font-medium line-clamp-1">
-                    {notice.title}
-                  </p>
-                  {notice.content && (
-                    <p className="text-xs sm:text-sm mt-0.5 text-muted-foreground line-clamp-1">
+        {notices.map(notice => (
+          <CarouselItem key={notice.id}>
+            <div className="flex items-center justify-between w-full group">
+              <div className="flex items-center flex-1 marquee-container">
+                <div className="notice-title">
+                  <span className={cn(
+                    "priority-indicator inline-block w-1.5 h-1.5 flex-shrink-0 rounded-full shadow-lg",
+                    getIcon(notice.type)
+                  )} />
+                  <span className="text-xs font-medium text-white ml-2 opacity-90 group-hover:opacity-100">
+                    {notice.title}:
+                  </span>
+                </div>
+                <div className="notice-content-wrapper overflow-hidden">
+                  <div className="marquee-content animate-marquee whitespace-nowrap">
+                    <span className="text-xs text-gray-300 group-hover:text-white transition-colors">
                       {notice.content}
-                    </p>
-                  )}
+                    </span>
+                    <span className="ml-16" />
+                    <span className="text-xs text-gray-300 group-hover:text-white transition-colors">
+                      {notice.content}
+                    </span>
+                  </div>
                 </div>
               </div>
-            </CarouselItem>
-          );
-        })}
+              <div className="flex-shrink-0 flex items-center text-gray-400 text-[10px] whitespace-nowrap ml-3 opacity-75 group-hover:opacity-100 transition-opacity">
+                <Clock className="w-3 h-3 mr-1 flex-shrink-0" />
+                <span>
+                  {formatDistanceToNow(new Date(notice.created_at), { addSuffix: true })}
+                </span>
+              </div>
+            </div>
+          </CarouselItem>
+        ))}
       </CarouselContent>
     </Carousel>
   );
 };
+
