@@ -45,13 +45,6 @@ const heroImages = [
   "/favicon.ico"
 ];
 
-const notices = [
-  "আপডেট: সকল এজেন্টদের জন্য নতুন লাইভ পোর্টাল চালু করা হয়েছে",
-  "জরুরী: সার্ভার আপগ্রেড চলছে, কিছু সময়ের জন্য সিস্টেম স্লো হতে পারে",
-  "বিশেষ ঘোষণা: নতুন এজেন্ট রেজিস্ট্রেশন শুরু হয়েছে",
-  "সতর্কতা: যেকোনো লেনদেনের আগে এজেন্টের আইডি যাচাই করে নিন"
-];
-
 const Index = () => {
   const { data: allAgents, isLoading } = useQuery({
     queryKey: ["all-agents"],
@@ -61,18 +54,7 @@ const Index = () => {
   const [selectedAgent, setSelectedAgent] = useState<AgentWithContacts | null>(null);
   const [isHierarchyModalOpen, setIsHierarchyModalOpen] = useState(false);
   const [isComplaintModalOpen, setIsComplaintModalOpen] = useState(false);
-  const [currentNoticeIndex, setCurrentNoticeIndex] = useState(0);
   const isMobile = useIsMobile();
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentNoticeIndex((prevIndex) => 
-        prevIndex === notices.length - 1 ? 0 : prevIndex + 1
-      );
-    }, 5000);
-
-    return () => clearInterval(timer);
-  }, []);
 
   const handleViewHierarchy = (agent: AgentWithContacts) => {
     setSelectedAgent(agent);
@@ -134,7 +116,7 @@ const Index = () => {
         </Carousel>
       </section>
 
-      {/* Notice Ticker */}
+      {/* Notice Section */}
       <div className="bg-gradient-to-r from-primary/10 via-primary/5 to-primary/10 border-y border-primary/20">
         <div className="container py-3 px-4">
           <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-3">
@@ -142,22 +124,8 @@ const Index = () => {
               <Info className="w-4 h-4 text-primary animate-pulse" />
               <span className="text-primary font-medium">নোটিশ:</span>
             </div>
-            <div className="relative flex-1 w-full overflow-hidden">
-              <div 
-                className={`transition-transform duration-1000 ease-in-out ${isMobile ? '' : 'whitespace-nowrap'}`}
-                style={{ 
-                  transform: `translateX(-${currentNoticeIndex * 100}%)`,
-                }}
-              >
-                {notices.map((notice, index) => (
-                  <span
-                    key={index}
-                    className={`inline-block w-full text-muted-foreground animate-fade-in ${isMobile ? 'text-sm leading-relaxed' : ''}`}
-                  >
-                    {notice}
-                  </span>
-                ))}
-              </div>
+            <div className="flex-1">
+              <NoticeList />
             </div>
           </div>
         </div>
