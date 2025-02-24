@@ -1,10 +1,11 @@
+
 import { useQuery } from '@tanstack/react-query';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
 import { CustomerSupport } from '@/components/CustomerSupport';
 import { supabase } from '@/integrations/supabase/client';
 import { AgentWithContacts } from '@/types/agent';
-import { Users, Shield, Star, Crown, TrendingUp, AlertTriangle, UserPlus, BellPlus, LogOut, User } from 'lucide-react';
+import { Users, Shield, Star, Crown, TrendingUp, AlertTriangle, UserPlus, BellPlus, LogOut, User, Activity, Rocket } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { AgentManageModal } from '@/components/AgentManageModal';
@@ -21,22 +22,26 @@ import {
 import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 
-const StatCard = ({ title, value, icon: Icon, description }: {
+const StatCard = ({ title, value, icon: Icon, description, className }: {
   title: string;
   value: string | number;
   icon: any;
   description?: string;
+  className?: string;
 }) => (
-  <Card className="bg-card/50 backdrop-blur-sm">
+  <Card className={cn("relative overflow-hidden transition-all hover:shadow-lg", className)}>
     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
       <CardTitle className="text-sm font-medium">{title}</CardTitle>
-      <Icon className="h-4 w-4 text-muted-foreground" />
+      <div className="p-2 bg-primary/10 rounded-full">
+        <Icon className="h-4 w-4 text-primary" />
+      </div>
     </CardHeader>
     <CardContent>
       <div className="text-2xl font-bold">{value}</div>
       {description && (
         <p className="text-xs text-muted-foreground mt-1">{description}</p>
       )}
+      <div className="absolute bottom-0 right-0 w-16 h-16 -mb-6 -mr-6 rounded-full bg-primary/5" />
     </CardContent>
   </Card>
 );
@@ -54,7 +59,6 @@ const AdminDashboard = () => {
       setUserEmail(session?.user?.email || null);
     });
 
-    // Get initial session
     supabase.auth.getSession().then(({ data: { session } }) => {
       setUserEmail(session?.user?.email || null);
     });
@@ -109,13 +113,11 @@ const AdminDashboard = () => {
     });
   };
 
-  // Organize agents by type for stats
   const siteAdmins = agents.filter(a => a.type === 'site_admin');
   const subAdmins = agents.filter(a => a.type === 'sub_admin');
   const superAgents = agents.filter(a => a.type === 'super_agent');
   const masterAgents = agents.filter(a => a.type === 'master_agent');
 
-  // Calculate stats
   const stats = {
     siteAdmins: siteAdmins.length,
     subAdmins: subAdmins.length,
@@ -129,9 +131,9 @@ const AdminDashboard = () => {
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
       <Header />
       <div className="container px-4 py-8">
-        <div className="mb-8 flex justify-between items-center">
+        <div className="mb-8 flex justify-between items-center backdrop-blur-lg bg-white/5 p-6 rounded-lg border border-white/10">
           <div>
-            <h1 className="text-2xl font-bold text-white mb-2">এডমিন ড্যাশবোর্ড</h1>
+            <h1 className="text-3xl font-bold text-white mb-2">এডমিন ড্যাশবোর্ড</h1>
             <p className="text-muted-foreground">
               সমস্ত এজেন্টের বিস্তারিত তথ্য এবং পরিসংখ্যান দেখুন
             </p>
@@ -140,7 +142,7 @@ const AdminDashboard = () => {
             <div className="flex gap-2">
               <NoticeManageModal
                 trigger={
-                  <Button variant="outline">
+                  <Button variant="outline" className="bg-white/5 hover:bg-white/10 border-white/10">
                     <BellPlus className="w-4 h-4 mr-2" />
                     নতুন বিজ্ঞপ্তি
                   </Button>
@@ -150,7 +152,7 @@ const AdminDashboard = () => {
                 mode="create"
                 onSuccess={handleAgentCreate}
                 trigger={
-                  <Button>
+                  <Button className="bg-primary/90 hover:bg-primary">
                     <UserPlus className="w-4 h-4 mr-2" />
                     নতুন এজেন্ট
                   </Button>
@@ -187,59 +189,69 @@ const AdminDashboard = () => {
           </div>
         ) : (
           <>
-            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mb-8">
+            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4 mb-8">
               <StatCard
                 title="মোট এজেন্ট"
                 value={stats.totalAgents}
                 icon={Users}
                 description="সক্রিয় এজেন্ট সংখ্যা"
+                className="bg-gradient-to-br from-blue-500/10 to-blue-600/10 border-blue-500/20"
               />
               <StatCard
                 title="সাইট এডমিন"
                 value={stats.siteAdmins}
                 icon={Shield}
                 description="সর্বোচ্চ অনুমতিপ্রাপ্ত এডমিন"
+                className="bg-gradient-to-br from-purple-500/10 to-purple-600/10 border-purple-500/20"
               />
               <StatCard
                 title="সাব এডমিন"
                 value={stats.subAdmins}
                 icon={Star}
                 description="দ্বিতীয় পর্যায়ের এডমিন"
+                className="bg-gradient-to-br from-amber-500/10 to-amber-600/10 border-amber-500/20"
               />
               <StatCard
                 title="সুপার এজেন্ট"
                 value={stats.superAgents}
                 icon={Crown}
                 description="বিশেষ অনুমতিপ্রাপ্ত এজেন্ট"
+                className="bg-gradient-to-br from-emerald-500/10 to-emerald-600/10 border-emerald-500/20"
               />
             </div>
 
             <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 mb-8">
-              <Card className="bg-card/50 backdrop-blur-sm col-span-full lg:col-span-2">
-                <CardHeader>
-                  <CardTitle className="text-lg">সাম্প্রতিক বিজ্ঞপ্তি</CardTitle>
+              <Card className="bg-gradient-to-br from-gray-800/50 to-gray-900/50 backdrop-blur-sm col-span-full lg:col-span-2 border-white/10">
+                <CardHeader className="border-b border-white/10">
+                  <CardTitle className="text-lg flex items-center gap-2">
+                    <Activity className="w-5 h-5 text-primary" />
+                    সাম্প্রতিক বিজ্ঞপ্তি
+                  </CardTitle>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="pt-6">
                   <NoticeListStatic />
                 </CardContent>
               </Card>
 
-              <Card className="bg-card/50 backdrop-blur-sm">
-                <CardHeader>
-                  <CardTitle className="text-lg">দ্রুত অ্যাকশন</CardTitle>
+              <Card className="bg-gradient-to-br from-gray-800/50 to-gray-900/50 backdrop-blur-sm border-white/10">
+                <CardHeader className="border-b border-white/10">
+                  <CardTitle className="text-lg flex items-center gap-2">
+                    <Rocket className="w-5 h-5 text-primary" />
+                    দ্রুত অ্যাকশন
+                  </CardTitle>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="pt-6">
                   <div className="space-y-2">
-                    <button className="w-full text-left px-4 py-2 rounded-lg hover:bg-primary/20 transition-colors text-sm flex items-center gap-2">
-                      <Users className="w-4 h-4" />
+                    <button className="w-full text-left px-4 py-3 rounded-lg bg-white/5 hover:bg-white/10 transition-colors text-sm flex items-center gap-2">
+                      <Users className="w-4 h-4 text-primary" />
                       নতুন এজেন্ট যোগ করুন
                     </button>
-                    <button className="w-full text-left px-4 py-2 rounded-lg hover:bg-primary/20 transition-colors text-sm flex items-center gap-2">
-                      <AlertTriangle className="w-4 h-4" />
+                    <button className="w-full text-left px-4 py-3 rounded-lg bg-white/5 hover:bg-white/10 transition-colors text-sm flex items-center gap-2">
+                      <AlertTriangle className="w-4 h-4 text-primary" />
                       অভিযোগ তালিকা দেখুন
                     </button>
-                    <button className="w-full text-left px-4 py-2 rounded-lg hover:bg-primary/20 transition-colors text-sm flex items-center gap-2">
-                      <Shield className="w-4 h-4" />
+                    <button className="w-full text-left px-4 py-3 rounded-lg bg-white/5 hover:bg-white/10 transition-colors text-sm flex items-center gap-2">
+                      <Shield className="w-4 h-4 text-primary" />
                       সিস্টেম সেটিংস
                     </button>
                   </div>
