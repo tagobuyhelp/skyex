@@ -5,13 +5,22 @@ import { Footer } from '@/components/Footer';
 import { CustomerSupport } from '@/components/CustomerSupport';
 import { supabase } from '@/integrations/supabase/client';
 import { AgentWithContacts } from '@/types/agent';
-import { Users, Shield, Star, Crown, TrendingUp, AlertTriangle, UserPlus, BellPlus } from 'lucide-react';
+import { Users, Shield, Star, Crown, TrendingUp, AlertTriangle, UserPlus, BellPlus, LogOut, User } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { AgentManageModal } from '@/components/AgentManageModal';
 import { NoticeManageModal } from '@/components/NoticeManageModal';
 import { NoticeList } from '@/components/NoticeList';
 import { useToast } from "@/components/ui/use-toast";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 
 const StatCard = ({ title, value, icon: Icon, description }: {
   title: string;
@@ -35,6 +44,35 @@ const StatCard = ({ title, value, icon: Icon, description }: {
 
 const AdminDashboard = () => {
   const { toast } = useToast();
+  const navigate = useNavigate();
+  const [userEmail, setUserEmail] = useState<string | null>(null);
+
+  useEffect(() => {
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+      if (event === 'SIGNED_OUT') {
+        navigate('/login');
+      }
+      setUserEmail(session?.user?.email || null);
+    });
+
+    // Get initial session
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setUserEmail(session?.user?.email || null);
+    });
+
+    return () => subscription.unsubscribe();
+  }, [navigate]);
+
+  const handleLogout = async () => {
+    const { error } = await supabase.auth.signOut();
+    if (error) {
+      toast({
+        variant: "destructive",
+        title: "লগআউট ব্যর্থ হয়েছে",
+        description: error.message,
+      });
+    }
+  };
 
   const { data: agents = [], isLoading } = useQuery({
     queryKey: ['all-agents-dashboard'],
@@ -99,25 +137,48 @@ const AdminDashboard = () => {
               সমস্ত এজেন্টের বিস্তারিত তথ্য এবং পরিসংখ্যান দেখুন
             </p>
           </div>
-          <div className="flex gap-2">
-            <NoticeManageModal
-              trigger={
-                <Button variant="outline">
-                  <BellPlus className="w-4 h-4 mr-2" />
-                  নতুন বিজ্ঞপ্তি
+          <div className="flex items-center gap-4">
+            <div className="flex gap-2">
+              <NoticeManageModal
+                trigger={
+                  <Button variant="outline">
+                    <BellPlus className="w-4 h-4 mr-2" />
+                    নতুন বিজ্ঞপ্তি
+                  </Button>
+                }
+              />
+              <AgentManageModal 
+                mode="create"
+                onSuccess={handleAgentCreate}
+                trigger={
+                  <Button>
+                    <UserPlus className="w-4 h-4 mr-2" />
+                    নতুন এজেন্ট
+                  </Button>
+                }
+              />
+            </div>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="ghost" className="relative h-10 w-10 rounded-full">
+                  <User className="h-5 w-5" />
                 </Button>
-              }
-            />
-            <AgentManageModal 
-              mode="create"
-              onSuccess={handleAgentCreate}
-              trigger={
-                <Button>
-                  <UserPlus className="w-4 h-4 mr-2" />
-                  নতুন এজেন্ট
-                </Button>
-              }
-            />
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="w-56" align="end">
+                {userEmail && (
+                  <>
+                    <DropdownMenuItem className="font-medium">
+                      {userEmail}
+                    </DropdownMenuItem>
+                    <DropdownMenuSeparator />
+                  </>
+                )}
+                <DropdownMenuItem className="text-destructive focus:text-destructive" onClick={handleLogout}>
+                  <LogOut className="mr-2 h-4 w-4" />
+                  লগ আউট
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
           </div>
         </div>
 
