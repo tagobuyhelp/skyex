@@ -88,15 +88,6 @@ const SuperAgent = () => {
             <div className="glass-card p-4 sm:p-6 mb-6">
               <div className="flex gap-3 items-start">
                 <AlertTriangle className="w-5 h-5 text-yellow-500 mt-1 flex-shrink-0" />
-<<<<<<< HEAD
-                <div className="space-y-3 text-sm sm:text-base">
-                  <p className="font-semibold text-yellow-500">
-                    এজেন্ট দের সাথে লেনদেন এর আগে স্কাইএক্স এর নিয়ম গুলো জেনে নিন!!
-                  </p>
-                  <ul className="space-y-2 text-muted-foreground">
-                    <li className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2">
-                      <strong className="text-yellow-500 shrink-0">প্রতারনার হাত থেকে বাচতে সবার আগে ভিজিট করুন স্কাইএক্স সাইটঃ</strong>
-=======
                 <div className="space-y-3">
                   <p className="warning-title text-yellow-500 font-semibold">
                     এজেন্ট দের সাথে লেনদেন এর আগে ভেল্কির নিয়ম গুলো জেনে নিন!!
@@ -104,14 +95,13 @@ const SuperAgent = () => {
                   <ul className="space-y-2 text-muted-foreground">
                     <li className="warning-text flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2">
                       <strong className="text-yellow-500 shrink-0">প্রতারনার হাত থেকে বাচতে সবার আগে ভিজিট করুন ভেল্কি সাইটঃ</strong>
->>>>>>> 5cafc3614c46f0b611b403deef89c6985cacd2fe
                       <a 
-                        href="https://skyex.com" 
+                        href="https://velki.com" 
                         target="_blank" 
                         rel="noopener noreferrer" 
                         className="text-blue-400 hover:text-blue-300 break-all sm:break-normal"
                       >
-                        SKYEX.COM
+                        VELKI.COM
                       </a>
                     </li>
                     <li className="warning-text">
@@ -131,7 +121,7 @@ const SuperAgent = () => {
           <AgentTable 
             agents={agents}
             displayAgents={superAgents}
-            title="SKYEX সুপার এজেন্ট লিস্ট"
+            title="VELKI সুপার এজেন্ট লিস্ট"
             filterSiteAdmins={false}
           />
         )}

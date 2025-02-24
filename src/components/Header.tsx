@@ -2,20 +2,11 @@ import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, Search, Home, Shield, Users, Star, Crown, ExternalLink, UserPlus, Phone, List, X } from 'lucide-react';
 import { AgentSearchModal } from './AgentSearchModal';
-import {
-  Sheet,
-  SheetContent,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "@/components/ui/sheet";
-
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 export const Header = () => {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const location = useLocation();
-
-  return (
-    <header className="sticky top-0 z-50 bg-background/95 backdrop-blur-sm border-b border-primary/20">
+  return <header className="sticky top-0 z-50 bg-background/95 backdrop-blur-sm border-b border-primary/20">
       <div className="container px-2 md:px-8">
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center gap-2 md:gap-4">
@@ -28,38 +19,23 @@ export const Header = () => {
                   <SheetTitle className="text-xl font-semibold text-gradient">Skyex</SheetTitle>
                 </SheetHeader>
                 <nav className="mt-8 flex flex-col gap-4">
-                  <Link 
-                    to="/" 
-                    className={`text-sm hover:text-primary flex items-center gap-2 p-2 rounded-lg transition-colors ${location.pathname === '/' ? 'text-primary bg-primary/10' : ''}`}
-                  >
+                  <Link to="/" className={`text-sm hover:text-primary flex items-center gap-2 p-2 rounded-lg transition-colors ${location.pathname === '/' ? 'text-primary bg-primary/10' : ''}`}>
                     <Home className="w-4 h-4" />
                     হোম
                   </Link>
-                  <Link 
-                    to="/site-admin" 
-                    className={`text-sm hover:text-primary flex items-center gap-2 p-2 rounded-lg transition-colors ${location.pathname === '/site-admin' ? 'text-primary bg-primary/10' : ''}`}
-                  >
+                  <Link to="/site-admin" className={`text-sm hover:text-primary flex items-center gap-2 p-2 rounded-lg transition-colors ${location.pathname === '/site-admin' ? 'text-primary bg-primary/10' : ''}`}>
                     <Shield className="w-4 h-4" />
                     সাইট এডমিন
                   </Link>
-                  <Link 
-                    to="/sub-admin" 
-                    className={`text-sm hover:text-primary flex items-center gap-2 p-2 rounded-lg transition-colors ${location.pathname === '/sub-admin' ? 'text-primary bg-primary/10' : ''}`}
-                  >
+                  <Link to="/sub-admin" className={`text-sm hover:text-primary flex items-center gap-2 p-2 rounded-lg transition-colors ${location.pathname === '/sub-admin' ? 'text-primary bg-primary/10' : ''}`}>
                     <Users className="w-4 h-4" />
                     সাব এডমিন
                   </Link>
-                  <Link 
-                    to="/super-agent" 
-                    className={`text-sm hover:text-primary flex items-center gap-2 p-2 rounded-lg transition-colors ${location.pathname === '/super-agent' ? 'text-primary bg-primary/10' : ''}`}
-                  >
+                  <Link to="/super-agent" className={`text-sm hover:text-primary flex items-center gap-2 p-2 rounded-lg transition-colors ${location.pathname === '/super-agent' ? 'text-primary bg-primary/10' : ''}`}>
                     <Star className="w-4 h-4" />
                     সুপার এজেন্ট
                   </Link>
-                  <Link 
-                    to="/master-agent" 
-                    className={`text-sm hover:text-primary flex items-center gap-2 p-2 rounded-lg transition-colors ${location.pathname === '/master-agent' ? 'text-primary bg-primary/10' : ''}`}
-                  >
+                  <Link to="/master-agent" className={`text-sm hover:text-primary flex items-center gap-2 p-2 rounded-lg transition-colors ${location.pathname === '/master-agent' ? 'text-primary bg-primary/10' : ''}`}>
                     <Crown className="w-4 h-4" />
                     মাস্টার এজেন্ট
                   </Link>
@@ -67,31 +43,19 @@ export const Header = () => {
                   {/* FAQ Section in Mobile Menu */}
                   <div className="mt-4 border-t border-primary/10 pt-4">
                     <div className="text-sm text-muted-foreground mb-2 px-2">সাধারণ প্রশ্ন উত্তর</div>
-                    <Link 
-                      to="/proxy-links" 
-                      className="flex items-center gap-2 p-2 hover:bg-primary/10 rounded-lg transition-colors text-sm"
-                    >
+                    <Link to="/proxy-links" className="flex items-center gap-2 p-2 hover:bg-primary/10 rounded-lg transition-colors text-sm">
                       <ExternalLink className="w-4 h-4" />
                       স্কাইএক্স প্রক্সি লিংক
                     </Link>
-                    <Link 
-                      to="/create-account" 
-                      className="flex items-center gap-2 p-2 hover:bg-primary/10 rounded-lg transition-colors text-sm"
-                    >
+                    <Link to="/create-account" className="flex items-center gap-2 p-2 hover:bg-primary/10 rounded-lg transition-colors text-sm">
                       <UserPlus className="w-4 h-4" />
                       স্কাইএক্স একাউন্ট খুলবেন?
                     </Link>
-                    <Link 
-                      to="/new-agent-number" 
-                      className="flex items-center gap-2 p-2 hover:bg-primary/10 rounded-lg transition-colors text-sm"
-                    >
+                    <Link to="/new-agent-number" className="flex items-center gap-2 p-2 hover:bg-primary/10 rounded-lg transition-colors text-sm">
                       <Phone className="w-4 h-4" />
                       এজেন্ট এর নতুন নম্বর
                     </Link>
-                    <Link 
-                      to="/search-by-phone" 
-                      className="flex items-center gap-2 p-2 hover:bg-primary/10 rounded-lg transition-colors text-sm"
-                    >
+                    <Link to="/search-by-phone" className="flex items-center gap-2 p-2 hover:bg-primary/10 rounded-lg transition-colors text-sm">
                       <Search className="w-4 h-4" />
                       ফোন নম্বর দিয়ে সার্চ করুন
                     </Link>
@@ -102,7 +66,7 @@ export const Header = () => {
             <Link to="/" className="text-lg md:text-xl font-semibold text-gradient">Skyex</Link>
           </div>
           
-          <nav className="hidden md:flex items-center gap-6">
+          <nav className="hidden md:flex items-center gap-6 text-sm\n">
             <Link to="/" className={`text-sm hover:text-primary flex items-center gap-2 ${location.pathname === '/' ? 'text-primary' : ''}`}>
               <Home className="w-4 h-4" />
               হোম
@@ -156,6 +120,5 @@ export const Header = () => {
           </div>
         </div>
       </div>
-    </header>
-  );
+    </header>;
 };

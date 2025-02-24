@@ -66,17 +66,6 @@ const MasterAgent = () => {
             <div className="glass-card p-4 sm:p-6 mb-6">
               <div className="flex gap-3 items-start">
                 <AlertTriangle className="w-5 h-5 text-yellow-500 mt-1 flex-shrink-0" />
-<<<<<<< HEAD
-                <div className="space-y-3 text-sm sm:text-base">
-                  <p className="font-semibold text-yellow-500">
-                    এজেন্ট দের সাথে লেনদেন এর আগে স্কাইএক্স এর নিয়ম গুলো জেনে নিন!!
-                  </p>
-                  <ul className="space-y-2 text-muted-foreground">
-                    <li className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2">
-                      <strong className="text-yellow-500 shrink-0">প্রতারনার হাত থেকে বাচতে সবার আগে ভিজিট করুন স্কাইএক্স সাইটঃ</strong>
-                      <a href="https://skyex.com" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:text-blue-300 break-all sm:break-normal">
-                        SKYEX.COM
-=======
                 <div className="space-y-3">
                   <p className="warning-title text-yellow-500 font-semibold">
                     এজেন্ট দের সাথে লেনদেন এর আগে ভেল্কির নিয়ম গুলো জেনে নিন!!
@@ -91,7 +80,6 @@ const MasterAgent = () => {
                         className="text-blue-400 hover:text-blue-300 break-all sm:break-normal"
                       >
                         VELKI.COM
->>>>>>> 5cafc3614c46f0b611b403deef89c6985cacd2fe
                       </a>
                     </li>
                     <li className="warning-text">
@@ -106,9 +94,6 @@ const MasterAgent = () => {
         {isLoading ? (
           <div className="flex justify-center items-center py-8">
             <div className="text-center">Loading...</div>
-<<<<<<< HEAD
-          </div> : <AgentTable agents={agents} displayAgents={masterAgents} title="SKYEX মাস্টার এজেন্ট লিস্ট" filterSiteAdmins={false} />}
-=======
           </div>
         ) : (
           <AgentTable 
@@ -118,7 +103,6 @@ const MasterAgent = () => {
             filterSiteAdmins={false}
           />
         )}
->>>>>>> 5cafc3614c46f0b611b403deef89c6985cacd2fe
       </div>
       <Footer />
       <CustomerSupport />
