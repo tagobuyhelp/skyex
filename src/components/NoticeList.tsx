@@ -90,16 +90,10 @@ export const NoticeList = () => {
         return (
           <div
             key={notice.id}
-            className="flex items-start gap-4 p-3 rounded-lg bg-background/50 group"
+            className="flex items-center gap-4 p-3 rounded-lg bg-background/50 group"
           >
-            <Icon className={cn("w-4 h-4 mt-1", getTypeStyles(notice.type))} />
-            <div className="flex-1">
-              <p className="text-sm font-medium">{notice.title}</p>
-              <p className="text-sm text-muted-foreground">{notice.content}</p>
-              <p className="text-xs text-muted-foreground mt-1">
-                {new Date(notice.created_at).toLocaleString('bn-BD')}
-              </p>
-            </div>
+            <Icon className={cn("w-4 h-4", getTypeStyles(notice.type))} />
+            <p className="text-sm font-medium flex-1">{notice.title}</p>
             {user && (
               <Button
                 variant="ghost"
