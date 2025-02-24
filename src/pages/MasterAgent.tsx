@@ -8,6 +8,8 @@ import { AgentWithContacts } from '@/types/agent';
 import { AlertTriangle, ChevronDown, ChevronUp } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { CustomerSupport } from '@/components/CustomerSupport';
+import { SITE_NAME } from '@/lib/constants';
+
 const fetchMasterAgents = async () => {
   const {
     data: uplines,
@@ -27,6 +29,7 @@ const fetchMasterAgents = async () => {
   if (masterAgentsError) throw masterAgentsError;
   return [...(masterAgents || []), ...(uplines || [])] as AgentWithContacts[];
 };
+
 const MasterAgent = () => {
   const [showWarning, setShowWarning] = useState(true);
   const {
@@ -55,17 +58,22 @@ const MasterAgent = () => {
                 <AlertTriangle className="w-5 h-5 text-yellow-500 mt-1 flex-shrink-0" />
                 <div className="space-y-3 text-sm sm:text-base">
                   <p className="font-semibold text-yellow-500">
-                    এজেন্ট দের সাথে লেনদেন এর আগে ভেল্কির নিয়ম গুলো জেনে নিন!!
+                    এজেন্ট দের সাথে লেনদেন এর আগে {SITE_NAME}র নিয়ম গুলো জেনে নিন!!
                   </p>
                   <ul className="space-y-2 text-muted-foreground">
                     <li className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2">
-                      <strong className="text-yellow-500 shrink-0">প্রতারনার হাত থেকে বাচতে সবার আগে ভিজিট করুন ভেল্কি সাইটঃ</strong>
-                      <a href="https://velki.com" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:text-blue-300 break-all sm:break-normal">
-                        VELKI.COM
+                      <strong className="text-yellow-500 shrink-0">প্রতারনার হাত থেকে বাচতে সবার আগে ভিজিট করুন {SITE_NAME} সাইটঃ</strong>
+                      <a 
+                        href={`https://${SITE_NAME.toLowerCase()}.com`}
+                        target="_blank" 
+                        rel="noopener noreferrer" 
+                        className="text-blue-400 hover:text-blue-300 break-all sm:break-normal"
+                      >
+                        {SITE_NAME}.COM
                       </a>
                     </li>
                     <li>
-                      <strong className="text-yellow-500">হোয়াটসঅ্যাপ ব্যাতিত  অন্য কোন এপ এর মাধ্যমে যোগাযোগ বা লেনদেন করা যাবে না এবং করলে তা গ্রহনযোগ্য হবে না।</strong>
+                      <strong className="text-yellow-500">হোয়াটসঅ্যাপ ব্যাতিত অন্য কোন এপ এর মাধ্যমে যোগাযোগ বা লেনদেন করা যাবে না এবং করলে তা গ্রহনযোগ্য হবে না।</strong>
                     </li>
                   </ul>
                 </div>
@@ -74,10 +82,11 @@ const MasterAgent = () => {
         </div>
         {isLoading ? <div className="flex justify-center items-center py-8">
             <div className="text-center">Loading...</div>
-          </div> : <AgentTable agents={agents} displayAgents={masterAgents} title="VELKI মাস্টার এজেন্ট লিস্ট" filterSiteAdmins={false} />}
+          </div> : <AgentTable agents={agents} displayAgents={masterAgents} title={`${SITE_NAME} মাস্টার এজেন্ট লিস্ট`} filterSiteAdmins={false} />}
       </div>
       <Footer />
       <CustomerSupport />
     </div>;
 };
+
 export default MasterAgent;
