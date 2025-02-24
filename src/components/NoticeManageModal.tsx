@@ -1,5 +1,5 @@
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -20,6 +20,7 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/components/ui/use-toast";
 import { supabase } from "@/integrations/supabase/client";
+import { useNavigate } from "react-router-dom";
 
 interface NoticeManageModalProps {
   trigger: React.ReactNode;
@@ -32,6 +33,23 @@ export const NoticeManageModal = ({ trigger, onSuccess }: NoticeManageModalProps
   const [content, setContent] = useState("");
   const [type, setType] = useState<"info" | "warning" | "success" | "error">("info");
   const { toast } = useToast();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const checkAuth = async () => {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session) {
+        toast({
+          variant: "destructive",
+          title: "অননুমোদিত অ্যাক্সেস",
+          description: "বিজ্ঞপ্তি যোগ করার জন্য লগইন করুন",
+        });
+        navigate("/login");
+      }
+    };
+
+    checkAuth();
+  }, [navigate, toast]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
