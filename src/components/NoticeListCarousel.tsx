@@ -60,8 +60,17 @@ export const NoticeListCarousel = () => {
       opts={{
         align: "center",
         loop: true,
+        dragFree: true,
+        watchDrag: false,
       }}
-      plugins={[Autoplay({ delay: 3000, stopOnInteraction: false })]} 
+      plugins={[
+        Autoplay({ 
+          delay: 2000, 
+          stopOnInteraction: false,
+          stopOnMouseEnter: false,
+          rootNode: (emblaRoot) => emblaRoot.parentElement,
+        })
+      ]} 
       className="w-full"
     >
       <CarouselContent>
