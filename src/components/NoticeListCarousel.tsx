@@ -50,13 +50,13 @@ export const NoticeListCarousel = () => {
   const getTypeStyles = (type: Notice["type"]) => {
     switch (type) {
       case "info":
-        return "text-blue-400";
+        return "text-blue-400 bg-blue-400/10";
       case "warning":
-        return "text-yellow-400";
+        return "text-yellow-400 bg-yellow-400/10";
       case "success":
-        return "text-green-400";
+        return "text-green-400 bg-green-400/10";
       case "error":
-        return "text-red-400";
+        return "text-red-400 bg-red-400/10";
     }
   };
 
@@ -73,10 +73,20 @@ export const NoticeListCarousel = () => {
         {notices.map((notice) => {
           const Icon = getIcon(notice.type);
           return (
-            <CarouselItem key={notice.id} className="basis-full sm:basis-1/2 md:basis-1/3 lg:basis-1/4">
-              <div className="flex items-center gap-4 p-3 rounded-lg bg-background/50 group">
-                <Icon className={cn("w-4 h-4", getTypeStyles(notice.type))} />
-                <p className="text-sm font-medium flex-1 whitespace-nowrap">{notice.title}</p>
+            <CarouselItem key={notice.id} className="basis-full sm:basis-3/4 md:basis-2/3 lg:basis-1/2">
+              <div className={cn(
+                "flex items-start gap-3 p-3 rounded-lg transition-colors",
+                getTypeStyles(notice.type)
+              )}>
+                <Icon className="w-5 h-5 shrink-0 mt-0.5" />
+                <div className="min-w-0 flex-1">
+                  <p className="text-sm font-medium line-clamp-2">{notice.title}</p>
+                  {notice.content && (
+                    <p className="text-sm mt-1 text-muted-foreground line-clamp-1">
+                      {notice.content}
+                    </p>
+                  )}
+                </div>
               </div>
             </CarouselItem>
           );
