@@ -9,6 +9,7 @@ import { AgentWithContacts } from '@/types/agent';
 import { WhatsAppIcon } from '@/components/icons/WhatsAppIcon';
 import { AgentHierarchyModal } from './AgentHierarchyModal';
 import { AgentComplaintModal } from './AgentComplaintModal';
+
 const getAgentTypeInBangla = (type: string) => {
   switch (type) {
     case 'site_admin':
@@ -23,12 +24,14 @@ const getAgentTypeInBangla = (type: string) => {
       return type;
   }
 };
+
 export const AgentSearchModal = () => {
   const [search, setSearch] = useState('');
   const [selectedType, setSelectedType] = useState<string | undefined>();
   const [selectedAgent, setSelectedAgent] = useState<AgentWithContacts | null>(null);
   const [isHierarchyModalOpen, setIsHierarchyModalOpen] = useState(false);
   const [isComplaintModalOpen, setIsComplaintModalOpen] = useState(false);
+
   const {
     data: agents = [],
     isLoading
@@ -46,23 +49,35 @@ export const AgentSearchModal = () => {
       return data as AgentWithContacts[];
     }
   });
+
   const filteredAgents = agents.filter(agent => {
-    const matchesSearch = search.toLowerCase() === '' || agent.name.toLowerCase().includes(search.toLowerCase()) || agent.agent_id.toLowerCase().includes(search.toLowerCase());
+    const searchTerm = search.toLowerCase().trim();
+    const matchesSearch = searchTerm === '' || 
+      agent.name.toLowerCase().includes(searchTerm) || 
+      agent.agent_id.toLowerCase().includes(searchTerm) ||
+      agent.agent_contacts.some(contact => 
+        contact.whatsapp && contact.whatsapp.includes(searchTerm)
+      );
+    
     const matchesType = !selectedType || selectedType === 'all' || agent.type === selectedType;
     return matchesSearch && matchesType;
   });
+
   const handleViewAgent = (agent: AgentWithContacts) => {
     setSelectedAgent(agent);
     setIsHierarchyModalOpen(true);
   };
+
   const handleComplaintAgent = (agent: AgentWithContacts) => {
     setSelectedAgent(agent);
     setIsComplaintModalOpen(true);
   };
+
   const getUplineAgent = (agent: AgentWithContacts) => {
     if (!agent.reports_to) return null;
     return agents.find(a => a.id === agent.reports_to) || null;
   };
+
   return <>
       <Dialog>
         <DialogTrigger asChild>
