@@ -357,13 +357,15 @@ export const AgentTable = ({ agents, displayAgents, title, showUpline = true, fi
                   <div className="flex items-center gap-2">
                     <Button
                       variant="ghost"
-                      size="icon"
+                      size="sm"
                       onClick={() => {
                         setSelectedAgent(agent);
                         setIsHierarchyModalOpen(true);
                       }}
+                      className="flex items-center gap-1.5"
                     >
                       <Eye className="h-4 w-4" />
+                      <span>দেখুন</span>
                     </Button>
                     {isAdmin && (
                       <>
@@ -371,32 +373,37 @@ export const AgentTable = ({ agents, displayAgents, title, showUpline = true, fi
                           mode="edit"
                           agent={agent}
                           trigger={
-                            <Button variant="ghost" size="icon">
+                            <Button variant="ghost" size="sm" className="flex items-center gap-1.5">
                               <Edit className="h-4 w-4" />
+                              <span>এডিট</span>
                             </Button>
                           }
                         />
                         <Button
                           variant="ghost"
-                          size="icon"
+                          size="sm"
                           onClick={() => {
                             setSelectedAgent(agent);
                             setIsDeleteDialogOpen(true);
                           }}
+                          className="flex items-center gap-1.5"
                         >
                           <Trash2 className="h-4 w-4" />
+                          <span>ডিলিট</span>
                         </Button>
                       </>
                     )}
                     <Button
                       variant="ghost"
-                      size="icon"
+                      size="sm"
                       onClick={() => {
                         setSelectedAgent(agent);
                         setIsComplaintModalOpen(true);
                       }}
+                      className="flex items-center gap-1.5"
                     >
                       <AlertTriangle className="h-4 w-4" />
+                      <span>অভিযোগ</span>
                     </Button>
                   </div>
                 </TableCell>
