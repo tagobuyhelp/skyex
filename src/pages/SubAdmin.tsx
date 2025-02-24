@@ -89,18 +89,18 @@ const SubAdmin = () => {
                 <AlertTriangle className="w-5 h-5 text-yellow-500 mt-1 flex-shrink-0" />
                 <div className="space-y-3 text-sm sm:text-base">
                   <p className="font-semibold text-yellow-500">
-                    এজেন্ট দের সাথে লেনদেন এর আগে ভেল্কির নিয়ম গুলো জেনে নিন!!
+                    এজেন্ট দের সাথে লেনদেন এর আগে স্কাইএক্স এর নিয়ম গুলো জেনে নিন!!
                   </p>
                   <ul className="space-y-2 text-muted-foreground">
                     <li className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2">
-                      <strong className="text-yellow-500 shrink-0">প্রতারনার হাত থেকে বাচতে সবার আগে ভিজিট করুন ভেল্কি সাইটঃ</strong>
+                      <strong className="text-yellow-500 shrink-0">প্রতারনার হাত থেকে বাচতে সবার আগে ভিজিট করুন স্কাইএক্স সাইটঃ</strong>
                       <a 
-                        href="https://velki.com" 
+                        href="https://skyex.com" 
                         target="_blank" 
                         rel="noopener noreferrer" 
                         className="text-blue-400 hover:text-blue-300 break-all sm:break-normal"
                       >
-                        VELKI.COM
+                        SKYEX.COM
                       </a>
                     </li>
                     <li>
@@ -120,7 +120,7 @@ const SubAdmin = () => {
           <AgentTable 
             agents={agents}
             displayAgents={subAdmins}
-            title="VELKI সাব এডমিন লিস্ট"
+            title="SKYEX সাব এডমিন লিস্ট"
             filterSiteAdmins={false}
           />
         )}
