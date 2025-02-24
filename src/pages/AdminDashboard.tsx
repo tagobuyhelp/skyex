@@ -5,10 +5,12 @@ import { Footer } from '@/components/Footer';
 import { CustomerSupport } from '@/components/CustomerSupport';
 import { supabase } from '@/integrations/supabase/client';
 import { AgentWithContacts } from '@/types/agent';
-import { Users, Shield, Star, Crown, TrendingUp, AlertTriangle, UserPlus } from 'lucide-react';
+import { Users, Shield, Star, Crown, TrendingUp, AlertTriangle, UserPlus, BellPlus } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { AgentManageModal } from '@/components/AgentManageModal';
+import { NoticeManageModal } from '@/components/NoticeManageModal';
+import { NoticeList } from '@/components/NoticeList';
 import { useToast } from "@/components/ui/use-toast";
 
 const StatCard = ({ title, value, icon: Icon, description }: {
@@ -97,16 +99,26 @@ const AdminDashboard = () => {
               সমস্ত এজেন্টের বিস্তারিত তথ্য এবং পরিসংখ্যান দেখুন
             </p>
           </div>
-          <AgentManageModal 
-            mode="create"
-            onSuccess={handleAgentCreate}
-            trigger={
-              <Button>
-                <UserPlus className="w-4 h-4 mr-2" />
-                নতুন এজেন্ট
-              </Button>
-            }
-          />
+          <div className="flex gap-2">
+            <NoticeManageModal
+              trigger={
+                <Button variant="outline">
+                  <BellPlus className="w-4 h-4 mr-2" />
+                  নতুন বিজ্ঞপ্তি
+                </Button>
+              }
+            />
+            <AgentManageModal 
+              mode="create"
+              onSuccess={handleAgentCreate}
+              trigger={
+                <Button>
+                  <UserPlus className="w-4 h-4 mr-2" />
+                  নতুন এজেন্ট
+                </Button>
+              }
+            />
+          </div>
         </div>
 
         {isLoading ? (
@@ -145,25 +157,10 @@ const AdminDashboard = () => {
             <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 mb-8">
               <Card className="bg-card/50 backdrop-blur-sm col-span-full lg:col-span-2">
                 <CardHeader>
-                  <CardTitle className="text-lg">সাম্প্রতিক কার্যক্রম</CardTitle>
+                  <CardTitle className="text-lg">সাম্প্রতিক বিজ্ঞপ্তি</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="space-y-4">
-                    <div className="flex items-center gap-4 p-3 rounded-lg bg-background/50">
-                      <TrendingUp className="w-4 h-4 text-green-400" />
-                      <div>
-                        <p className="text-sm">নতুন এজেন্ট যোগ হয়েছে</p>
-                        <p className="text-xs text-muted-foreground">১ ঘণ্টা আগে</p>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-4 p-3 rounded-lg bg-background/50">
-                      <AlertTriangle className="w-4 h-4 text-yellow-400" />
-                      <div>
-                        <p className="text-sm">সিস্টেম আপডেট সম্পন্ন হয়েছে</p>
-                        <p className="text-xs text-muted-foreground">২ ঘণ্টা আগে</p>
-                      </div>
-                    </div>
-                  </div>
+                  <NoticeList />
                 </CardContent>
               </Card>
 
