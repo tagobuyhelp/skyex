@@ -1,21 +1,17 @@
-
 import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, Search, Home, Shield, Users, Star, Crown, ExternalLink, UserPlus, Phone, List, X } from 'lucide-react';
 import { AgentSearchModal } from './AgentSearchModal';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
-
 export const Header = () => {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const location = useLocation();
-  
-  return (
-    <header className="sticky top-0 z-50 bg-background/95 backdrop-blur-sm border-b border-primary/20">
+  return <header className="sticky top-0 z-50 bg-background/95 backdrop-blur-sm border-b border-primary/20">
       <div className="container px-2 md:px-8">
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center gap-2 md:gap-4">
             <Sheet>
-              <SheetTrigger className="p-1.5 md:p-2 hover:bg-primary/20 rounded-lg transition-colors md:hidden">
+              <SheetTrigger className="p-1.5 md:p-2 rounded-lg transition-colors md:hidden bg-orange-500 hover:bg-orange-400 text-zinc-950">
                 <Menu className="w-5 h-5 md:w-6 md:h-6" />
               </SheetTrigger>
               <SheetContent side="left" className="w-[300px] sm:w-[400px] bg-background/95 backdrop-blur-sm border-r border-primary/20">
@@ -124,6 +120,5 @@ export const Header = () => {
           </div>
         </div>
       </div>
-    </header>
-  );
+    </header>;
 };
