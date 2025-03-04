@@ -32,14 +32,14 @@ export const AgentCard = ({ name, id, type, rating, contacts }: AgentCardProps) 
           {Array.from({ length: 5 }).map((_, i) => (
             <Star
               key={i}
-              className={`w-4 h-4 ${i < rating ? 'fill-current' : 'opacity-30'}`}
+              className={`w-4 h-4 ${i < rating ? 'fill-current text-primary' : 'opacity-30'}`}
             />
           ))}
         </div>
       </div>
 
       {showDetails && (
-        <div className="mt-4 pt-4 border-t border-white/10 animate-fade-in">
+        <div className="mt-4 pt-4 border-t border-primary/10 animate-fade-in">
           <p className="text-sm text-white/60 mb-2">ID: {id}</p>
           <div className="flex gap-2">
             {contacts.whatsapp && (

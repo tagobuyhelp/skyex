@@ -1,4 +1,3 @@
-
 import { ExternalLink, Heart, MessageSquare, Star, Globe } from 'lucide-react';
 import { GamblingPolicyDialog } from './GamblingPolicyDialog';
 import { PrivacyPolicyDialog } from './PrivacyPolicyDialog';
@@ -17,28 +16,28 @@ export const Footer = () => {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
             {/* Quick Links */}
             <div className="space-y-4">
-              <h3 className="font-semibold text-emerald-400 flex items-center gap-2">
+              <h3 className="font-semibold text-primary flex items-center gap-2">
                 <Star className="w-4 h-4" />
                 দ্রুত লিঙ্কগুলি
               </h3>
               <ul className="space-y-2">
                 <li>
-                  <a href="/site-admin" className="text-gray-300 hover:text-emerald-400 transition-colors text-sm flex items-center gap-2">
+                  <a href="/site-admin" className="text-gray-300 hover:text-primary transition-colors text-sm flex items-center gap-2">
                     সাইট এডমিন
                   </a>
                 </li>
                 <li>
-                  <a href="/sub-admin" className="text-gray-300 hover:text-emerald-400 transition-colors text-sm flex items-center gap-2">
+                  <a href="/sub-admin" className="text-gray-300 hover:text-primary transition-colors text-sm flex items-center gap-2">
                     সাব অ্যাডমিন
                   </a>
                 </li>
                 <li>
-                  <a href="/super-agent" className="text-gray-300 hover:text-emerald-400 transition-colors text-sm flex items-center gap-2">
+                  <a href="/super-agent" className="text-gray-300 hover:text-primary transition-colors text-sm flex items-center gap-2">
                     সুপার এজেন্ট
                   </a>
                 </li>
                 <li>
-                  <a href="/master-agent" className="text-gray-300 hover:text-emerald-400 transition-colors text-sm flex items-center gap-2">
+                  <a href="/master-agent" className="text-gray-300 hover:text-primary transition-colors text-sm flex items-center gap-2">
                     মাস্টার এজেন্ট
                   </a>
                 </li>
@@ -47,7 +46,7 @@ export const Footer = () => {
 
             {/* Our Network */}
             <div className="space-y-4">
-              <h3 className="font-semibold text-emerald-400 flex items-center gap-2">
+              <h3 className="font-semibold text-primary flex items-center gap-2">
                 <Globe className="w-4 h-4" />
                 আমাদের নেটওয়ার্ক
               </h3>
@@ -57,7 +56,7 @@ export const Footer = () => {
                     href="https://skyex.com" 
                     target="_blank" 
                     rel="noopener noreferrer" 
-                    className="text-gray-300 hover:text-emerald-400 transition-colors text-sm flex items-center gap-2"
+                    className="text-gray-300 hover:text-primary transition-colors text-sm flex items-center gap-2"
                   >
                     মূল ওয়েবসাইট
                     <ExternalLink className="w-3 h-3" />
@@ -66,7 +65,7 @@ export const Footer = () => {
                 <li>
                   <a 
                     href="#" 
-                    className="text-gray-300 hover:text-emerald-400 transition-colors text-sm flex items-center gap-2"
+                    className="text-gray-300 hover:text-primary transition-colors text-sm flex items-center gap-2"
                   >
                     গেমস পোর্টাল
                   </a>
@@ -76,7 +75,7 @@ export const Footer = () => {
 
             {/* Policies */}
             <div className="space-y-4">
-              <h3 className="font-semibold text-emerald-400 flex items-center gap-2">
+              <h3 className="font-semibold text-primary flex items-center gap-2">
                 <MessageSquare className="w-4 h-4" />
                 নীতিমালা
               </h3>
@@ -89,28 +88,28 @@ export const Footer = () => {
 
             {/* FAQ */}
             <div className="space-y-4">
-              <h3 className="font-semibold text-emerald-400 flex items-center gap-2">
+              <h3 className="font-semibold text-primary flex items-center gap-2">
                 <Heart className="w-4 h-4" />
                 সাধারণ প্রশ্ন উত্তর
               </h3>
               <ul className="space-y-2">
                 <li>
-                  <a href="/proxy-links" className="text-gray-300 hover:text-emerald-400 transition-colors text-sm flex items-center gap-2">
+                  <a href="/proxy-links" className="text-gray-300 hover:text-primary transition-colors text-sm flex items-center gap-2">
                     স্কাইএক্স প্রক্সি লিংক
                   </a>
                 </li>
                 <li>
-                  <a href="/create-account" className="text-gray-300 hover:text-emerald-400 transition-colors text-sm flex items-center gap-2">
+                  <a href="/create-account" className="text-gray-300 hover:text-primary transition-colors text-sm flex items-center gap-2">
                     স্কাইএক্স একাউন্ট খুলবেন?
                   </a>
                 </li>
                 <li>
-                  <a href="/new-agent-number" className="text-gray-300 hover:text-emerald-400 transition-colors text-sm flex items-center gap-2">
+                  <a href="/new-agent-number" className="text-gray-300 hover:text-primary transition-colors text-sm flex items-center gap-2">
                     এজেন্ট এর নতুন নম্বর
                   </a>
                 </li>
                 <li>
-                  <a href="/search-by-phone" className="text-gray-300 hover:text-emerald-400 transition-colors text-sm flex items-center gap-2">
+                  <a href="/search-by-phone" className="text-gray-300 hover:text-primary transition-colors text-sm flex items-center gap-2">
                     ফোন নম্বর দিয়ে সার্চ করুন
                   </a>
                 </li>

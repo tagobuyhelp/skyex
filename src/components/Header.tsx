@@ -1,12 +1,16 @@
+
 import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, Search, Home, Shield, Users, Star, Crown, ExternalLink, UserPlus, Phone, List, X } from 'lucide-react';
 import { AgentSearchModal } from './AgentSearchModal';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
+
 export const Header = () => {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const location = useLocation();
-  return <header className="sticky top-0 z-50 bg-background/95 backdrop-blur-sm border-b border-primary/20">
+  
+  return (
+    <header className="sticky top-0 z-50 bg-background/95 backdrop-blur-sm border-b border-primary/20">
       <div className="container px-2 md:px-8">
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center gap-2 md:gap-4">
@@ -16,7 +20,7 @@ export const Header = () => {
               </SheetTrigger>
               <SheetContent side="left" className="w-[300px] sm:w-[400px] bg-background/95 backdrop-blur-sm border-r border-primary/20">
                 <SheetHeader>
-                  <SheetTitle className="text-xl font-semibold text-gradient">Skyex</SheetTitle>
+                  <SheetTitle className="text-xl font-semibold text-primary">Skyex</SheetTitle>
                 </SheetHeader>
                 <nav className="mt-8 flex flex-col gap-4">
                   <Link to="/" className={`text-sm hover:text-primary flex items-center gap-2 p-2 rounded-lg transition-colors ${location.pathname === '/' ? 'text-primary bg-primary/10' : ''}`}>
@@ -63,7 +67,7 @@ export const Header = () => {
                 </nav>
               </SheetContent>
             </Sheet>
-            <Link to="/" className="text-lg md:text-xl font-semibold text-gradient">Skyex</Link>
+            <Link to="/" className="text-lg md:text-xl font-semibold text-primary">Skyex</Link>
           </div>
           
           <nav className="hidden md:flex items-center gap-6 text-sm\n">
@@ -120,5 +124,6 @@ export const Header = () => {
           </div>
         </div>
       </div>
-    </header>;
+    </header>
+  );
 };
