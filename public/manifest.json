@@ -1,0 +1,17 @@
+
+{
+  "name": "Skyex Agent List",
+  "short_name": "Skyex",
+  "description": "Your trusted platform for gaming and entertainment",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#89AC46",
+  "theme_color": "#89AC46",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "64x64",
+      "type": "image/x-icon"
+    }
+  ]
+}
