@@ -1,3 +1,4 @@
+
 import { ExternalLink, Heart, MessageSquare, Star, Globe } from 'lucide-react';
 import { GamblingPolicyDialog } from './GamblingPolicyDialog';
 import { PrivacyPolicyDialog } from './PrivacyPolicyDialog';
@@ -7,10 +8,10 @@ export const Footer = () => {
   return (
     <footer className="relative mt-8 md:mt-12">
       {/* Gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent to-[#0A1321] pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent to-[#1A1704] pointer-events-none" />
       
       {/* Main content */}
-      <div className="relative bg-[#0F1A2A]/80 backdrop-blur-md pt-12 pb-8">
+      <div className="relative bg-[#261F06]/80 backdrop-blur-md pt-12 pb-8">
         <div className="container mx-auto px-4 md:px-6">
           {/* Grid layout */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
@@ -22,22 +23,22 @@ export const Footer = () => {
               </h3>
               <ul className="space-y-2">
                 <li>
-                  <a href="/site-admin" className="text-gray-300 hover:text-primary transition-colors text-sm flex items-center gap-2">
+                  <a href="/site-admin" className="text-muted-foreground hover:text-primary transition-colors text-sm flex items-center gap-2">
                     সাইট এডমিন
                   </a>
                 </li>
                 <li>
-                  <a href="/sub-admin" className="text-gray-300 hover:text-primary transition-colors text-sm flex items-center gap-2">
+                  <a href="/sub-admin" className="text-muted-foreground hover:text-primary transition-colors text-sm flex items-center gap-2">
                     সাব অ্যাডমিন
                   </a>
                 </li>
                 <li>
-                  <a href="/super-agent" className="text-gray-300 hover:text-primary transition-colors text-sm flex items-center gap-2">
+                  <a href="/super-agent" className="text-muted-foreground hover:text-primary transition-colors text-sm flex items-center gap-2">
                     সুপার এজেন্ট
                   </a>
                 </li>
                 <li>
-                  <a href="/master-agent" className="text-gray-300 hover:text-primary transition-colors text-sm flex items-center gap-2">
+                  <a href="/master-agent" className="text-muted-foreground hover:text-primary transition-colors text-sm flex items-center gap-2">
                     মাস্টার এজেন্ট
                   </a>
                 </li>
@@ -56,7 +57,7 @@ export const Footer = () => {
                     href="https://skyex.com" 
                     target="_blank" 
                     rel="noopener noreferrer" 
-                    className="text-gray-300 hover:text-primary transition-colors text-sm flex items-center gap-2"
+                    className="text-muted-foreground hover:text-primary transition-colors text-sm flex items-center gap-2"
                   >
                     মূল ওয়েবসাইট
                     <ExternalLink className="w-3 h-3" />
@@ -65,7 +66,7 @@ export const Footer = () => {
                 <li>
                   <a 
                     href="#" 
-                    className="text-gray-300 hover:text-primary transition-colors text-sm flex items-center gap-2"
+                    className="text-muted-foreground hover:text-primary transition-colors text-sm flex items-center gap-2"
                   >
                     গেমস পোর্টাল
                   </a>
@@ -94,22 +95,22 @@ export const Footer = () => {
               </h3>
               <ul className="space-y-2">
                 <li>
-                  <a href="/proxy-links" className="text-gray-300 hover:text-primary transition-colors text-sm flex items-center gap-2">
+                  <a href="/proxy-links" className="text-muted-foreground hover:text-primary transition-colors text-sm flex items-center gap-2">
                     স্কাইএক্স প্রক্সি লিংক
                   </a>
                 </li>
                 <li>
-                  <a href="/create-account" className="text-gray-300 hover:text-primary transition-colors text-sm flex items-center gap-2">
+                  <a href="/create-account" className="text-muted-foreground hover:text-primary transition-colors text-sm flex items-center gap-2">
                     স্কাইএক্স একাউন্ট খুলবেন?
                   </a>
                 </li>
                 <li>
-                  <a href="/new-agent-number" className="text-gray-300 hover:text-primary transition-colors text-sm flex items-center gap-2">
+                  <a href="/new-agent-number" className="text-muted-foreground hover:text-primary transition-colors text-sm flex items-center gap-2">
                     এজেন্ট এর নতুন নম্বর
                   </a>
                 </li>
                 <li>
-                  <a href="/search-by-phone" className="text-gray-300 hover:text-primary transition-colors text-sm flex items-center gap-2">
+                  <a href="/search-by-phone" className="text-muted-foreground hover:text-primary transition-colors text-sm flex items-center gap-2">
                     ফোন নম্বর দিয়ে সার্চ করুন
                   </a>
                 </li>
@@ -118,8 +119,8 @@ export const Footer = () => {
           </div>
 
           {/* Copyright */}
-          <div className="mt-12 pt-8 border-t border-gray-800/50">
-            <p className="text-center text-sm text-gray-400">
+          <div className="mt-12 pt-8 border-t border-muted/40">
+            <p className="text-center text-sm text-muted-foreground">
               © ২০২৫ স্কাইএক্স। সর্বস্বত্ব সংরক্ষিত।
             </p>
           </div>
