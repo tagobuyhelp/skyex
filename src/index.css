@@ -1,3 +1,4 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -5,9 +6,9 @@
 @layer base {
   :root {
     /* Define the CSS variable that will be set dynamically */
-    --primary-color: #FFB200;
-    --primary-transparent: rgba(255, 178, 0, 0.2);
-    --accent-color: #E09600;
+    --primary-color: #89AC46;
+    --primary-transparent: rgba(137, 172, 70, 0.2);
+    --accent-color: #79A036;
     
     /* Use the CSS variables for theme colors */
     --background: 35 30% 8%;
