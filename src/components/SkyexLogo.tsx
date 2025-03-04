@@ -42,12 +42,12 @@ export const SkyexLogo: React.FC<{ className?: string }> = ({ className = "" }) 
       {/* Text */}
       <text 
         x="50%" 
-        y="70" 
+        y="65" 
         textAnchor="middle" 
         className="text-2xl font-bold" 
         fill="#FFB200"
         style={{ 
-          fontSize: '28px', 
+          fontSize: '32px', 
           fontWeight: 'bold',
           filter: 'url(#glow)' 
         }}

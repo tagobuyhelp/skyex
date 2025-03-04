@@ -69,7 +69,7 @@ export const Header = () => {
               </SheetContent>
             </Sheet>
             <Link to="/" className="flex items-center">
-              <SkyexLogo className="transition-all duration-300 hover:scale-105" />
+              <SkyexLogo className="w-auto h-10 transition-all duration-300 hover:scale-105" />
             </Link>
           </div>
           
