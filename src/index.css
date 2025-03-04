@@ -5,25 +5,31 @@
 
 @layer base {
   :root {
+    /* Define the CSS variable that will be set dynamically */
+    --primary-color: #FFB200;
+    --primary-transparent: rgba(255, 178, 0, 0.2);
+    --accent-color: #E09600;
+    
+    /* Use the CSS variables for theme colors */
     --background: 35 30% 8%;
     --foreground: 213 31% 91%;
     --card: 35 30% 8%;
     --card-foreground: 213 31% 91%;
     --popover: 35 30% 8%;
     --popover-foreground: 213 31% 91%;
-    --primary: 43 100% 50%;
+    --primary: var(--primary-color);
     --primary-foreground: 0 0% 0%;
     --secondary: 35 27% 17%;
     --secondary-foreground: 210 40% 98%;
     --muted: 35 27% 17%;
     --muted-foreground: 35 20% 65%;
-    --accent: 38 100% 44%;
+    --accent: var(--accent-color);
     --accent-foreground: 0 0% 0%;
     --destructive: 0 63% 31%;
     --destructive-foreground: 210 40% 98%;
-    --border: 35 27% 17%;
+    --border: var(--primary-transparent);
     --input: 35 27% 17%;
-    --ring: 43 100% 50%;
+    --ring: var(--primary-color);
     --radius: 0.75rem;
   }
 

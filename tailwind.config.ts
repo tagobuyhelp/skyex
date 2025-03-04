@@ -26,7 +26,7 @@ export default {
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         primary: {
-          DEFAULT: "#FFB200",
+          DEFAULT: "var(--primary-color)",
           foreground: "#000000",
         },
         secondary: {
@@ -42,7 +42,7 @@ export default {
           foreground: "#9C9176",
         },
         accent: {
-          DEFAULT: "#E09600",
+          DEFAULT: "var(--accent-color)",
           foreground: "#000000",
         },
         card: {
@@ -52,7 +52,8 @@ export default {
         popover: {
           DEFAULT: "#2A2410",
           foreground: "#FFFFFF",
-        }
+        },
+        "primary-transparent": "var(--primary-transparent)",
       },
       borderRadius: {
         lg: "var(--radius)",
