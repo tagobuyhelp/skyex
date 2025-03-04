@@ -10,7 +10,6 @@ import { WhatsAppIcon } from '@/components/icons/WhatsAppIcon';
 import { AgentHierarchyModal } from './AgentHierarchyModal';
 import { AgentComplaintModal } from './AgentComplaintModal';
 import { useIsMobile } from '@/hooks/use-mobile';
-
 const getAgentTypeInBangla = (type: string) => {
   switch (type) {
     case 'site_admin':
@@ -25,7 +24,6 @@ const getAgentTypeInBangla = (type: string) => {
       return type;
   }
 };
-
 export const AgentSearchModal = () => {
   const isMobile = useIsMobile();
   const [search, setSearch] = useState('');
@@ -33,7 +31,6 @@ export const AgentSearchModal = () => {
   const [selectedAgent, setSelectedAgent] = useState<AgentWithContacts | null>(null);
   const [isHierarchyModalOpen, setIsHierarchyModalOpen] = useState(false);
   const [isComplaintModalOpen, setIsComplaintModalOpen] = useState(false);
-
   const {
     data: agents = [],
     isLoading
@@ -51,39 +48,28 @@ export const AgentSearchModal = () => {
       return data as AgentWithContacts[];
     }
   });
-
   const filteredAgents = agents.filter(agent => {
     const searchTerm = search.toLowerCase().trim();
-    const matchesSearch = searchTerm === '' || 
-      agent.name.toLowerCase().includes(searchTerm) || 
-      agent.agent_id.toLowerCase().includes(searchTerm) ||
-      agent.agent_contacts.some(contact => 
-        contact.whatsapp && contact.whatsapp.includes(searchTerm)
-      );
-    
+    const matchesSearch = searchTerm === '' || agent.name.toLowerCase().includes(searchTerm) || agent.agent_id.toLowerCase().includes(searchTerm) || agent.agent_contacts.some(contact => contact.whatsapp && contact.whatsapp.includes(searchTerm));
     const matchesType = !selectedType || selectedType === 'all' || agent.type === selectedType;
     return matchesSearch && matchesType;
   });
-
   const handleViewAgent = (agent: AgentWithContacts) => {
     setSelectedAgent(agent);
     setIsHierarchyModalOpen(true);
   };
-
   const handleComplaintAgent = (agent: AgentWithContacts) => {
     setSelectedAgent(agent);
     setIsComplaintModalOpen(true);
   };
-
   const getUplineAgent = (agent: AgentWithContacts) => {
     if (!agent.reports_to) return null;
     return agents.find(a => a.id === agent.reports_to) || null;
   };
-
   return <>
       <Dialog>
         <DialogTrigger asChild>
-          <Button variant="ghost" className="gap-2 text-sm text-slate-50 bg-emerald-700 hover:bg-emerald-600">
+          <Button variant="ghost" className="gap-2 text-sm text-slate-50 bg-orange-700 hover:bg-orange-600">
             <Search className="w-4 h-4" />
             এজেন্ট খুঁজুন
           </Button>
@@ -97,13 +83,7 @@ export const AgentSearchModal = () => {
             <div className="flex-1">
               <div className="relative">
                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-                <input 
-                  type="text" 
-                  placeholder="নাম ফোন নম্বর বা আইডি দিয়ে খুঁজুন" 
-                  value={search} 
-                  onChange={e => setSearch(e.target.value)} 
-                  className="w-full pl-9 pr-4 py-2.5 bg-card border border-primary/10 rounded-lg text-base focus:outline-none focus:ring-2 focus:ring-primary/20" 
-                />
+                <input type="text" placeholder="নাম ফোন নম্বর বা আইডি দিয়ে খুঁজুন" value={search} onChange={e => setSearch(e.target.value)} className="w-full pl-9 pr-4 py-2.5 bg-card border border-primary/10 rounded-lg text-base focus:outline-none focus:ring-2 focus:ring-primary/20" />
               </div>
             </div>
             <Select value={selectedType} onValueChange={setSelectedType}>
@@ -169,30 +149,14 @@ export const AgentSearchModal = () => {
                   <div className="flex justify-end sm:flex-col sm:items-end gap-1">
                     <span className="sr-only sm:not-sr-only text-xs text-muted-foreground mb-1">অ্যাকশন</span>
                     <div className="flex items-center gap-2">
-                      {agent.agent_contacts[0]?.whatsapp && <a 
-                          href={`https://wa.me/${agent.agent_contacts[0].whatsapp}`} 
-                          target="_blank" 
-                          rel="noopener noreferrer" 
-                          className="flex items-center justify-center w-9 h-9 rounded-lg hover:bg-primary/10 transition-colors" 
-                          aria-label="Send WhatsApp message"
-                        >
+                      {agent.agent_contacts[0]?.whatsapp && <a href={`https://wa.me/${agent.agent_contacts[0].whatsapp}`} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center w-9 h-9 rounded-lg hover:bg-primary/10 transition-colors" aria-label="Send WhatsApp message">
                           <WhatsAppIcon className="w-4 h-4 text-emerald-500" />
                         </a>}
-                      <Button 
-                        variant="outline" 
-                        size="sm" 
-                        className="gap-2 h-9" 
-                        onClick={() => handleViewAgent(agent)}
-                      >
+                      <Button variant="outline" size="sm" className="gap-2 h-9" onClick={() => handleViewAgent(agent)}>
                         <Eye className="w-4 h-4" />
                         <span className={isMobile ? "sr-only" : ""}>দেখুন</span>
                       </Button>
-                      <Button 
-                        variant="ghost" 
-                        size="icon" 
-                        className="h-9 w-9" 
-                        onClick={() => handleComplaintAgent(agent)}
-                      >
+                      <Button variant="ghost" size="icon" className="h-9 w-9" onClick={() => handleComplaintAgent(agent)}>
                         <AlertTriangle className="w-4 h-4 text-red-500" />
                       </Button>
                     </div>
@@ -207,18 +171,8 @@ export const AgentSearchModal = () => {
         </DialogContent>
       </Dialog>
 
-      <AgentHierarchyModal 
-        open={isHierarchyModalOpen} 
-        onOpenChange={setIsHierarchyModalOpen} 
-        selectedAgent={selectedAgent} 
-        agents={agents} 
-      />
+      <AgentHierarchyModal open={isHierarchyModalOpen} onOpenChange={setIsHierarchyModalOpen} selectedAgent={selectedAgent} agents={agents} />
 
-      <AgentComplaintModal 
-        open={isComplaintModalOpen} 
-        onOpenChange={setIsComplaintModalOpen} 
-        selectedAgent={selectedAgent} 
-        uplineAgent={selectedAgent ? getUplineAgent(selectedAgent) : null} 
-      />
+      <AgentComplaintModal open={isComplaintModalOpen} onOpenChange={setIsComplaintModalOpen} selectedAgent={selectedAgent} uplineAgent={selectedAgent ? getUplineAgent(selectedAgent) : null} />
     </>;
 };
