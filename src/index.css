@@ -83,4 +83,18 @@
   .warning-title {
     @apply text-sm sm:text-base md:text-base;
   }
+
+  /* Logo animations */
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-5px);
+    }
+  }
+
+  .sky-element {
+    animation: float 4s ease-in-out infinite;
+  }
 }
