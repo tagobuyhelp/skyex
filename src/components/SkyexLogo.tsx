@@ -1,7 +1,10 @@
 
 import React from 'react';
+import { useColorTheme } from "@/components/ColorThemeProvider";
 
 export const SkyexLogo: React.FC<{ className?: string }> = ({ className = "" }) => {
+  const { currentTheme } = useColorTheme();
+  
   return (
     <svg 
       viewBox="0 0 240 80" 
@@ -10,8 +13,8 @@ export const SkyexLogo: React.FC<{ className?: string }> = ({ className = "" }) 
     >
       <defs>
         <linearGradient id="skyGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-          <stop offset="0%" stopColor="#33C3F0" />
-          <stop offset="100%" stopColor="#1EAEDB" />
+          <stop offset="0%" stopColor={currentTheme.primary} />
+          <stop offset="100%" stopColor={currentTheme.primary} />
         </linearGradient>
         <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
           <feGaussianBlur stdDeviation="2" result="blur" />
@@ -20,18 +23,18 @@ export const SkyexLogo: React.FC<{ className?: string }> = ({ className = "" }) 
         
         {/* Color changing animation for text */}
         <linearGradient id="textGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-          <stop offset="0%" stopColor="#FFB200">
+          <stop offset="0%" stopColor={currentTheme.primary}>
             <animate 
               attributeName="stop-color" 
-              values="#FFB200; #33C3F0; #D946EF; #F97316; #FFB200" 
+              values={`${currentTheme.primary}; #33C3F0; #D946EF; #F97316; ${currentTheme.primary}`}
               dur="10s" 
               repeatCount="indefinite" 
             />
           </stop>
-          <stop offset="100%" stopColor="#E09600">
+          <stop offset="100%" stopColor={currentTheme.primary}>
             <animate 
               attributeName="stop-color" 
-              values="#E09600; #1EAEDB; #8B5CF6; #EA384C; #E09600" 
+              values={`${currentTheme.primary}; #1EAEDB; #8B5CF6; #EA384C; ${currentTheme.primary}`}
               dur="10s" 
               repeatCount="indefinite" 
             />
@@ -44,7 +47,7 @@ export const SkyexLogo: React.FC<{ className?: string }> = ({ className = "" }) 
         cx="120" 
         cy="30" 
         r="15" 
-        fill="#FFB200" 
+        fill={currentTheme.primary}
         className="animate-[ping_3s_ease-in-out_infinite]"
       />
       
@@ -66,3 +69,4 @@ export const SkyexLogo: React.FC<{ className?: string }> = ({ className = "" }) 
     </svg>
   );
 };
+
