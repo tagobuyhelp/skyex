@@ -36,7 +36,7 @@ export const SkyexLogo: React.FC<{ className?: string }> = ({ className = "" }) 
         className="animate-[pulse_2s_ease-in-out_infinite]"
         fill="#FFB200"
         style={{ 
-          fontSize: '32px', 
+          fontSize: '64px', 
           fontWeight: 'bold',
           filter: 'url(#glow)' 
         }}
