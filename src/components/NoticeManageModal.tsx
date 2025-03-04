@@ -7,10 +7,12 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { useToast } from "@/components/ui/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { useNavigate } from "react-router-dom";
+
 interface NoticeManageModalProps {
   trigger: React.ReactNode;
   onSuccess?: () => void;
 }
+
 export const NoticeManageModal = ({
   trigger,
   onSuccess
@@ -22,6 +24,7 @@ export const NoticeManageModal = ({
     toast
   } = useToast();
   const navigate = useNavigate();
+
   useEffect(() => {
     const checkAuth = async () => {
       const {
@@ -40,6 +43,7 @@ export const NoticeManageModal = ({
     };
     checkAuth();
   }, [navigate, toast]);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const {
@@ -66,9 +70,10 @@ export const NoticeManageModal = ({
     setType("info");
     onSuccess?.();
   };
+
   return <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>{trigger}</DialogTrigger>
-      <DialogContent className="sm:max-w-[425px] px-[30px] py-[20px]">
+      <DialogContent className="sm:max-w-[425px] px-[30px] py-[20px] bg-gradient-to-br from-[#1A1704] to-[#261F06]">
         <DialogHeader>
           <DialogTitle>নতুন বিজ্ঞপ্তি যোগ করুন</DialogTitle>
         </DialogHeader>
@@ -80,7 +85,7 @@ export const NoticeManageModal = ({
           <div className="space-y-2">
             <Label htmlFor="type">ধরন</Label>
             <Select value={type} onValueChange={(value: any) => setType(value)}>
-              <SelectTrigger>
+              <SelectTrigger className="bg-secondary/80">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>

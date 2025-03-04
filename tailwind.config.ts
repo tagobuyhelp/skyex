@@ -49,6 +49,10 @@ export default {
           DEFAULT: "rgba(42, 36, 16, 0.8)",
           foreground: "#FFFFFF",
         },
+        popover: {
+          DEFAULT: "#2A2410",
+          foreground: "#FFFFFF",
+        }
       },
       borderRadius: {
         lg: "var(--radius)",
