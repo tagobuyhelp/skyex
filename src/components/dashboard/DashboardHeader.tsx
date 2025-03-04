@@ -1,3 +1,4 @@
+
 import { Button } from "@/components/ui/button";
 import { AgentManageModal } from "@/components/AgentManageModal";
 import { NoticeManageModal } from "@/components/NoticeManageModal";
@@ -5,12 +6,14 @@ import { UserPlus, BellPlus, User, LogOut } from "lucide-react";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/components/ui/use-toast";
+
 interface DashboardHeaderProps {
   userEmail: string | null;
   onAgentUpdate: () => void;
   onAgentCreate: () => void;
   onLogout: () => void;
 }
+
 export const DashboardHeader = ({
   userEmail,
   onAgentUpdate,
