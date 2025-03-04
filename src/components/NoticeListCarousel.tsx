@@ -6,6 +6,7 @@ import { cn } from "@/lib/utils";
 import { Carousel, CarouselContent, CarouselItem } from "@/components/ui/carousel";
 import Autoplay from "embla-carousel-autoplay";
 import * as React from "react";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 interface Notice {
   id: string;
@@ -28,6 +29,8 @@ export const NoticeListCarousel = () => {
       return data as Notice[];
     }
   });
+
+  const isMobile = useIsMobile();
 
   const getIcon = (type: Notice["type"]) => {
     switch (type) {
@@ -73,22 +76,23 @@ export const NoticeListCarousel = () => {
       ]} 
       className="w-full"
     >
-      <CarouselContent>
+      <CarouselContent className="w-full">
         {notices.map(notice => {
           const Icon = getIcon(notice.type);
           return (
-            <CarouselItem key={notice.id}>
+            <CarouselItem key={notice.id} className={isMobile ? "w-full" : "max-w-md mx-auto"}>
               <div className={cn(
-                "flex items-start gap-2.5 px-3 py-2 rounded-lg transition-colors max-w-xl mx-auto",
+                "flex items-start gap-2 px-3 py-2 rounded-lg transition-colors w-full",
+                "overflow-hidden text-ellipsis whitespace-nowrap",
                 getTypeStyles(notice.type)
               )}>
                 <Icon className="w-4 h-4 sm:w-5 sm:h-5 shrink-0 mt-0.5" />
-                <div className="min-w-0 flex-1">
-                  <p className="text-sm sm:text-base font-medium line-clamp-1">
+                <div className="min-w-0 flex-1 overflow-hidden">
+                  <p className="text-sm sm:text-base font-medium truncate">
                     {notice.title}
                   </p>
                   {notice.content && (
-                    <p className="text-xs sm:text-sm mt-0.5 text-muted-foreground line-clamp-1">
+                    <p className="text-xs sm:text-sm mt-0.5 text-muted-foreground truncate">
                       {notice.content}
                     </p>
                   )}
