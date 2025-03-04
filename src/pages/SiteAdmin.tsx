@@ -9,6 +9,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { AgentWithContacts } from '@/types/agent';
 import { AlertTriangle, ChevronDown, ChevronUp } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { LoadingSpinner } from '@/components/LoadingSpinner';
 
 const fetchSiteAdmins = async () => {
   const { data: siteAdmins, error: siteAdminsError } = await supabase
@@ -96,8 +97,8 @@ const SiteAdmin = () => {
           )}
         </div>
         {isLoading ? (
-          <div className="flex justify-center items-center py-8">
-            <div className="text-center">Loading...</div>
+          <div className="flex justify-center items-center py-12">
+            <LoadingSpinner showLogo={true} size="lg" text="এজেন্ট ডাটা লোড হচ্ছে..." />
           </div>
         ) : (
           <AgentTable 
