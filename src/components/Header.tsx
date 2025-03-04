@@ -11,7 +11,7 @@ export const Header = () => {
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center gap-2 md:gap-4">
             <Sheet>
-              <SheetTrigger className="p-1.5 md:p-2 rounded-lg transition-colors md:hidden bg-orange-500 hover:bg-orange-400 text-zinc-950">
+              <SheetTrigger className="p-1.5 md:p-2 rounded-lg transition-colors md:hidden text-zinc-950 bg-amber-500 hover:bg-amber-400">
                 <Menu className="w-5 h-5 md:w-6 md:h-6" />
               </SheetTrigger>
               <SheetContent side="left" className="w-[300px] sm:w-[400px] bg-background/95 backdrop-blur-sm border-r border-primary/20">
