@@ -62,7 +62,7 @@ const SuperAgent = () => {
   const superAgents = agents.filter(agent => agent.type === 'super_agent');
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
+    <div className="min-h-screen bg-gradient-to-br from-[#1A1704] via-[#261F06] to-[#1F1903]">
       <Header />
       <div className="container mx-auto px-2 sm:px-6 py-2 md:py-6">
         <div className="relative">
