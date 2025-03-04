@@ -5,10 +5,11 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Select, SelectContent, SelectTrigger, SelectValue, SelectItem } from "@/components/ui/select";
 import { useToast } from "@/components/ui/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { AgentWithContacts } from "@/types/agent";
+
 type AgentManageModalProps = {
   agent?: AgentWithContacts;
   mode: "create" | "edit";
@@ -16,6 +17,7 @@ type AgentManageModalProps = {
   trigger?: React.ReactNode;
   onSuccess?: () => void;
 };
+
 export const AgentManageModal = ({
   agent,
   mode,
@@ -38,6 +40,7 @@ export const AgentManageModal = ({
     whatsapp: agent?.agent_contacts[0]?.whatsapp || "",
     messenger: agent?.agent_contacts[0]?.messenger || ""
   });
+
   const {
     data: allAgents = []
   } = useQuery({
@@ -54,6 +57,7 @@ export const AgentManageModal = ({
       return data as AgentWithContacts[];
     }
   });
+
   const getUplineOptions = (type: string) => {
     const options = (() => {
       switch (type) {
@@ -70,21 +74,23 @@ export const AgentManageModal = ({
       }
     })();
 
-    // Filter options based on search term
     if (searchTerm) {
       return options.filter(option => option.name.toLowerCase().includes(searchTerm.toLowerCase()) || option.agent_id.toLowerCase().includes(searchTerm.toLowerCase()));
     }
     return options;
   };
+
   useEffect(() => {
     setFormData(prev => ({
       ...prev,
       reports_to: ''
     }));
   }, [formData.type]);
+
   const requiresUpline = (type: string) => {
     return ["sub_admin", "super_agent", "master_agent"].includes(type);
   };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
@@ -176,7 +182,9 @@ export const AgentManageModal = ({
       setIsLoading(false);
     }
   };
+
   const uplineOptions = getUplineOptions(formData.type);
+
   return <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         {trigger || <Button variant="outline" size="sm">
@@ -184,7 +192,7 @@ export const AgentManageModal = ({
             {mode === "create" ? "নতুন এজেন্ট" : "এজেন্ট আপডেট"}
           </Button>}
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px] py-[40px] px-[30px] bg-slate-950">
+      <DialogContent className="sm:max-w-[425px] py-[40px] px-[30px] bg-gradient-to-br from-[#1A1704] to-[#261F06] border-primary/20">
         <DialogHeader>
           <DialogTitle>
             {mode === "create" ? "নতুন এজেন্ট যোগ করুন" : "এজেন্টের তথ্য আপডেট করুন"}
