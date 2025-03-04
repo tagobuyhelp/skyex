@@ -1,8 +1,11 @@
 
 import { Info } from "lucide-react";
 import { NoticeListCarousel } from '@/components/NoticeListCarousel';
+import { useColorTheme } from "@/components/ColorThemeProvider";
 
 export const NoticeSection = () => {
+  const { currentTheme } = useColorTheme();
+  
   return (
     <div className="bg-gradient-to-r from-primary/10 via-primary/5 to-primary/10 border-y border-primary/20">
       <div className="container py-3 px-4">
