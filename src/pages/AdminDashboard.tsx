@@ -1,3 +1,4 @@
+
 import { useQuery } from '@tanstack/react-query';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
@@ -128,7 +129,7 @@ const AdminDashboard = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
+    <div className="min-h-screen bg-gradient-to-br from-[#261F06] via-[#1A1704] to-[#261F06] text-foreground">
       <Header />
       <div className="container px-4 py-4 md:py-8">
         <div className="mb-6 md:mb-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-4 backdrop-blur-lg bg-white/5 p-4 md:p-6 rounded-lg border border-white/10">
