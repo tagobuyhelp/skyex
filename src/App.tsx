@@ -16,6 +16,7 @@ import MasterAgent from "./pages/MasterAgent";
 import AdminDashboard from "./pages/AdminDashboard";
 import NotFound from "./pages/NotFound";
 import { ColorThemeProvider } from "./components/ColorThemeProvider";
+import { LoadingProvider } from "./components/LoadingProvider";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -64,29 +65,31 @@ const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
       <ColorThemeProvider>
-        <TooltipProvider>
-          <Toaster />
-          <Sonner />
-          <BrowserRouter>
-            <Routes>
-              <Route path="/" element={<Index />} />
-              <Route path="/login" element={<Login />} />
-              <Route
-                path="/admin"
-                element={
-                  <ProtectedRoute>
-                    <AdminDashboard />
-                  </ProtectedRoute>
-                }
-              />
-              <Route path="/site-admin" element={<SiteAdmin />} />
-              <Route path="/sub-admin" element={<SubAdmin />} />
-              <Route path="/super-agent" element={<SuperAgent />} />
-              <Route path="/master-agent" element={<MasterAgent />} />
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          </BrowserRouter>
-        </TooltipProvider>
+        <LoadingProvider>
+          <TooltipProvider>
+            <Toaster />
+            <Sonner />
+            <BrowserRouter>
+              <Routes>
+                <Route path="/" element={<Index />} />
+                <Route path="/login" element={<Login />} />
+                <Route
+                  path="/admin"
+                  element={
+                    <ProtectedRoute>
+                      <AdminDashboard />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route path="/site-admin" element={<SiteAdmin />} />
+                <Route path="/sub-admin" element={<SubAdmin />} />
+                <Route path="/super-agent" element={<SuperAgent />} />
+                <Route path="/master-agent" element={<MasterAgent />} />
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+            </BrowserRouter>
+          </TooltipProvider>
+        </LoadingProvider>
       </ColorThemeProvider>
     </QueryClientProvider>
   );

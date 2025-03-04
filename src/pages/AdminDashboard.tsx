@@ -1,4 +1,3 @@
-
 import { useQuery } from '@tanstack/react-query';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
@@ -13,6 +12,7 @@ import { NoticeManageModal } from '@/components/NoticeManageModal';
 import { NoticeListStatic } from '@/components/NoticeListStatic';
 import { useToast } from "@/components/ui/use-toast";
 import { cn } from "@/lib/utils";
+import { useLoading } from "@/components/LoadingProvider";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -50,6 +50,7 @@ const StatCard = ({ title, value, icon: Icon, description, className }: {
 const AdminDashboard = () => {
   const { toast } = useToast();
   const navigate = useNavigate();
+  const { startLoading, stopLoading } = useLoading();
   const [userEmail, setUserEmail] = useState<string | null>(null);
 
   useEffect(() => {
@@ -99,6 +100,14 @@ const AdminDashboard = () => {
       return data as AgentWithContacts[];
     },
   });
+
+  useEffect(() => {
+    if (isLoading) {
+      startLoading("Loading agent data...");
+    } else {
+      stopLoading();
+    }
+  }, [isLoading, startLoading, stopLoading]);
 
   const handleAgentUpdate = () => {
     toast({
@@ -184,11 +193,7 @@ const AdminDashboard = () => {
           </div>
         </div>
 
-        {isLoading ? (
-          <div className="flex justify-center items-center h-[200px]">
-            <div className="text-center text-muted-foreground">লোড হচ্ছে...</div>
-          </div>
-        ) : (
+        {!isLoading && (
           <>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4 mb-6 md:mb-8">
               <StatCard

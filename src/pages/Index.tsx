@@ -1,4 +1,3 @@
-
 import * as React from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Header } from "@/components/Header";
@@ -6,11 +5,11 @@ import { Footer } from "@/components/Footer";
 import { CustomerSupport } from "@/components/CustomerSupport";
 import { supabase } from "@/integrations/supabase/client";
 import { AgentWithContacts } from "@/types/agent";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { AgentHierarchyModal } from "@/components/AgentHierarchyModal";
 import { AgentComplaintModal } from "@/components/AgentComplaintModal";
+import { useLoading } from "@/components/LoadingProvider";
 
-// Import the new component sections
 import { HeroSection } from "@/components/sections/HeroSection";
 import { NoticeSection } from "@/components/sections/NoticeSection";
 import { MasterAgentSection } from "@/components/sections/MasterAgentSection";
@@ -34,6 +33,8 @@ const fetchAllAgents = async () => {
 };
 
 const Index = () => {
+  const { startLoading, stopLoading } = useLoading();
+  
   const {
     data: allAgents,
     isLoading
@@ -41,6 +42,14 @@ const Index = () => {
     queryKey: ["all-agents"],
     queryFn: fetchAllAgents
   });
+
+  useEffect(() => {
+    if (isLoading) {
+      startLoading("Fetching agent data...");
+    } else {
+      stopLoading();
+    }
+  }, [isLoading, startLoading, stopLoading]);
 
   const [selectedAgent, setSelectedAgent] = useState<AgentWithContacts | null>(null);
   const [isHierarchyModalOpen, setIsHierarchyModalOpen] = useState(false);
@@ -62,36 +71,27 @@ const Index = () => {
     <div className="min-h-screen bg-gradient-to-br from-background via-background/90 to-background">
       <Header />
       
-      {/* Hero Section */}
       <HeroSection />
 
-      {/* Notice Section */}
       <NoticeSection />
 
-      {/* Quick Master Agents List */}
       <MasterAgentSection 
         masterAgents={masterAgents} 
-        isLoading={isLoading} 
+        isLoading={false}
         onViewHierarchy={handleViewHierarchy} 
         onComplaint={handleComplaint}
       />
 
-      {/* Proxy Links Section */}
       <ProxyLinksSection />
 
-      {/* Official Links */}
       <OfficialLinksSection />
 
-      {/* Agent Types */}
       <AgentTypesSection />
 
-      {/* Agent List Instructions */}
       <AgentListInstructionsSection />
 
-      {/* Footer */}
       <Footer />
 
-      {/* Modals */}
       <AgentHierarchyModal 
         open={isHierarchyModalOpen} 
         onOpenChange={setIsHierarchyModalOpen} 
