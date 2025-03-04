@@ -30,7 +30,7 @@ export default {
           foreground: "#000000",
         },
         secondary: {
-          DEFAULT: "#1F2937",
+          DEFAULT: "#2A2410",
           foreground: "#FFFFFF",
         },
         destructive: {
@@ -38,15 +38,15 @@ export default {
           foreground: "hsl(var(--destructive-foreground))",
         },
         muted: {
-          DEFAULT: "#374151",
-          foreground: "#9CA3AF",
+          DEFAULT: "#3D3519",
+          foreground: "#9C9176",
         },
         accent: {
           DEFAULT: "#E09600",
           foreground: "#000000",
         },
         card: {
-          DEFAULT: "rgba(31, 41, 55, 0.8)",
+          DEFAULT: "rgba(42, 36, 16, 0.8)",
           foreground: "#FFFFFF",
         },
       },
