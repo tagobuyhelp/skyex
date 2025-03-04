@@ -26,8 +26,8 @@ export const AgentComplaintModal = ({
       <DialogContent className={`
         max-w-md 
         ${isMobile ? 'p-4' : 'p-6'}
-        bg-gray-900
-        border-gray-800
+        bg-gradient-to-br from-[#1A1704] to-[#261F06]
+        border-primary/20
       `}>
         <DialogHeader>
           <DialogTitle className="text-base sm:text-lg text-emerald-400 font-medium">এজেন্ট রিপোর্ট করুন</DialogTitle>
