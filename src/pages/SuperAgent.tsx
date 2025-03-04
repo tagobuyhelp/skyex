@@ -121,7 +121,7 @@ const SuperAgent = () => {
           <AgentTable 
             agents={agents}
             displayAgents={superAgents}
-            title="VELKI সুপার এজেন্ট লিস্ট"
+            title="SKYEX সুপার এজেন্ট লিস্ট"
             filterSiteAdmins={false}
           />
         )}
