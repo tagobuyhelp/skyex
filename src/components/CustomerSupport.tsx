@@ -19,7 +19,7 @@ export const CustomerSupport = () => {
             <Headset className="h-6 w-6" />
           </Button>
         </DialogTrigger>
-        <DialogContent className="sm:max-w-md">
+        <DialogContent className="sm:max-w-md px-[15px] py-[14px]">
           <DialogHeader>
             <DialogTitle className="flex items-center gap-2 text-xl">
               <Headset className="h-6 w-6 text-emerald-500" />
