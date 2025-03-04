@@ -2,7 +2,6 @@
 import React from 'react';
 import { SkyexLogo } from '@/components/SkyexLogo';
 import { useColorTheme } from '@/components/ColorThemeProvider';
-import { Loader } from 'lucide-react';
 
 interface LoadingSpinnerProps {
   size?: 'sm' | 'md' | 'lg';
