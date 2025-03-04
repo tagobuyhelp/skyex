@@ -17,6 +17,26 @@ export const SkyexLogo: React.FC<{ className?: string }> = ({ className = "" }) 
           <feGaussianBlur stdDeviation="2" result="blur" />
           <feComposite in="SourceGraphic" in2="blur" operator="over" />
         </filter>
+        
+        {/* Color changing animation for text */}
+        <linearGradient id="textGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stopColor="#FFB200">
+            <animate 
+              attributeName="stop-color" 
+              values="#FFB200; #33C3F0; #D946EF; #F97316; #FFB200" 
+              dur="10s" 
+              repeatCount="indefinite" 
+            />
+          </stop>
+          <stop offset="100%" stopColor="#E09600">
+            <animate 
+              attributeName="stop-color" 
+              values="#E09600; #1EAEDB; #8B5CF6; #EA384C; #E09600" 
+              dur="10s" 
+              repeatCount="indefinite" 
+            />
+          </stop>
+        </linearGradient>
       </defs>
       
       {/* Sun Element */}
@@ -34,7 +54,7 @@ export const SkyexLogo: React.FC<{ className?: string }> = ({ className = "" }) 
         y="65" 
         textAnchor="middle" 
         className="animate-[pulse_2s_ease-in-out_infinite]"
-        fill="#FFB200"
+        fill="url(#textGradient)"
         style={{ 
           fontSize: '64px', 
           fontWeight: 'bold',
