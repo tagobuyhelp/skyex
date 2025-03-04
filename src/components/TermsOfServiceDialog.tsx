@@ -30,7 +30,7 @@ export function TermsOfServiceDialog() {
           </DialogHeader>
           <div className="space-y-4">
             <DialogDescription className="text-base text-foreground">
-              ভেল্কি সেবা ব্যবহার করে, আপনি এই শর্তগুলিতে সম্মত হন:
+            স্কাইএক্স সেবা ব্যবহার করে, আপনি এই শর্তগুলিতে সম্মত হন:
             </DialogDescription>
             <ul className="space-y-3 text-sm">
               <li className="flex gap-2">

@@ -30,7 +30,7 @@ export function GamblingPolicyDialog() {
           </DialogHeader>
           <div className="space-y-4">
             <DialogDescription className="text-base text-foreground">
-              VELKI is committed to responsible gambling and maintaining a safe gaming environment. 
+              SKYEX is committed to responsible gambling and maintaining a safe gaming environment. 
               By using our services, you agree to the following:
             </DialogDescription>
             <ul className="space-y-3 text-sm">
@@ -44,7 +44,7 @@ export function GamblingPolicyDialog() {
               </li>
               <li className="flex gap-2">
                 <div className="h-2 w-2 mt-2 rounded-full bg-primary flex-shrink-0" />
-                <span>VELKI reserves the right to suspend accounts showing signs of problem gambling.</span>
+                <span>SKYEX reserves the right to suspend accounts showing signs of problem gambling.</span>
               </li>
               <li className="flex gap-2">
                 <div className="h-2 w-2 mt-2 rounded-full bg-primary flex-shrink-0" />
