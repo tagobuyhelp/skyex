@@ -19,32 +19,21 @@ export const SkyexLogo: React.FC<{ className?: string }> = ({ className = "" }) 
         </filter>
       </defs>
       
-      {/* Animated Sky Element */}
-      <g className="sky-element">
-        <path 
-          d="M20,40 C20,20 40,20 60,40 C80,60 100,60 120,40 C140,20 160,20 180,40 C200,60 220,60 240,40" 
-          fill="none" 
-          stroke="url(#skyGradient)" 
-          strokeWidth="4"
-          strokeLinecap="round"
-          filter="url(#glow)"
-          className="animate-pulse"
-        />
-        <circle 
-          cx="190" 
-          cy="30" 
-          r="10" 
-          fill="#FFB200" 
-          className="animate-[ping_3s_ease-in-out_infinite]"
-        />
-      </g>
+      {/* Sun Element */}
+      <circle 
+        cx="120" 
+        cy="30" 
+        r="15" 
+        fill="#FFB200" 
+        className="animate-[ping_3s_ease-in-out_infinite]"
+      />
       
-      {/* Text */}
+      {/* Animated Text */}
       <text 
         x="50%" 
         y="65" 
         textAnchor="middle" 
-        className="text-2xl font-bold" 
+        className="animate-[pulse_2s_ease-in-out_infinite]"
         fill="#FFB200"
         style={{ 
           fontSize: '32px', 
