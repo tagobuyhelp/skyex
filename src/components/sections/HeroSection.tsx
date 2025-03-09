@@ -18,9 +18,25 @@ export const HeroSection = () => {
   const isMobile = useIsMobile();
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isAutoPlay, setIsAutoPlay] = useState(true);
+  const [imagesLoaded, setImagesLoaded] = useState(Array(bannerImages.length).fill(false));
 
   // Banner dimensions
   const bannerHeight = isMobile ? "h-[200px]" : "h-[380px]";
+
+  // Preload images
+  useEffect(() => {
+    bannerImages.forEach((src, index) => {
+      const img = new Image();
+      img.src = src;
+      img.onload = () => {
+        setImagesLoaded(prev => {
+          const newArray = [...prev];
+          newArray[index] = true;
+          return newArray;
+        });
+      };
+    });
+  }, []);
 
   useEffect(() => {
     if (!isAutoPlay) return;
@@ -59,6 +75,10 @@ export const HeroSection = () => {
                 src={image} 
                 alt={`Skyex 247 Banner ${index + 1}`} 
                 className="w-full h-full object-cover object-center"
+                onError={(e) => {
+                  console.error(`Failed to load image: ${image}`);
+                  e.currentTarget.src = "/placeholder.svg"; // Fallback image
+                }}
               />
             </div>
           ))}
