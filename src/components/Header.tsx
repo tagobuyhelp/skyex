@@ -51,11 +51,11 @@ export const Header = () => {
                     <div className="text-sm text-muted-foreground mb-2 px-2">সাধারণ প্রশ্ন উত্তর</div>
                     <Link to="/proxy-links" className="flex items-center gap-2 p-2 hover:bg-primary/10 rounded-lg transition-colors text-sm">
                       <ExternalLink className="w-4 h-4" />
-                      স্কাইএক্স প্রক্সি লিংক
+                      Easy24 প্রক্সি লিংক
                     </Link>
                     <Link to="/create-account" className="flex items-center gap-2 p-2 hover:bg-primary/10 rounded-lg transition-colors text-sm">
                       <UserPlus className="w-4 h-4" />
-                      স্কাইএক্স একাউন্ট খুলবেন?
+                      Easy24 একাউন্ট খুলবেন?
                     </Link>
                     <Link to="/new-agent-number" className="flex items-center gap-2 p-2 hover:bg-primary/10 rounded-lg transition-colors text-sm">
                       <Phone className="w-4 h-4" />
@@ -105,11 +105,11 @@ export const Header = () => {
               <div className="absolute top-full left-0 mt-1 w-56 bg-[#1F2937]/95 backdrop-blur-sm border border-primary/20 rounded-md overflow-hidden opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300">
                 <Link to="/proxy-links" className="flex items-center gap-2 px-4 py-2 hover:bg-primary/20 transition-colors">
                   <ExternalLink className="w-4 h-4" />
-                  <span>স্কাইএক্স প্রক্সি লিংক</span>
+                  <span>Easy24 প্রক্সি লিংক</span>
                 </Link>
                 <Link to="/create-account" className="flex items-center gap-2 px-4 py-2 hover:bg-primary/20 transition-colors">
                   <UserPlus className="w-4 h-4" />
-                  <span>স্কাইএক্স একাউন্ট খুলবেন?</span>
+                  <span>Easy24 একাউন্ট খুলবেন?</span>
                 </Link>
                 <Link to="/new-agent-number" className="flex items-center gap-2 px-4 py-2 hover:bg-primary/20 transition-colors">
                   <Phone className="w-4 h-4" />

@@ -1,3 +1,4 @@
+
 import { ExternalLink, Heart, MessageSquare, Star, Globe } from 'lucide-react';
 import { GamblingPolicyDialog } from './GamblingPolicyDialog';
 import { PrivacyPolicyDialog } from './PrivacyPolicyDialog';
@@ -53,7 +54,7 @@ export const Footer = () => {
               <ul className="space-y-2">
                 <li>
                   <a 
-                    href="https://skyex.com" 
+                    href="https://easy24.com" 
                     target="_blank" 
                     rel="noopener noreferrer" 
                     className="text-muted-foreground hover:text-primary transition-colors text-sm flex items-center gap-2"
@@ -95,12 +96,12 @@ export const Footer = () => {
               <ul className="space-y-2">
                 <li>
                   <a href="/proxy-links" className="text-muted-foreground hover:text-primary transition-colors text-sm flex items-center gap-2">
-                    স্কাইএক্স প্রক্সি লিংক
+                    Easy24 প্রক্সি লিংক
                   </a>
                 </li>
                 <li>
                   <a href="/create-account" className="text-muted-foreground hover:text-primary transition-colors text-sm flex items-center gap-2">
-                    স্কাইএক্স একাউন্ট খুলবেন?
+                    Easy24 একাউন্ট খুলবেন?
                   </a>
                 </li>
                 <li>
