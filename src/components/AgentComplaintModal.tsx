@@ -1,5 +1,5 @@
 
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { AgentWithContacts } from "@/types/agent";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { WhatsAppIcon } from "@/components/icons/WhatsAppIcon";
@@ -140,6 +140,9 @@ export const AgentComplaintModal = ({
       `}>
         <DialogHeader>
           <DialogTitle className="text-base sm:text-lg font-medium text-amber-500">এজেন্ট রিপোর্ট করুন</DialogTitle>
+          <DialogDescription className="text-xs sm:text-sm text-gray-400">
+            আপনি এখানে একজন এজেন্টের বিরুদ্ধে অভিযোগ দায়ের করতে পারেন
+          </DialogDescription>
         </DialogHeader>
 
         <div className="space-y-5">
@@ -165,7 +168,17 @@ export const AgentComplaintModal = ({
                     ? 'bg-amber-500/20 text-amber-500 border border-amber-500/40' 
                     : 'bg-gray-800/50 text-gray-400 border border-gray-700'
                 }`}
-                onClick={() => setComplaintType('upline')}
+                onClick={() => {
+                  if (uplineAgent) {
+                    setComplaintType('upline');
+                  } else {
+                    toast({
+                      variant: "destructive",
+                      title: "আপলাইন অনুপলব্ধ",
+                      description: "এই এজেন্টের কোন আপলাইন নেই"
+                    });
+                  }
+                }}
                 disabled={!uplineAgent}
               >
                 <Flag className="w-3 h-3 sm:w-4 sm:h-4" />
