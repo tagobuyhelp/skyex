@@ -1,4 +1,3 @@
-
 import * as React from "react";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { useState, useEffect } from "react";
@@ -9,11 +8,6 @@ import { Button } from "@/components/ui/button";
 const bannerImages = [
   "/lovable-uploads/2554e518-9477-4436-a436-591dcf318a0c.png",
   "/lovable-uploads/99eae644-a90e-4256-adbf-f6e0370aff36.png",
-  "/lovable-uploads/f0744f86-74a9-4816-b8bd-30305f870575.png",
-  "/lovable-uploads/3663a1ab-bfc8-4590-8d2f-d135d0e31196.png",
-  "/lovable-uploads/2306c3ee-74eb-43ac-a193-d232afadc334.png",
-  "/lovable-uploads/5d05c6a6-8950-4336-a934-b7b872f94ce1.png",
-  "/lovable-uploads/b92ab3ad-8592-4a1f-bcf7-e20dc69a862a.png",
   "/lovable-uploads/cbbf68af-9489-41de-9951-fe4d846800af.png",
   "/lovable-uploads/985f7cc9-e214-4063-9ee2-c848c4565308.png"
 ];
