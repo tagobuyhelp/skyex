@@ -7,7 +7,10 @@ import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 
 const bannerImages = [
-  "/lovable-uploads/985f7cc9-e214-4063-9ee2-c848c4565308.png"
+  "/lovable-uploads/985f7cc9-e214-4063-9ee2-c848c4565308.png",
+  "/lovable-uploads/530834c4-3849-4858-8316-0359fe6e8f8b.png",
+  "/lovable-uploads/9135a693-ca05-430f-9bcf-a79bd028f215.png",
+  "/lovable-uploads/26f69b49-5b74-4844-bbc5-113b1a66b8b2.png"
 ];
 
 export const HeroSection = () => {
