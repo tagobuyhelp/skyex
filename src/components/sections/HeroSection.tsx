@@ -8,7 +8,6 @@ import { Button } from "@/components/ui/button";
 const bannerImages = [
   "/lovable-uploads/2554e518-9477-4436-a436-591dcf318a0c.png",
   "/lovable-uploads/99eae644-a90e-4256-adbf-f6e0370aff36.png",
-  "/lovable-uploads/cbbf68af-9489-41de-9951-fe4d846800af.png",
   "/lovable-uploads/985f7cc9-e214-4063-9ee2-c848c4565308.png"
 ];
 
