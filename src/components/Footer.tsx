@@ -1,4 +1,3 @@
-
 import { ExternalLink, Heart, MessageSquare, Star, Globe } from 'lucide-react';
 import { GamblingPolicyDialog } from './GamblingPolicyDialog';
 import { PrivacyPolicyDialog } from './PrivacyPolicyDialog';
@@ -121,7 +120,7 @@ export const Footer = () => {
           {/* Copyright */}
           <div className="mt-12 pt-8 border-t border-muted/40">
             <p className="text-center text-sm text-muted-foreground">
-              © ২০২৫ স্কাইএক্স। সর্বস্বত্ব সংরক্ষিত।
+              © ২০২৫ Easy24। সর্বস্বত্ব সংরক্ষিত।
             </p>
           </div>
         </div>
