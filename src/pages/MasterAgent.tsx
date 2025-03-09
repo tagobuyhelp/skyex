@@ -1,3 +1,4 @@
+
 import { useQuery } from '@tanstack/react-query';
 import { useState } from 'react';
 import { Header } from '@/components/Header';
@@ -68,18 +69,18 @@ const MasterAgent = () => {
                 <AlertTriangle className="w-5 h-5 text-yellow-500 mt-1 flex-shrink-0" />
                 <div className="space-y-3">
                   <p className="warning-title text-yellow-500 font-semibold">
-                    এজেন্ট দের সাথে লেনদেন এর আগে স্কাইএক্স এর নিয়ম গুলো জেনে নিন!!
+                    এজেন্ট দের সাথে লেনদেন এর আগে ইজি২৪ এর নিয়ম গুলো জেনে নিন!!
                   </p>
                   <ul className="space-y-2 text-muted-foreground">
                     <li className="warning-text flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2">
-                      <strong className="text-yellow-500 shrink-0">প্রতারনার হাত থেকে বাচতে সবার আগে ভিজিট করুন স্কাইএক্স সাইটঃ</strong>
+                      <strong className="text-yellow-500 shrink-0">প্রতারনার হাত থেকে বাচতে সবার আগে ভিজিট করুন ইজি২৪ সাইটঃ</strong>
                       <a 
-                        href="http://skyex247.pro" 
+                        href="http://easy24.pro" 
                         target="_blank" 
                         rel="noopener noreferrer" 
                         className="text-blue-400 hover:text-blue-300 break-all sm:break-normal"
                       >
-                        WWW.SKYEX247.PRO
+                        WWW.EASY24.PRO
                       </a>
                     </li>
                     <li className="warning-text">
@@ -99,7 +100,7 @@ const MasterAgent = () => {
           <AgentTable 
             agents={agents}
             displayAgents={masterAgents}
-            title="SKYEX মাস্টার এজেন্ট লিস্ট"
+            title="EASY24 মাস্টার এজেন্ট লিস্ট"
             filterSiteAdmins={false}
           />
         )}
