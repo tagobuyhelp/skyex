@@ -17,10 +17,6 @@ export const ProxyLinksSection = () => {
                 <ExternalLink className="w-3 h-3 md:w-4 md:h-4" />
                 http://exsky.site
               </a>
-              <a href="http://skyexspin24.live" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-primary hover:underline text-sm md:text-base">
-                <ExternalLink className="w-3 h-3 md:w-4 md:h-4" />
-                http://skyexspin24.live
-              </a>
             </div>
           </div>
         </div>
