@@ -18,8 +18,8 @@ export const HeroSection = () => {
   const [isAutoPlay, setIsAutoPlay] = useState(true);
   const [imagesLoaded, setImagesLoaded] = useState(Array(bannerImages.length).fill(false));
 
-  // Banner dimensions
-  const bannerHeight = isMobile ? "h-[200px]" : "h-[380px]";
+  // Banner dimensions - increased mobile height from 200px to 280px
+  const bannerHeight = isMobile ? "h-[280px]" : "h-[380px]";
 
   // Preload images
   useEffect(() => {
