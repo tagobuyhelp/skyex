@@ -3,10 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { AlertCircle, Info, AlertTriangle, CheckCircle } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { Carousel, CarouselContent, CarouselItem } from "@/components/ui/carousel";
-import Autoplay from "embla-carousel-autoplay";
 import * as React from "react";
-import { useIsMobile } from "@/hooks/use-mobile";
 
 interface Notice {
   id: string;
@@ -32,11 +29,6 @@ export const NoticeListCarousel = () => {
       return data as Notice[];
     }
   });
-  
-  const isMobile = useIsMobile();
-  const autoplayPlugin = React.useRef(
-    Autoplay({ delay: 5000, stopOnInteraction: false })
-  );
   
   const getIcon = (type: Notice["type"]) => {
     switch (type) {
@@ -70,41 +62,33 @@ export const NoticeListCarousel = () => {
   }
   
   return (
-    <Carousel 
-      opts={{
-        align: "start",
-        loop: true
-      }}
-      plugins={[autoplayPlugin.current]}
-      className="w-full"
-    >
-      <CarouselContent>
+    <div className="notice-marquee-container w-full overflow-hidden">
+      <div className="notice-marquee-content">
         {notices.map(notice => {
           const Icon = getIcon(notice.type);
           return (
-            <CarouselItem key={notice.id} className="flex-grow">
-              <div 
-                className={cn(
-                  "flex items-start gap-2 px-3 py-2 rounded-lg transition-colors",
-                  getTypeStyles(notice.type)
-                )}
-              >
-                <Icon className="w-4 h-4 sm:w-5 sm:h-5 shrink-0 mt-0.5" />
-                <div className="min-w-0 flex overflow-hidden">
-                  <p className="text-sm sm:text-base font-medium whitespace-nowrap">
-                    {notice.title}
+            <div
+              key={notice.id}
+              className={cn(
+                "inline-flex items-start gap-2 px-3 py-2 mx-4 rounded-lg transition-colors",
+                getTypeStyles(notice.type)
+              )}
+            >
+              <Icon className="w-4 h-4 sm:w-5 sm:h-5 shrink-0 mt-0.5" />
+              <div className="min-w-0 flex overflow-hidden">
+                <p className="text-sm sm:text-base font-medium whitespace-nowrap">
+                  {notice.title}
+                </p>
+                {notice.content && (
+                  <p className="text-xs sm:text-sm ml-2 text-muted-foreground whitespace-nowrap overflow-hidden text-ellipsis">
+                    - {notice.content}
                   </p>
-                  {notice.content && (
-                    <p className="text-xs sm:text-sm ml-2 text-muted-foreground whitespace-nowrap overflow-hidden text-ellipsis">
-                      - {notice.content}
-                    </p>
-                  )}
-                </div>
+                )}
               </div>
-            </CarouselItem>
+            </div>
           );
         })}
-      </CarouselContent>
-    </Carousel>
+      </div>
+    </div>
   );
 };

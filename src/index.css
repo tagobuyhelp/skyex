@@ -1,3 +1,4 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -113,5 +114,29 @@
   
   .color-changing-text {
     animation: colorChange 10s infinite;
+  }
+  
+  /* Marquee animation for notices */
+  @keyframes marquee {
+    0% { transform: translateX(100%); }
+    100% { transform: translateX(-100%); }
+  }
+  
+  .notice-marquee-container {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .notice-marquee-content {
+    display: inline-block;
+    white-space: nowrap;
+    animation: marquee 20s linear infinite;
+    padding-left: 100%;
+    will-change: transform;
+  }
+  
+  /* Pause the animation when hovered */
+  .notice-marquee-container:hover .notice-marquee-content {
+    animation-play-state: paused;
   }
 }

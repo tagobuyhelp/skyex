@@ -9,12 +9,12 @@ export const NoticeSection = () => {
   return (
     <div className="bg-gradient-to-r from-primary/10 via-primary/5 to-primary/10 border-y border-primary/20">
       <div className="container py-3 px-4">
-        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-3">
-          <div className="flex items-center gap-2 shrink-0 overflow-hidden">
+        <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 shrink-0">
             <Info className="w-5 h-5 text-primary animate-pulse" />
             <span className="text-primary font-medium text-base sm:text-lg whitespace-nowrap">নোটিশ:</span>
           </div>
-          <div className="flex-1 overflow-hidden text-base sm:text-lg">
+          <div className="flex-1 overflow-hidden">
             <NoticeListCarousel />
           </div>
         </div>
