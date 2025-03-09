@@ -14,7 +14,7 @@ export const NoticeSection = () => {
             <Info className="w-5 h-5 text-primary animate-pulse" />
             <span className="text-primary font-medium text-base sm:text-lg whitespace-nowrap">নোটিশ:</span>
           </div>
-          <div className="flex-1 text-base sm:text-lg">
+          <div className="flex-1 overflow-hidden text-base sm:text-lg">
             <NoticeListCarousel />
           </div>
         </div>

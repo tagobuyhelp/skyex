@@ -7,6 +7,7 @@ import { Carousel, CarouselContent, CarouselItem } from "@/components/ui/carouse
 import Autoplay from "embla-carousel-autoplay";
 import * as React from "react";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { useRef, useEffect } from "react";
 
 interface Notice {
   id: string;
@@ -34,6 +35,11 @@ export const NoticeListCarousel = () => {
   });
   
   const isMobile = useIsMobile();
+  const marqueeRef = useRef<HTMLDivElement>(null);
+  
+  useEffect(() => {
+    if (!marqueeRef.current || notices.length === 0) return;
+  }, [notices.length]);
   
   const getIcon = (type: Notice["type"]) => {
     switch (type) {
@@ -61,49 +67,68 @@ export const NoticeListCarousel = () => {
     }
   };
   
+  // If no notices, return empty div
+  if (notices.length === 0) {
+    return <div className="min-h-[30px]"></div>;
+  }
+  
   return (
-    <Carousel 
-      opts={{
-        align: "center",
-        loop: true,
-        dragFree: true,
-        watchDrag: false
-      }} 
-      plugins={[
-        Autoplay({
-          delay: 2000,
-          stopOnInteraction: false,
-          stopOnMouseEnter: false,
-          rootNode: emblaRoot => emblaRoot.parentElement
-        })
-      ]} 
-      className="w-full"
-    >
-      <CarouselContent className="w-full">
+    <div className="relative overflow-hidden w-full">
+      <div 
+        ref={marqueeRef}
+        className="marquee flex animate-marquee space-x-6 whitespace-nowrap"
+      >
         {notices.map(notice => {
           const Icon = getIcon(notice.type);
           return (
-            <CarouselItem key={notice.id} className={isMobile ? "w-full" : "max-w-md mx-auto"}>
-              <div className={cn(
-                "flex items-start gap-2 px-3 py-2 rounded-lg transition-colors",
+            <div 
+              key={notice.id} 
+              className={cn(
+                "flex items-start gap-2 px-3 py-2 rounded-lg transition-colors min-w-max",
                 getTypeStyles(notice.type)
-              )}>
-                <Icon className="w-4 h-4 sm:w-5 sm:h-5 shrink-0 mt-0.5" />
-                <div className="min-w-0 flex-1 overflow-hidden">
-                  <p className="text-sm sm:text-base font-medium truncate">
-                    {notice.title}
+              )}
+            >
+              <Icon className="w-4 h-4 sm:w-5 sm:h-5 shrink-0 mt-0.5" />
+              <div className="min-w-0 flex">
+                <p className="text-sm sm:text-base font-medium whitespace-nowrap">
+                  {notice.title}
+                </p>
+                {notice.content && (
+                  <p className="text-xs sm:text-sm ml-2 text-muted-foreground whitespace-nowrap">
+                    - {notice.content}
                   </p>
-                  {notice.content && (
-                    <p className="text-xs sm:text-sm mt-0.5 text-muted-foreground truncate">
-                      {notice.content}
-                    </p>
-                  )}
-                </div>
+                )}
               </div>
-            </CarouselItem>
+            </div>
           );
         })}
-      </CarouselContent>
-    </Carousel>
+        
+        {/* Duplicate notices for seamless loop */}
+        {notices.map(notice => {
+          const Icon = getIcon(notice.type);
+          return (
+            <div 
+              key={`duplicate-${notice.id}`} 
+              className={cn(
+                "flex items-start gap-2 px-3 py-2 rounded-lg transition-colors min-w-max",
+                getTypeStyles(notice.type)
+              )}
+            >
+              <Icon className="w-4 h-4 sm:w-5 sm:h-5 shrink-0 mt-0.5" />
+              <div className="min-w-0 flex">
+                <p className="text-sm sm:text-base font-medium whitespace-nowrap">
+                  {notice.title}
+                </p>
+                {notice.content && (
+                  <p className="text-xs sm:text-sm ml-2 text-muted-foreground whitespace-nowrap">
+                    - {notice.content}
+                  </p>
+                )}
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </div>
   );
 };
