@@ -27,7 +27,7 @@ export const HeroSection = () => {
                   <div className="container h-full flex items-center justify-center px-4">
                     <div className="text-center space-y-3">
                       <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gradient">
-                        Skyex OFFICIAL WEBSITE
+                        Skyex 247 OFFICIAL WEBSITE
                       </h1>
                       <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
                         Your trusted platform for gaming and entertainment
