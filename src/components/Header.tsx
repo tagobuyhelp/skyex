@@ -70,7 +70,7 @@ export const Header = () => {
               </SheetContent>
             </Sheet>
             <Link to="/" className="flex items-center">
-              <SkyexLogo className="w-auto h-8 md:h-10" />
+              <SkyexLogo className="w-auto h-10 md:h-12" />
             </Link>
           </div>
           
