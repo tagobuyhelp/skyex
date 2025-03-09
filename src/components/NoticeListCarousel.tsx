@@ -7,7 +7,6 @@ import { Carousel, CarouselContent, CarouselItem } from "@/components/ui/carouse
 import Autoplay from "embla-carousel-autoplay";
 import * as React from "react";
 import { useIsMobile } from "@/hooks/use-mobile";
-import { useRef, useEffect } from "react";
 
 interface Notice {
   id: string;
@@ -35,11 +34,9 @@ export const NoticeListCarousel = () => {
   });
   
   const isMobile = useIsMobile();
-  const marqueeRef = useRef<HTMLDivElement>(null);
-  
-  useEffect(() => {
-    if (!marqueeRef.current || notices.length === 0) return;
-  }, [notices.length]);
+  const autoplayPlugin = React.useRef(
+    Autoplay({ delay: 5000, stopOnInteraction: false })
+  );
   
   const getIcon = (type: Notice["type"]) => {
     switch (type) {
@@ -73,62 +70,41 @@ export const NoticeListCarousel = () => {
   }
   
   return (
-    <div className="relative overflow-hidden w-full">
-      <div 
-        ref={marqueeRef}
-        className="marquee flex animate-marquee space-x-6 whitespace-nowrap"
-      >
+    <Carousel 
+      opts={{
+        align: "start",
+        loop: true
+      }}
+      plugins={[autoplayPlugin.current]}
+      className="w-full"
+    >
+      <CarouselContent>
         {notices.map(notice => {
           const Icon = getIcon(notice.type);
           return (
-            <div 
-              key={notice.id} 
-              className={cn(
-                "flex items-start gap-2 px-3 py-2 rounded-lg transition-colors min-w-max",
-                getTypeStyles(notice.type)
-              )}
-            >
-              <Icon className="w-4 h-4 sm:w-5 sm:h-5 shrink-0 mt-0.5" />
-              <div className="min-w-0 flex">
-                <p className="text-sm sm:text-base font-medium whitespace-nowrap">
-                  {notice.title}
-                </p>
-                {notice.content && (
-                  <p className="text-xs sm:text-sm ml-2 text-muted-foreground whitespace-nowrap">
-                    - {notice.content}
-                  </p>
+            <CarouselItem key={notice.id} className="flex-grow">
+              <div 
+                className={cn(
+                  "flex items-start gap-2 px-3 py-2 rounded-lg transition-colors",
+                  getTypeStyles(notice.type)
                 )}
+              >
+                <Icon className="w-4 h-4 sm:w-5 sm:h-5 shrink-0 mt-0.5" />
+                <div className="min-w-0 flex overflow-hidden">
+                  <p className="text-sm sm:text-base font-medium whitespace-nowrap">
+                    {notice.title}
+                  </p>
+                  {notice.content && (
+                    <p className="text-xs sm:text-sm ml-2 text-muted-foreground whitespace-nowrap overflow-hidden text-ellipsis">
+                      - {notice.content}
+                    </p>
+                  )}
+                </div>
               </div>
-            </div>
+            </CarouselItem>
           );
         })}
-        
-        {/* Duplicate notices for seamless loop */}
-        {notices.map(notice => {
-          const Icon = getIcon(notice.type);
-          return (
-            <div 
-              key={`duplicate-${notice.id}`} 
-              className={cn(
-                "flex items-start gap-2 px-3 py-2 rounded-lg transition-colors min-w-max",
-                getTypeStyles(notice.type)
-              )}
-            >
-              <Icon className="w-4 h-4 sm:w-5 sm:h-5 shrink-0 mt-0.5" />
-              <div className="min-w-0 flex">
-                <p className="text-sm sm:text-base font-medium whitespace-nowrap">
-                  {notice.title}
-                </p>
-                {notice.content && (
-                  <p className="text-xs sm:text-sm ml-2 text-muted-foreground whitespace-nowrap">
-                    - {notice.content}
-                  </p>
-                )}
-              </div>
-            </div>
-          );
-        })}
-      </div>
-    </div>
+      </CarouselContent>
+    </Carousel>
   );
 };
