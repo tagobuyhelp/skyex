@@ -4,6 +4,7 @@ import { useIsMobile } from "@/hooks/use-mobile";
 import { useState, useEffect } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
 
 const bannerImages = [
   "/lovable-uploads/2554e518-9477-4436-a436-591dcf318a0c.png",
@@ -100,6 +101,28 @@ export const HeroSection = () => {
             />
           ))}
         </div>
+      </div>
+
+      {/* Dedicated Slide Changing Buttons */}
+      <div className="flex justify-center mt-3 gap-2">
+        <Button 
+          variant="outline" 
+          size="sm" 
+          onClick={goToPrevSlide}
+          className="flex items-center gap-1"
+        >
+          <ChevronLeft className="h-4 w-4" />
+          <span className="hidden sm:inline">Previous</span>
+        </Button>
+        <Button 
+          variant="outline" 
+          size="sm" 
+          onClick={goToNextSlide}
+          className="flex items-center gap-1"
+        >
+          <span className="hidden sm:inline">Next</span>
+          <ChevronRight className="h-4 w-4" />
+        </Button>
       </div>
     </section>
   );
