@@ -2,7 +2,7 @@
 import * as React from "react";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { useState, useEffect } from "react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, Play, Pause } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const bannerImages = [
@@ -56,6 +56,10 @@ export const HeroSection = () => {
     setCurrentImageIndex((prevIndex) => (prevIndex === 0 ? bannerImages.length - 1 : prevIndex - 1));
   };
 
+  const toggleAutoPlay = () => {
+    setIsAutoPlay(prev => !prev);
+  };
+
   return (
     <section className="relative overflow-hidden">
       <div className={cn("w-full relative", bannerHeight)}>
@@ -97,6 +101,30 @@ export const HeroSection = () => {
             aria-label="Next banner"
           >
             <ChevronRight className="h-5 w-5 sm:h-6 sm:w-6" />
+          </button>
+        </div>
+        
+        {/* Autoplay Toggle Button */}
+        <div className="absolute z-20 top-2 right-2 sm:top-4 sm:right-4">
+          <button 
+            onClick={toggleAutoPlay}
+            className={cn(
+              "bg-black/30 hover:bg-black/50 text-white rounded-full p-1 sm:p-2 transition-colors flex items-center gap-1",
+              isAutoPlay && "animate-pulse"
+            )}
+            aria-label={isAutoPlay ? "Pause autoplay" : "Start autoplay"}
+          >
+            {isAutoPlay ? (
+              <>
+                <Pause className="h-4 w-4 sm:h-5 sm:w-5" />
+                <span className="text-xs hidden sm:inline">Auto</span>
+              </>
+            ) : (
+              <>
+                <Play className="h-4 w-4 sm:h-5 sm:w-5" />
+                <span className="text-xs hidden sm:inline">Auto</span>
+              </>
+            )}
           </button>
         </div>
         
