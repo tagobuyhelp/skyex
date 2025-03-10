@@ -9,7 +9,7 @@ export function GamblingPolicyDialog() {
       </DialogTrigger>
       <DialogPortal>
         <DialogOverlay />
-        <DialogContent className="sm:max-w-md">
+        <DialogContent className="sm:max-w-md px-[29px] py-[29px]">
           <DialogHeader>
             <DialogTitle className="flex items-center gap-2 text-xl">
               <Scale className="h-6 w-6 text-primary" />
