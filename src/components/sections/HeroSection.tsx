@@ -6,7 +6,11 @@ import { ChevronLeft, ChevronRight, Play, Pause } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const bannerImages = [
-  "/lovable-uploads/banner1.png",
+  "/lovable-uploads/6f26069d-9a40-4b0b-8990-a75efb1e6187.png",
+  "/lovable-uploads/ae40f84a-5929-4855-9a6a-46cbc9f823b0.png",
+  "/lovable-uploads/2570b596-e25c-4efd-b7fb-a1df273ba0b5.png",
+  "/lovable-uploads/62966844-864c-465f-b3fd-9878b1718957.png",
+  "/lovable-uploads/5543845b-7990-436b-8c6f-ead647574ad8.png"
 ];
 
 export const HeroSection = () => {
