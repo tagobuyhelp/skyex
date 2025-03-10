@@ -96,12 +96,12 @@ const SuperAgent = () => {
                     <li className="warning-text flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2">
                       <strong className="text-yellow-500 shrink-0">প্রতারনার হাত থেকে বাচতে সবার আগে ভিজিট করুন ইজি২৪ সাইটঃ</strong>
                       <a 
-                        href="http://easy24.pro" 
+                        href="http://easy24.site" 
                         target="_blank" 
                         rel="noopener noreferrer" 
                         className="text-blue-400 hover:text-blue-300 break-all sm:break-normal"
                       >
-                        WWW.EASY24.PRO
+                        WWW.EASY24.SITE
                       </a>
                     </li>
                     <li className="warning-text">
