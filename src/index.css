@@ -11,24 +11,24 @@
     --accent-color: #E09E00;
     
     /* Use the CSS variables for theme colors */
-    --background: 35 30% 8%;
+    --background: 35 30% 12%;
     --foreground: 213 31% 91%;
-    --card: 35 30% 8%;
+    --card: 35 30% 12%;
     --card-foreground: 213 31% 91%;
-    --popover: 35 30% 8%;
+    --popover: 35 30% 12%;
     --popover-foreground: 213 31% 91%;
     --primary: var(--primary-color);
     --primary-foreground: 0 0% 0%;
-    --secondary: 35 27% 17%;
+    --secondary: 35 27% 20%;
     --secondary-foreground: 210 40% 98%;
-    --muted: 35 27% 17%;
+    --muted: 35 27% 20%;
     --muted-foreground: 35 20% 65%;
     --accent: var(--accent-color);
     --accent-foreground: 0 0% 0%;
     --destructive: 0 63% 31%;
     --destructive-foreground: 210 40% 98%;
     --border: var(--primary-transparent);
-    --input: 35 27% 17%;
+    --input: 35 27% 20%;
     --ring: var(--primary-color);
     --radius: 0.75rem;
   }
