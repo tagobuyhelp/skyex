@@ -33,7 +33,7 @@ export const DashboardHeader = ({
                 <BellPlus className="w-4 h-4 mr-2" />
                 নতুন বিজ্ঞপ্তি
               </Button>} />
-          <AgentManageModal mode="create" onSuccess={onAgentCreate} trigger={<Button className="w-full sm:w-auto bg-primary hover:bg-accent">
+          <AgentManageModal mode="create" onSuccess={onAgentCreate} trigger={<Button className="w-full sm:w-auto bg-lime-500 hover:bg-lime-400">
                 <UserPlus className="w-4 h-4 mr-2" />
                 নতুন এজেন্ট
               </Button>} />

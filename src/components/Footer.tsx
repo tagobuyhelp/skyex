@@ -54,7 +54,7 @@ export const Footer = () => {
               <ul className="space-y-2">
                 <li>
                   <a 
-                    href="https://easy24.com" 
+                    href="https://skyex.com" 
                     target="_blank" 
                     rel="noopener noreferrer" 
                     className="text-muted-foreground hover:text-primary transition-colors text-sm flex items-center gap-2"
@@ -96,12 +96,12 @@ export const Footer = () => {
               <ul className="space-y-2">
                 <li>
                   <a href="/proxy-links" className="text-muted-foreground hover:text-primary transition-colors text-sm flex items-center gap-2">
-                    Easy24 প্রক্সি লিংক
+                    স্কাইএক্স প্রক্সি লিংক
                   </a>
                 </li>
                 <li>
                   <a href="/create-account" className="text-muted-foreground hover:text-primary transition-colors text-sm flex items-center gap-2">
-                    Easy24 একাউন্ট খুলবেন?
+                    স্কাইএক্স একাউন্ট খুলবেন?
                   </a>
                 </li>
                 <li>
@@ -121,7 +121,7 @@ export const Footer = () => {
           {/* Copyright */}
           <div className="mt-12 pt-8 border-t border-muted/40">
             <p className="text-center text-sm text-muted-foreground">
-              © ২০২৫ Easy24। সর্বস্বত্ব সংরক্ষিত।
+              © ২০২৫ স্কাইএক্স। সর্বস্বত্ব সংরক্ষিত।
             </p>
           </div>
         </div>
