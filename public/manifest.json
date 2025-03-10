@@ -5,8 +5,8 @@
   "description": "Your trusted platform for gaming and entertainment",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#89AC46",
-  "theme_color": "#89AC46",
+  "background_color": "#33C3F0",
+  "theme_color": "#33C3F0",
   "icons": [
     {
       "src": "/favicon.ico",
