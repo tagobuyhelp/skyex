@@ -38,7 +38,7 @@ export const AgentDesktopView: React.FC<AgentDesktopViewProps> = ({
         {agents.map(agent => <TableRow key={agent.id} className="border-b border-white/10">
             <TableCell>
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-emerald-600 flex items-center justify-center text-white font-medium">
+                <div className="w-10 h-10 rounded-full flex items-center justify-center text-white font-medium bg-lime-600">
                   {agent.name[0].toUpperCase()}
                 </div>
                 <div>
