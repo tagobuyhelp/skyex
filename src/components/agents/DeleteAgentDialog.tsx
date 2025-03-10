@@ -26,14 +26,14 @@ export const DeleteAgentDialog: React.FC<DeleteAgentDialogProps> = ({
     <AlertDialog open={open} onOpenChange={onOpenChange}>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>আপনি কি নিশ্চিত?</AlertDialogTitle>
-          <AlertDialogDescription>
+          <AlertDialogTitle className="text-xl">আপনি কি নিশ্চিত?</AlertDialogTitle>
+          <AlertDialogDescription className="text-base">
             এই এজেন্টের সমস্ত তথ্য স্থায়ীভাবে মুছে ফেলা হবে। এই ক্রিয়াটি আর ফিরিয়ে নেওয়া যাবে না।
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel>বাতিল</AlertDialogCancel>
-          <AlertDialogAction onClick={onConfirm}>ডিলিট করুন</AlertDialogAction>
+          <AlertDialogCancel className="text-base">বাতিল</AlertDialogCancel>
+          <AlertDialogAction onClick={onConfirm} className="text-base">ডিলিট করুন</AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>

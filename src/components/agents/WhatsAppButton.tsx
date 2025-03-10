@@ -8,8 +8,8 @@ interface WhatsAppButtonProps {
 export const WhatsAppIcon = () => (
   <svg
     viewBox="0 0 24 24"
-    width="20"
-    height="20"
+    width="22"
+    height="22"
     fill="currentColor"
     className="text-emerald-400"
   >
@@ -23,7 +23,7 @@ export const WhatsAppButton: React.FC<WhatsAppButtonProps> = ({ whatsappNumber }
       <WhatsAppIcon />
       <a
         href={`https://wa.me/${whatsappNumber}`}
-        className="text-emerald-400 hover:text-emerald-300 transition-colors text-xs md:text-base"
+        className="text-emerald-400 hover:text-emerald-300 transition-colors text-sm"
         target="_blank"
         rel="noopener noreferrer"
       >
