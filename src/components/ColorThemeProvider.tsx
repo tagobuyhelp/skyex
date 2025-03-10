@@ -1,4 +1,3 @@
-
 import React, { createContext, useContext, useState, useEffect } from "react";
 
 type ColorTheme = {
@@ -28,7 +27,6 @@ export const ColorThemeProvider = ({ children }: { children: React.ReactNode }) 
   const [themes, setThemes] = useState<ColorTheme[]>(defaultThemes);
   const [currentTheme, setCurrentTheme] = useState<ColorTheme>(defaultThemes[0]);
 
-  // Load theme from localStorage on mount
   useEffect(() => {
     const savedTheme = localStorage.getItem("skyex-theme");
     if (savedTheme) {
@@ -41,24 +39,20 @@ export const ColorThemeProvider = ({ children }: { children: React.ReactNode }) 
     }
   }, []);
 
-  // Update CSS variables when theme changes
   useEffect(() => {
     document.documentElement.style.setProperty("--primary-color", currentTheme.primary);
     
-    // Calculate and set derived colors
     const primaryHex = currentTheme.primary.substring(1);
     const r = parseInt(primaryHex.substring(0, 2), 16);
     const g = parseInt(primaryHex.substring(2, 4), 16);
     const b = parseInt(primaryHex.substring(4, 6), 16);
     
-    // Set primary with 10% transparency for borders
     document.documentElement.style.setProperty(
       "--primary-transparent", 
       `rgba(${r}, ${g}, ${b}, 0.2)`
     );
     
-    // Set a slightly darker shade for accent/hover
-    const darkenAmount = 10;
+    const darkenAmount = 15;
     const darkerR = Math.max(0, r - darkenAmount);
     const darkerG = Math.max(0, g - darkenAmount);
     const darkerB = Math.max(0, b - darkenAmount);
@@ -68,7 +62,6 @@ export const ColorThemeProvider = ({ children }: { children: React.ReactNode }) 
       `rgb(${darkerR}, ${darkerG}, ${darkerB})`
     );
     
-    // Save to localStorage
     localStorage.setItem("skyex-theme", JSON.stringify(currentTheme));
   }, [currentTheme]);
 

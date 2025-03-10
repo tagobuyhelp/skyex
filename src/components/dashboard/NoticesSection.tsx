@@ -5,7 +5,7 @@ import { Activity } from "lucide-react";
 
 export const NoticesSection = () => {
   return (
-    <Card className="bg-gradient-to-br from-white to-gray-100 backdrop-blur-sm col-span-1 lg:col-span-2 border-primary/10">
+    <Card className="bg-gradient-to-br from-white to-blue-50 backdrop-blur-sm col-span-1 lg:col-span-2 border-primary/10">
       <CardHeader className="border-b border-primary/10">
         <CardTitle className="text-base md:text-lg flex items-center gap-2">
           <Activity className="w-5 h-5 text-primary" />

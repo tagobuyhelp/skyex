@@ -1,4 +1,3 @@
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -11,24 +10,24 @@
     --accent-color: #0EA5E9;
     
     /* Use the CSS variables for theme colors */
-    --background: 210 30% 98%;
+    --background: 210 40% 98%;
     --foreground: 202 40% 25%;
-    --card: 210 30% 98%;
+    --card: 210 40% 98%;
     --card-foreground: 202 40% 25%;
-    --popover: 210 30% 98%;
+    --popover: 210 40% 98%;
     --popover-foreground: 202 40% 25%;
     --primary: var(--primary-color);
     --primary-foreground: 0 0% 100%;
-    --secondary: 202 27% 90%;
+    --secondary: 202 30% 94%;
     --secondary-foreground: 202 40% 25%;
-    --muted: 202 27% 90%;
+    --muted: 202 30% 94%;
     --muted-foreground: 202 20% 40%;
     --accent: var(--accent-color);
     --accent-foreground: 0 0% 100%;
     --destructive: 0 63% 31%;
     --destructive-foreground: 210 40% 98%;
     --border: var(--primary-transparent);
-    --input: 202 27% 90%;
+    --input: 202 30% 94%;
     --ring: var(--primary-color);
     --radius: 0.75rem;
   }
@@ -74,7 +73,7 @@
 
 @layer components {
   .glass-card {
-    @apply bg-card/80 backdrop-blur-md border border-border rounded-lg shadow-xl;
+    @apply bg-card/90 backdrop-blur-md border border-border rounded-lg shadow-md;
   }
   
   .agent-avatar {

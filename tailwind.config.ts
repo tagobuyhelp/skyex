@@ -30,7 +30,7 @@ export default {
           foreground: "#FFFFFF",
         },
         secondary: {
-          DEFAULT: "#E3EAF2",
+          DEFAULT: "#EDF4FB",
           foreground: "#0F3356",
         },
         destructive: {
@@ -46,11 +46,11 @@ export default {
           foreground: "#FFFFFF",
         },
         card: {
-          DEFAULT: "rgba(227, 234, 242, 0.8)",
+          DEFAULT: "rgba(237, 244, 251, 0.9)",
           foreground: "#0F3356",
         },
         popover: {
-          DEFAULT: "#E3EAF2",
+          DEFAULT: "#EDF4FB",
           foreground: "#0F3356",
         },
         "primary-transparent": "var(--primary-transparent)",
