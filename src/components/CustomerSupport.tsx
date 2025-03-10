@@ -15,7 +15,7 @@ export const CustomerSupport = () => {
   return <div className="fixed bottom-6 right-6 z-50">
       <Dialog>
         <DialogTrigger asChild>
-          <Button size="icon" className="h-14 w-14 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 border-4 border-background bg-lime-600 hover:bg-lime-500">
+          <Button size="icon" className="h-14 w-14 shadow-lg hover:shadow-xl transition-all duration-300 border-4 border-background rounded-full bg-teal-500 hover:bg-teal-400">
             <Headset className="h-6 w-6" />
           </Button>
         </DialogTrigger>
