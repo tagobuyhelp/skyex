@@ -56,10 +56,10 @@ export const AgentDesktopView: React.FC<AgentDesktopViewProps> = ({
                 {agent.reports_to ? <div className="flex items-center gap-2">
                     <ArrowUpRight className="w-4 h-4 text-blue-400" />
                     <div>
-                      <p className="text-blue-400">
+                      <p className="text-blue-600 text-sm">
                         {getUplineInfo(agent.reports_to)?.name}
                       </p>
-                      <p className="text-sm text-gray-400">
+                      <p className="text-gray-400 text-xs">
                         {getAgentTypeInBangla(getUplineInfo(agent.reports_to)?.type || '')}
                       </p>
                     </div>
