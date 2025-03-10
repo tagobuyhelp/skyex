@@ -1,12 +1,15 @@
+
 import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, Search, Home, Shield, Users, Star, Crown, ExternalLink, UserPlus, Phone, List, X } from 'lucide-react';
 import { AgentSearchModal } from './AgentSearchModal';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { SkyexLogo } from './SkyexLogo';
+
 export const Header = () => {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const location = useLocation();
+  
   return <header className="sticky top-0 z-50 bg-background/95 backdrop-blur-sm border-b border-primary/20">
       <div className="container px-2 md:px-8">
         <div className="flex items-center justify-between h-16">

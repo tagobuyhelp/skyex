@@ -72,7 +72,7 @@ export const HeroSection = () => {
             >
               <img 
                 src={image} 
-                alt={`Skyex 247 Banner ${index + 1}`} 
+                alt={`Easy 24 Banner ${index + 1}`} 
                 className="w-full h-full object-cover object-center"
                 onError={(e) => {
                   console.error(`Failed to load image: ${image}`);

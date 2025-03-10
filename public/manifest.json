@@ -1,7 +1,7 @@
 
 {
-  "name": "Skyex Agent List",
-  "short_name": "Skyex",
+  "name": "Easy24 Agent List",
+  "short_name": "Easy24",
   "description": "Your trusted platform for gaming and entertainment",
   "start_url": "/",
   "display": "standalone",
