@@ -48,7 +48,7 @@ export const AgentDesktopView: React.FC<AgentDesktopViewProps> = ({
               </div>
             </TableCell>
             <TableCell>
-              <span className="px-2 py-0.5 bg-emerald-500/20 rounded font-medium text-amber-500">
+              <span className="px-2 py-0.5 bg-emerald-500/20 rounded font-medium text-lime-500">
                 {agent.agent_id}
               </span>
             </TableCell>
