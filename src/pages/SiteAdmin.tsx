@@ -44,7 +44,7 @@ const SiteAdmin = () => {
   const siteAdmins = agents.filter(agent => agent.type === 'site_admin');
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-gradient-to-br from-[#1A1704] via-[#261F06] to-[#1F1903]">
       <Header />
       <div className="container mx-auto px-2 sm:px-6 py-2 md:py-6">
         <div className="relative">
