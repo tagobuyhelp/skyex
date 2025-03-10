@@ -1,3 +1,4 @@
+
 import { useQuery } from '@tanstack/react-query';
 import { useState } from 'react';
 import { Header } from '@/components/Header';
@@ -53,19 +54,19 @@ const MasterAgent = () => {
             {showWarning ? (
               <>
                 <ChevronUp className="mr-1" />
-                <span className="hidden sm:inline">সরান</span>
+                <span className="hidden sm:inline text-base">সরান</span>
               </>
             ) : (
               <>
                 <ChevronDown className="mr-1" />
-                <span className="hidden sm:inline">দেখান</span>
+                <span className="hidden sm:inline text-base">দেখান</span>
               </>
             )}
           </Button>
           {showWarning && (
             <div className="glass-card p-4 sm:p-6 mb-6">
               <div className="flex gap-3 items-start">
-                <AlertTriangle className="w-5 h-5 text-yellow-500 mt-1 flex-shrink-0" />
+                <AlertTriangle className="w-6 h-6 text-yellow-500 mt-1 flex-shrink-0" />
                 <div className="space-y-3">
                   <p className="warning-title text-yellow-500 font-semibold">
                     এজেন্ট দের সাথে লেনদেন এর আগে স্কাইএক্স এর নিয়ম গুলো জেনে নিন!!
@@ -93,7 +94,7 @@ const MasterAgent = () => {
         </div>
         {isLoading ? (
           <div className="flex justify-center items-center py-8">
-            <div className="text-center">Loading...</div>
+            <div className="text-center text-lg">Loading...</div>
           </div>
         ) : (
           <AgentTable 

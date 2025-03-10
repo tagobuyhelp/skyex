@@ -50,7 +50,7 @@ export const AgentDownlineModal = ({
         scrollbar-track-transparent
       `}>
         <DialogHeader>
-          <DialogTitle className={isMobile ? 'text-lg' : 'text-xl'}>
+          <DialogTitle className={isMobile ? 'text-xl' : 'text-2xl'}>
             ডাউনলাইন এজেন্ট লিস্ট
           </DialogTitle>
         </DialogHeader>
@@ -59,13 +59,13 @@ export const AgentDownlineModal = ({
           {/* Agent Info */}
           <div className="mb-6 p-4 bg-secondary/50 rounded-lg">
             <div className="flex items-center gap-3">
-              <div className="w-12 h-12 rounded-full bg-primary flex items-center justify-center text-white font-medium text-lg">
+              <div className="w-14 h-14 rounded-full bg-primary flex items-center justify-center text-white font-medium text-xl">
                 {agent.name[0].toUpperCase()}
               </div>
               <div>
-                <p className="font-medium text-lg">{agent.name}</p>
-                <p className="text-sm text-muted-foreground">{getAgentTypeInBangla(agent.type)}</p>
-                <p className="text-sm text-primary">ID: {agent.agent_id}</p>
+                <p className="font-medium text-xl">{agent.name}</p>
+                <p className="text-base text-muted-foreground">{getAgentTypeInBangla(agent.type)}</p>
+                <p className="text-base text-primary">ID: {agent.agent_id}</p>
               </div>
             </div>
           </div>
@@ -73,7 +73,7 @@ export const AgentDownlineModal = ({
           {/* Downline List */}
           <div className="space-y-4">
             <div className="flex items-center justify-between">
-              <h3 className="text-lg font-semibold">ডাউনলাইন এজেন্ট ({downlineAgents.length})</h3>
+              <h3 className="text-xl font-semibold">ডাউনলাইন এজেন্ট ({downlineAgents.length})</h3>
             </div>
             
             {downlineAgents.length > 0 ? (
@@ -81,18 +81,18 @@ export const AgentDownlineModal = ({
                 {downlineAgents.map((downline) => (
                   <div key={downline.id} className="p-4 bg-secondary/50 rounded-lg hover:bg-secondary/70 transition-colors">
                     <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-full bg-emerald-600 flex items-center justify-center text-white font-medium">
+                      <div className="w-12 h-12 rounded-full bg-emerald-600 flex items-center justify-center text-white font-medium text-lg">
                         {downline.name[0].toUpperCase()}
                       </div>
                       <div className="flex-1 min-w-0">
-                        <p className="font-medium truncate">{downline.name}</p>
-                        <p className="text-sm text-muted-foreground">{getAgentTypeInBangla(downline.type)}</p>
-                        <p className="text-sm text-primary">ID: {downline.agent_id}</p>
+                        <p className="font-medium text-lg truncate">{downline.name}</p>
+                        <p className="text-base text-muted-foreground">{getAgentTypeInBangla(downline.type)}</p>
+                        <p className="text-base text-primary">ID: {downline.agent_id}</p>
                       </div>
                       {downline.agent_contacts[0]?.whatsapp && (
                         <a
                           href={`https://wa.me/${downline.agent_contacts[0].whatsapp}`}
-                          className="flex items-center gap-1.5 text-sm text-emerald-400 hover:text-emerald-300 transition-colors px-3 py-2 rounded-md hover:bg-emerald-500/20"
+                          className="flex items-center gap-1.5 text-base text-emerald-400 hover:text-emerald-300 transition-colors px-3 py-2 rounded-md hover:bg-emerald-500/20"
                           target="_blank"
                           rel="noopener noreferrer"
                         >
@@ -105,7 +105,7 @@ export const AgentDownlineModal = ({
                 ))}
               </div>
             ) : (
-              <div className="text-center py-8 text-muted-foreground">
+              <div className="text-center py-8 text-muted-foreground text-lg">
                 কোনো ডাউনলাইন এজেন্ট নেই
               </div>
             )}
