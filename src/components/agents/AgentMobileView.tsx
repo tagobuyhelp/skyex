@@ -22,9 +22,9 @@ export const AgentMobileView: React.FC<AgentMobileViewProps> = ({
   onDelete,
   onComplaint
 }) => {
-  return <div key={agent.id} className="glass-card p-4">
+  return <div key={agent.id} className="glass-card p-4 bg-gray-800">
       <div className="flex items-center gap-3 mb-3">
-        <div className="w-10 h-10 rounded-full bg-emerald-600 flex items-center justify-center text-white font-medium text-base">
+        <div className="w-10 h-10 rounded-full flex items-center justify-center text-white font-medium text-base bg-lime-600">
           {agent.name[0].toUpperCase()}
         </div>
         <div>
