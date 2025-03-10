@@ -36,7 +36,7 @@ export const AgentMobileView: React.FC<AgentMobileViewProps> = ({
       <div className="space-y-2 text-base">
         <div className="flex justify-between items-center">
           <span className="text-gray-400 text-sm">আইডি:</span>
-          <span className="px-2 py-0.5 bg-emerald-500/20 rounded font-medium text-sm text-orange-400">
+          <span className="px-2 py-0.5 bg-emerald-500/20 rounded font-medium text-sm text-zinc-950">
             {agent.agent_id}
           </span>
         </div>
