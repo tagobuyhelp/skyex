@@ -25,7 +25,7 @@ export const MasterAgentSection = ({
         {isLoading ? <div className="text-lg">Loading agents...</div> : <div className="space-y-3 md:space-y-4">
             {masterAgents?.map(agent => <div key={agent.id} className="flex flex-col sm:flex-row sm:items-center justify-between p-3 md:p-4 bg-secondary/50 rounded-lg gap-3 md:gap-4">
                 <div className="flex items-center gap-3">
-                  <div className="agent-avatar text-xl md:text-2xl">{agent.name[0]}</div>
+                  <div className="agent-avatar text-xl md:text-2xl bg-lime-600">{agent.name[0]}</div>
                   <div>
                     <p className="font-medium text-lg md:text-xl">{agent.name}</p>
                     <p className="px-2 py-0.5 bg-emerald-500/20 rounded text-emerald-400 font-medium text-sm md:text-base inline-block">
