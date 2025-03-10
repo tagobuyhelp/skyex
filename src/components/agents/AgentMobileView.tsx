@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { AgentWithContacts } from '@/types/agent';
 import { Eye, Edit, Trash2, AlertTriangle } from 'lucide-react';
@@ -36,7 +37,7 @@ export const AgentMobileView: React.FC<AgentMobileViewProps> = ({
       <div className="space-y-2 text-base">
         <div className="flex justify-between items-center">
           <span className="text-gray-400 text-sm">আইডি:</span>
-          <span className="px-2 py-0.5 bg-emerald-500/20 rounded font-medium text-sm text-zinc-950">
+          <span className="px-2 py-0.5 bg-primary/20 rounded font-medium text-sm text-zinc-950">
             {agent.agent_id}
           </span>
         </div>
@@ -55,9 +56,9 @@ export const AgentMobileView: React.FC<AgentMobileViewProps> = ({
         </div>
         
         <div className="flex justify-end gap-2 mt-3">
-          <button className="p-2 hover:bg-emerald-500/20 rounded-lg transition-colors flex items-center gap-1.5" onClick={() => onViewHierarchy(agent)}>
-            <Eye className="w-4 h-4 text-emerald-400" />
-            <span className="text-sm text-emerald-400">দেখুন</span>
+          <button className="p-2 hover:bg-primary/20 rounded-lg transition-colors flex items-center gap-1.5" onClick={() => onViewHierarchy(agent)}>
+            <Eye className="w-4 h-4 text-primary" />
+            <span className="text-sm text-primary">দেখুন</span>
           </button>
           {isAuthenticated && <>
               <AgentManageModal mode="edit" agent={agent} trigger={<button className="p-2 hover:bg-blue-500/20 rounded-lg transition-colors flex items-center gap-1.5">
