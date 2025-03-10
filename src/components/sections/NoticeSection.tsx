@@ -7,7 +7,7 @@ export const NoticeSection = () => {
   const { currentTheme } = useColorTheme();
   
   return (
-    <div className="bg-gray-800/50 border-y border-primary/10">
+    <div className="bg-gradient-to-r from-primary/10 via-primary/5 to-primary/10 border-y border-primary/20">
       <div className="container py-3 px-4">
         <div className="flex items-center gap-3">
           <div className="flex items-center gap-2 shrink-0">

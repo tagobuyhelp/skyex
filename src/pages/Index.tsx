@@ -1,4 +1,3 @@
-
 import * as React from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Header } from "@/components/Header";
@@ -69,7 +68,7 @@ const Index = () => {
   const masterAgents = allAgents?.filter(agent => agent.type === 'master_agent').slice(0, 5);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white">
+    <div className="min-h-screen bg-gradient-to-br from-background via-background/90 to-background">
       <Header />
       
       <HeroSection />

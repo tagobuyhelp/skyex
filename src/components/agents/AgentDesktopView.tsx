@@ -48,7 +48,7 @@ export const AgentDesktopView: React.FC<AgentDesktopViewProps> = ({
               </div>
             </TableCell>
             <TableCell>
-              <span className="px-2 py-0.5 bg-emerald-500/20 rounded font-medium text-gray-950">
+              <span className="px-2 py-0.5 bg-emerald-500/20 rounded font-medium text-amber-500">
                 {agent.agent_id}
               </span>
             </TableCell>
@@ -56,10 +56,10 @@ export const AgentDesktopView: React.FC<AgentDesktopViewProps> = ({
                 {agent.reports_to ? <div className="flex items-center gap-2">
                     <ArrowUpRight className="w-4 h-4 text-blue-400" />
                     <div>
-                      <p className="text-blue-600 text-sm">
+                      <p className="text-blue-400">
                         {getUplineInfo(agent.reports_to)?.name}
                       </p>
-                      <p className="text-gray-400 text-xs">
+                      <p className="text-sm text-gray-400">
                         {getAgentTypeInBangla(getUplineInfo(agent.reports_to)?.type || '')}
                       </p>
                     </div>

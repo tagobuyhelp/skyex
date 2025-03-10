@@ -30,28 +30,28 @@ export default {
           foreground: "#FFFFFF",
         },
         secondary: {
-          DEFAULT: "#EDF4FB",
-          foreground: "#0F3356",
+          DEFAULT: "#1E2A3B",
+          foreground: "#FFFFFF",
         },
         destructive: {
           DEFAULT: "hsl(var(--destructive))",
           foreground: "hsl(var(--destructive-foreground))",
         },
         muted: {
-          DEFAULT: "#D1DBE6",
-          foreground: "#5A7896",
+          DEFAULT: "#253447",
+          foreground: "#A3B8CC",
         },
         accent: {
           DEFAULT: "var(--accent-color)",
           foreground: "#FFFFFF",
         },
         card: {
-          DEFAULT: "rgba(237, 244, 251, 0.9)",
-          foreground: "#0F3356",
+          DEFAULT: "rgba(30, 42, 59, 0.8)",
+          foreground: "#FFFFFF",
         },
         popover: {
-          DEFAULT: "#EDF4FB",
-          foreground: "#0F3356",
+          DEFAULT: "#1E2A3B",
+          foreground: "#FFFFFF",
         },
         "primary-transparent": "var(--primary-transparent)",
       },
