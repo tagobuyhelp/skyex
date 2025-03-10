@@ -1,21 +1,18 @@
-
 import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, Search, Home, Shield, Users, Star, Crown, ExternalLink, UserPlus, Phone, List, X } from 'lucide-react';
 import { AgentSearchModal } from './AgentSearchModal';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { SkyexLogo } from './SkyexLogo';
-
 export const Header = () => {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const location = useLocation();
-  
   return <header className="sticky top-0 z-50 bg-background/95 backdrop-blur-sm border-b border-primary/20">
       <div className="container px-2 md:px-8">
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center gap-2 md:gap-4">
             <Sheet>
-              <SheetTrigger className="p-1.5 md:p-2 rounded-lg transition-colors md:hidden text-zinc-950 bg-lime-600 hover:bg-lime-500">
+              <SheetTrigger className="p-1.5 md:p-2 rounded-lg transition-colors md:hidden text-zinc-950 bg-amber-500 hover:bg-amber-400">
                 <Menu className="w-5 h-5 md:w-6 md:h-6" />
               </SheetTrigger>
               <SheetContent side="left" className="w-[300px] sm:w-[400px] bg-background/95 backdrop-blur-sm border-r border-primary/20">
