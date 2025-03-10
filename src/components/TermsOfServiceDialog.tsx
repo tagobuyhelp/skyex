@@ -1,19 +1,7 @@
-
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-  DialogPortal,
-  DialogOverlay,
-} from "@/components/ui/dialog"
-import { FileText } from "lucide-react"
-
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger, DialogPortal, DialogOverlay } from "@/components/ui/dialog";
+import { FileText } from "lucide-react";
 export function TermsOfServiceDialog() {
-  return (
-    <Dialog>
+  return <Dialog>
       <DialogTrigger asChild>
         <button className="text-muted-foreground hover:text-primary text-sm">
           সেবার শর্তাবলী
@@ -21,7 +9,7 @@ export function TermsOfServiceDialog() {
       </DialogTrigger>
       <DialogPortal>
         <DialogOverlay />
-        <DialogContent className="sm:max-w-md">
+        <DialogContent className="sm:max-w-md px-[29px] py-[29px]">
           <DialogHeader>
             <DialogTitle className="flex items-center gap-2 text-xl">
               <FileText className="h-6 w-6 text-primary" />
@@ -53,6 +41,5 @@ export function TermsOfServiceDialog() {
           </div>
         </DialogContent>
       </DialogPortal>
-    </Dialog>
-  )
+    </Dialog>;
 }
