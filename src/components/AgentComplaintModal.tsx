@@ -127,7 +127,7 @@ export const AgentComplaintModal = ({
         border-primary/20
       `}>
         <DialogHeader>
-          <DialogTitle className="text-base sm:text-lg font-medium text-amber-500">এজেন্ট রিপোর্ট করুন</DialogTitle>
+          <DialogTitle className="text-base sm:text-lg font-medium text-cyan-400">এজেন্ট রিপোর্ট করুন</DialogTitle>
           <DialogDescription className="text-xs sm:text-sm text-gray-400">
             আপনি এখানে একজন এজেন্টের বিরুদ্ধে অভিযোগ দায়ের করতে পারেন
           </DialogDescription>
