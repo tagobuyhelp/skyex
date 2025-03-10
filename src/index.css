@@ -1,3 +1,4 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -73,7 +74,7 @@
 
 @layer components {
   .glass-card {
-    @apply bg-card/90 backdrop-blur-md border border-border rounded-lg shadow-md;
+    @apply bg-gray-800/80 backdrop-blur-md border border-gray-700/50 rounded-lg shadow-md;
   }
   
   .agent-avatar {
