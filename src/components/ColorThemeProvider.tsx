@@ -7,8 +7,8 @@ type ColorTheme = {
 };
 
 const defaultThemes: ColorTheme[] = [
-  { name: "Green", primary: "#89AC46" },
   { name: "Gold", primary: "#FFB200" },
+  { name: "Green", primary: "#89AC46" },
   { name: "Sky Blue", primary: "#33C3F0" },
   { name: "Purple", primary: "#8B5CF6" },
   { name: "Magenta", primary: "#D946EF" },
