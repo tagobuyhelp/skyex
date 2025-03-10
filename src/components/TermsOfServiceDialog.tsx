@@ -17,9 +17,7 @@ export function TermsOfServiceDialog() {
             </DialogTitle>
           </DialogHeader>
           <div className="space-y-4">
-            <DialogDescription className="text-base text-foreground">
-            স্কাইএক্স সেবা ব্যবহার করে, আপনি এই শর্তগুলিতে সম্মত হন:
-            </DialogDescription>
+            <DialogDescription className="text-base text-foreground">EASY24 সেবা ব্যবহার করে, আপনি এই শর্তগুলিতে সম্মত হন:</DialogDescription>
             <ul className="space-y-3 text-sm">
               <li className="flex gap-2">
                 <div className="h-2 w-2 mt-2 rounded-full bg-primary flex-shrink-0" />
