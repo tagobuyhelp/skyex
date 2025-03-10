@@ -1,19 +1,7 @@
-
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-  DialogPortal,
-  DialogOverlay,
-} from "@/components/ui/dialog"
-import { Scale } from "lucide-react"
-
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger, DialogPortal, DialogOverlay } from "@/components/ui/dialog";
+import { Scale } from "lucide-react";
 export function GamblingPolicyDialog() {
-  return (
-    <Dialog>
+  return <Dialog>
       <DialogTrigger asChild>
         <button className="text-muted-foreground hover:text-primary text-sm">
           Gambling Policy
@@ -29,10 +17,7 @@ export function GamblingPolicyDialog() {
             </DialogTitle>
           </DialogHeader>
           <div className="space-y-4">
-            <DialogDescription className="text-base text-foreground">
-              SKYEX is committed to responsible gambling and maintaining a safe gaming environment. 
-              By using our services, you agree to the following:
-            </DialogDescription>
+            <DialogDescription className="text-base text-foreground">EASY24 is committed to responsible gambling and maintaining a safe gaming environment. By using our services, you agree to the following:</DialogDescription>
             <ul className="space-y-3 text-sm">
               <li className="flex gap-2">
                 <div className="h-2 w-2 mt-2 rounded-full bg-primary flex-shrink-0" />
@@ -44,7 +29,7 @@ export function GamblingPolicyDialog() {
               </li>
               <li className="flex gap-2">
                 <div className="h-2 w-2 mt-2 rounded-full bg-primary flex-shrink-0" />
-                <span>SKYEX reserves the right to suspend accounts showing signs of problem gambling.</span>
+                <span>EASY24 reserves the right to suspend accounts showing signs of problem gambling.</span>
               </li>
               <li className="flex gap-2">
                 <div className="h-2 w-2 mt-2 rounded-full bg-primary flex-shrink-0" />
@@ -54,6 +39,5 @@ export function GamblingPolicyDialog() {
           </div>
         </DialogContent>
       </DialogPortal>
-    </Dialog>
-  )
+    </Dialog>;
 }
