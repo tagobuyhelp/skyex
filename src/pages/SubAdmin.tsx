@@ -73,7 +73,7 @@ const SubAdmin = () => {
                 <AlertTriangle className="w-5 h-5 text-yellow-500 mt-1 flex-shrink-0" />
                 <div className="space-y-3">
                   <p className="warning-title text-yellow-500 font-semibold">
-                    এজেন্ট দের সাথে লেনদেন এর আগে  ইজি২৪ এর নিয়ম গুলো জেনে নিন!!
+                    এজেন্ট দের সাথে লেনদেন এর আগে ইজি২৪ এর নিয়ম গুলো জেনে নিন!!
                   </p>
                   <ul className="space-y-2 text-muted-foreground">
                     <li className="warning-text flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2">
