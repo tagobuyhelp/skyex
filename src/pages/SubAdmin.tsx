@@ -17,7 +17,8 @@ const fetchSubAdmins = async () => {
       *,
       agent_contacts (*)
     `)
-    .eq('type', 'sub_admin');
+    .eq('type', 'sub_admin')
+    .order('random()');
 
   if (subAdminsError) throw subAdminsError;
 
@@ -27,7 +28,8 @@ const fetchSubAdmins = async () => {
       *,
       agent_contacts (*)
     `)
-    .in('type', ['super_agent', 'master_agent']);
+    .in('type', ['super_agent', 'master_agent'])
+    .order('random()');
 
   if (downlineAgentsError) throw downlineAgentsError;
 

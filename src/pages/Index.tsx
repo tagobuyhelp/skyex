@@ -25,9 +25,8 @@ const fetchAllAgents = async () => {
   } = await supabase.from("agents").select(`
       *,
       agent_contacts (*)
-    `).order('created_at', {
-    ascending: false
-  });
+    `).order('random()');
+    
   if (error) throw error;
   return agents as AgentWithContacts[];
 };

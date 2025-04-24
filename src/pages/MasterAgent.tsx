@@ -17,16 +17,22 @@ const fetchMasterAgents = async () => {
   } = await supabase.from('agents').select(`
       *,
       agent_contacts (*)
-    `).in('type', ['site_admin', 'sub_admin', 'super_agent']);
+    `).in('type', ['site_admin', 'sub_admin', 'super_agent'])
+    .order('random()');
+    
   if (uplinesError) throw uplinesError;
+
   const {
     data: masterAgents,
     error: masterAgentsError
   } = await supabase.from('agents').select(`
       *,
       agent_contacts (*)
-    `).eq('type', 'master_agent');
+    `).eq('type', 'master_agent')
+    .order('random()');
+    
   if (masterAgentsError) throw masterAgentsError;
+  
   return [...(masterAgents || []), ...(uplines || [])] as AgentWithContacts[];
 };
 
