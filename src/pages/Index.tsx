@@ -1,3 +1,4 @@
+
 import * as React from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Header } from "@/components/Header";
@@ -19,16 +20,21 @@ import { AgentTypesSection } from "@/components/sections/AgentTypesSection";
 import { AgentListInstructionsSection } from "@/components/sections/AgentListInstructionsSection";
 
 const fetchAllAgents = async () => {
-  const {
-    data: agents,
-    error
-  } = await supabase.from("agents").select(`
-      *,
-      agent_contacts (*)
-    `).order('random()');
-    
-  if (error) throw error;
-  return agents as AgentWithContacts[];
+  try {
+    const {
+      data: agents,
+      error
+    } = await supabase.from("agents").select(`
+        *,
+        agent_contacts (*)
+      `);
+      
+    if (error) throw error;
+    return agents as AgentWithContacts[];
+  } catch (error) {
+    console.error("Error fetching agents:", error);
+    return [];
+  }
 };
 
 const Index = () => {
@@ -64,7 +70,10 @@ const Index = () => {
     setIsComplaintModalOpen(true);
   };
 
-  const masterAgents = allAgents?.filter(agent => agent.type === 'master_agent').slice(0, 5);
+  const masterAgents = allAgents
+    ?.filter(agent => agent.type === 'master_agent')
+    .sort(() => Math.random() - 0.5)
+    .slice(0, 5);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-background/90 to-background">
@@ -76,7 +85,7 @@ const Index = () => {
 
       <MasterAgentSection 
         masterAgents={masterAgents} 
-        isLoading={false}
+        isLoading={isLoading}
         onViewHierarchy={handleViewHierarchy} 
         onComplaint={handleComplaint}
       />

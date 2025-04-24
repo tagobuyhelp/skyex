@@ -11,29 +11,34 @@ import { Button } from '@/components/ui/button';
 import { CustomerSupport } from '@/components/CustomerSupport';
 
 const fetchSubAdmins = async () => {
-  const { data: subAdmins, error: subAdminsError } = await supabase
-    .from('agents')
-    .select(`
-      *,
-      agent_contacts (*)
-    `)
-    .eq('type', 'sub_admin')
-    .order('random()');
+  try {
+    const { data: subAdmins, error: subAdminsError } = await supabase
+      .from('agents')
+      .select(`
+        *,
+        agent_contacts (*)
+      `)
+      .eq('type', 'sub_admin');
 
-  if (subAdminsError) throw subAdminsError;
+    if (subAdminsError) throw subAdminsError;
 
-  const { data: downlineAgents, error: downlineAgentsError } = await supabase
-    .from('agents')
-    .select(`
-      *,
-      agent_contacts (*)
-    `)
-    .in('type', ['super_agent', 'master_agent'])
-    .order('random()');
+    const { data: downlineAgents, error: downlineAgentsError } = await supabase
+      .from('agents')
+      .select(`
+        *,
+        agent_contacts (*)
+      `)
+      .in('type', ['super_agent', 'master_agent']);
 
-  if (downlineAgentsError) throw downlineAgentsError;
+    if (downlineAgentsError) throw downlineAgentsError;
 
-  return [...(subAdmins || []), ...(downlineAgents || [])] as AgentWithContacts[];
+    // Manually shuffle the sub admins
+    const shuffledSubAdmins = subAdmins ? [...subAdmins].sort(() => Math.random() - 0.5) : [];
+    return [...shuffledSubAdmins, ...(downlineAgents || [])] as AgentWithContacts[];
+  } catch (error) {
+    console.error("Error fetching sub admins:", error);
+    return [];
+  }
 };
 
 const SubAdmin = () => {
